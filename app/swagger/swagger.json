@@ -1,0 +1,2979 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Gradiant Project",
+    "description": "Gradiant Project Api's",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/admin/v1/",
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "Bearer": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey",
+      "description": "JWT Authorization header"
+    }
+  },
+
+  "paths": {
+    "/category-management/create": {
+      "post": {
+        "tags": ["Category Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new category type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createCategorySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/category-management/update": {
+      "put": {
+        "tags": ["Category Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update category type",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createCategorySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/category-management/get": {
+      "get": {
+        "tags": ["Category Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get category details",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/category-management/list": {
+      "get": {
+        "tags": ["Category Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all categories",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/category-management/delete": {
+      "delete": {
+        "tags": ["Category Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete category",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/faq-management/create": {
+      "post": {
+        "tags": ["FAQ Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new faq type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createFaqSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/faq-management/update": {
+      "put": {
+        "tags": ["FAQ Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update faq type",
+        "parameters": [
+          {
+            "name": "faqId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createFaqSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/faq-management/get": {
+      "get": {
+        "tags": ["FAQ Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get faq details",
+        "parameters": [
+          {
+            "name": "faqId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/faq-management/list": {
+      "get": {
+        "tags": ["FAQ Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all faq",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/faq-management/delete": {
+      "delete": {
+        "tags": ["FAQ Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete faq",
+        "parameters": [
+          {
+            "name": "faqId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tac-management/create": {
+      "post": {
+        "tags": ["TAC Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new tac type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createTacSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tac-management/update": {
+      "put": {
+        "tags": ["TAC Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update tac type",
+        "parameters": [
+          {
+            "name": "tacId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createTacSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tac-management/get": {
+      "get": {
+        "tags": ["TAC Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get tac details",
+        "parameters": [
+          {
+            "name": "tacId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tac-management/list": {
+      "get": {
+        "tags": ["TAC Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all tac",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tac-management/delete": {
+      "delete": {
+        "tags": ["TAC Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete tac",
+        "parameters": [
+          {
+            "name": "tacId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tax-management/create": {
+      "post": {
+        "tags": ["TAX Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new tax type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createTaxSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tax-management/update": {
+      "put": {
+        "tags": ["TAX Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update tax type",
+        "parameters": [
+          {
+            "name": "taxId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createTaxSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tax-management/get": {
+      "get": {
+        "tags": ["TAX Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get tax details",
+        "parameters": [
+          {
+            "name": "taxId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tax-management/list": {
+      "get": {
+        "tags": ["TAX Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all tax",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/tax-management/delete": {
+      "delete": {
+        "tags": ["TAX Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete tax",
+        "parameters": [
+          {
+            "name": "taxId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/waitingCharge-management/create": {
+      "post": {
+        "tags": ["Waiting Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new waitingCharge type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createWaitingChargeSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/waitingCharge-management/update": {
+      "put": {
+        "tags": ["Waiting Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update waitingCharge type",
+        "parameters": [
+          {
+            "name": "waitingChargeId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createWaitingChargeSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/waitingCharge-management/get": {
+      "get": {
+        "tags": ["Waiting Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get waitingCharge details",
+        "parameters": [
+          {
+            "name": "waitingChargeId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/waitingCharge-management/list": {
+      "get": {
+        "tags": ["Waiting Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all waitingCharge",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/waitingCharge-management/delete": {
+      "delete": {
+        "tags": ["Waiting Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete waitingCharge",
+        "parameters": [
+          {
+            "name": "waitingChargeId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/deliveryCharge-management/create": {
+      "post": {
+        "tags": ["Delivery Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new deliveryCharge type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createDeliveryChargeSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/deliveryCharge-management/update": {
+      "put": {
+        "tags": ["Delivery Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update deliveryCharge type",
+        "parameters": [
+          {
+            "name": "deliveryChargeId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createDeliveryChargeSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/deliveryCharge-management/get": {
+      "get": {
+        "tags": ["Delivery Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get deliveryCharge details",
+        "parameters": [
+          {
+            "name": "deliveryChargeId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/deliveryCharge-management/list": {
+      "get": {
+        "tags": ["Delivery Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all deliveryCharge",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/deliveryCharge-management/delete": {
+      "delete": {
+        "tags": ["Delivery Charge Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete deliveryCharge",
+        "parameters": [
+          {
+            "name": "deliveryChargeId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/create": {
+      "post": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new location type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createLocationSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/update": {
+      "put": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update location type",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createLocationSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/get": {
+      "get": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get location details",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/list": {
+      "get": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all location",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/delete": {
+      "delete": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/verify": {
+      "get": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "verify location choosed by customer",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "long",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/maintainLocationHistory": {
+      "post": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new location type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createLocationHistorySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/updateLocationHistory": {
+      "put": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update location type",
+        "parameters": [
+          {
+            "name": "historyId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "updateLocationHistory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createLocationHistorySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/location-management/locationHistoryList": {
+      "get": {
+        "tags": ["Location Management"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all location",
+        "parameters": [
+          {
+            "name": "isWishlist",
+            "in": "query",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/report/export": {
+      "get": {
+        "tags": ["Report"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Type : customer, trucker, category, faq, tax, tac, location, waitingCharge, deliveryCharge, premium, feedback"
+          },
+          {
+            "name": "fileType",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "File Types : csv, xlsx"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "description": "Use ISO8601 Format like 2020-07-10 15:00:00.000"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "description": "Use ISO8601 Format like 2020-07-10 15:00:00.000"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/premium/create": {
+      "post": {
+        "tags": ["Premium"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new location type",
+        "parameters": [
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createPremiumSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/premium/update": {
+      "put": {
+        "tags": ["Premium"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update location type",
+        "parameters": [
+          {
+            "name": "premiumId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "createCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createPremiumSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/premium/get": {
+      "get": {
+        "tags": ["Premium"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get location details",
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/superAdmin/addProfile": {
+      "post": {
+        "tags": ["SuperAdmin"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "addsuperAdmin",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/addsuperAdminSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/superAdmin/updateProfile": {
+      "put": {
+        "tags": ["SuperAdmin"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "superAdminId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "addsuperAdmin",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/addsuperAdminSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/superAdmin/getProfile": {
+      "get": {
+        "tags": ["SuperAdmin"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "superAdminId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/superAdmin/list": {
+      "get": {
+        "tags": ["SuperAdmin"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/superAdmin/delete": {
+      "delete": {
+        "tags": ["SuperAdmin"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "superAdminId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/serviceTime/create": {
+      "post": {
+        "tags": ["Service Time"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new service time",
+        "parameters": [
+          {
+            "name": "createServiceTime",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createServiceTimeSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/serviceTime/update": {
+      "put": {
+        "tags": ["Service Time"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update Service Time",
+        "parameters": [
+          {
+            "name": "serviceTimeId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "updateServiceTime",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createServiceTimeSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/serviceTime/get": {
+      "get": {
+        "tags": ["Service Time"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get Service Time Details",
+        "parameters": [
+          {
+            "name": "serviceTimeId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/serviceTime/list": {
+      "get": {
+        "tags": ["Service Time"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all service times",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/serviceTime/delete": {
+      "delete": {
+        "tags": ["Service Time"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete service time",
+        "parameters": [
+          {
+            "name": "serviceTimeId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/settings/create": {
+      "post": {
+        "tags": ["Settings"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new settings",
+        "parameters": [
+          {
+            "name": "createSettings",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createSettingsSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/settings/update": {
+      "put": {
+        "tags": ["Settings"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update Service Time",
+        "parameters": [
+          {
+            "name": "settingsId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "updateSettings",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createSettingsSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/settings/get": {
+      "get": {
+        "tags": ["Settings"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get Settings Details",
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/settings/delete": {
+      "delete": {
+        "tags": ["Settings"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete settings",
+        "parameters": [
+          {
+            "name": "settingsId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/issue/create": {
+      "post": {
+        "tags": ["Issue"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new issue",
+        "parameters": [
+          {
+            "name": "createIssue",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createIssueSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/issue/update": {
+      "put": {
+        "tags": ["Issue"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update Service Time",
+        "parameters": [
+          {
+            "name": "issueId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "updateIssue",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createIssueSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/issue/get": {
+      "get": {
+        "tags": ["Issue"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get Issue Details",
+        "parameters": [
+          {
+            "name": "issueId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/issue/list": {
+      "get": {
+        "tags": ["Issue"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all service times",
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/issue/delete": {
+      "delete": {
+        "tags": ["Issue"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete issue",
+        "parameters": [
+          {
+            "name": "issueId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/emergency/create": {
+      "post": {
+        "tags": ["Emergency"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Create new emergency",
+        "parameters": [
+          {
+            "name": "createEmergency",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createEmergencySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/emergency/update": {
+      "put": {
+        "tags": ["Emergency"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update Service Time",
+        "parameters": [
+          {
+            "name": "emergencyId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "updateEmergency",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createEmergencySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/emergency/get": {
+      "get": {
+        "tags": ["Emergency"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get Emergency Details",
+        "parameters": [
+          {
+            "name": "emergencyId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/emergency/list": {
+      "get": {
+        "tags": ["Emergency"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all service times",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/emergency/delete": {
+      "delete": {
+        "tags": ["Emergency"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete emergency",
+        "parameters": [
+          {
+            "name": "emergencyId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/aboutUs/create": {
+      "post": {
+        "tags": ["About Us"],
+        "security": [{ "Bearer": [] }],
+        "summary": "Add new About Us",
+        "parameters": [
+          {
+            "name": "createAboutUs",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createAboutUsSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/aboutUs/update": {
+      "put": {
+        "tags": ["About Us"],
+        "security": [{ "Bearer": [] }],
+        "summary": "update about us",
+        "parameters": [
+          {
+            "name": "aboutUsId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "updateAboutUs",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/createAboutUsSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/aboutUs/get": {
+      "get": {
+        "tags": ["About Us"],
+        "security": [{ "Bearer": [] }],
+        "summary": "get about us details",
+        "parameters": [
+          {
+            "name": "aboutUsId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/aboutUs/list": {
+      "get": {
+        "tags": ["About Us"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all about us",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/aboutUs/info": {
+      "get": {
+        "tags": ["About Us"],
+        "security": [{ "Bearer": [] }],
+        "summary": "List all about us",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+
+    "/aboutUs/delete": {
+      "delete": {
+        "tags": ["About Us"],
+        "security": [{ "Bearer": [] }],
+        "summary": "delete about us",
+        "parameters": [
+          {
+            "name": "aboutUsId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "details": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "validationError": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    },
+
+    "createCategorySchema": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "number"
+        },
+        "parameter": {
+          "type": "string"
+        }
+      }
+    },
+    "createFaqSchema": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "createTacSchema": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "createTaxSchema": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "percentage": {
+          "type": "number"
+        }
+      }
+    },
+    "createWaitingChargeSchema": {
+      "properties": {
+        "fromTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "toTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "amount": {
+          "type": "number"
+        }
+      }
+    },
+    "createDeliveryChargeSchema": {
+      "properties": {
+        "locationId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type must be 'amount' or 'percenatge'"
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "createLocationSchema": {
+      "properties": {
+        "location": {
+          "type": "string"
+        },
+        "radius": {
+          "type": "number"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "long": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "createLocationHistorySchema": {
+      "properties": {
+        "location": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "long": {
+          "type": "number"
+        },
+        "isWishlist": {
+          "type": "boolean",
+          "default": false
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "createPremiumSchema": {
+      "properties": {
+        "limit": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string"
+        },
+        "count": {
+          "type": "number"
+        }
+      }
+    },
+    "addsuperAdminSchema": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "createServiceTimeSchema": {
+      "properties": {
+        "locationId": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string"
+        },
+        "endTime": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "createSettingsSchema": {
+      "properties": {
+        "maintainenceMode": {
+          "type": "boolean"
+        },
+        "copyRightsUrl": {
+          "type": "string"
+        },
+        "customerAppAndriodUrl": {
+          "type": "string"
+        },
+        "customerAppIOSUrl": {
+          "type": "string"
+        },
+        "truckerAppAndriodUrl": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "createIssueSchema": {
+      "properties": {
+        "issue": {
+          "type": "string"
+        }
+      }
+    },
+    "createEmergencySchema": {
+      "properties": {
+        "issueId": {
+          "type": "string"
+        },
+        "orderId": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "createAboutUsSchema": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  }
+}
