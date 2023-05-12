@@ -1,0 +1,166 @@
+const {
+    sendErrorResponse,
+    sendSuccessResponse,
+  } = require("../response/response");
+  const {
+    knowledgeCenterListService,
+    createKnowledgeCenterService,
+    getKnowledgeCenterService,
+    updateKnowledgeCenterService,
+    deleteKnowledgeCenterService,
+    exportKnowledgeCenterService,
+  } = require("../services/knowledgeCenter.service");
+  
+  const createKnowledgeCenter = async (req, res) => {
+    const params = req.body;
+    params.createdBy = req?.user?._id?.toString();
+    params.updatedBy = req?.user?._id?.toString();
+    params.lastUpdatedBy = req?.user?.userType;
+    params.userType = req?.user?.userType;
+    const result = await createKnowledgeCenterService(params);
+    if (!result.status) {
+      return sendErrorResponse(
+        req,
+        res,
+        result?.statusCode,
+        result?.message,
+        result?.data
+      );
+    }
+    return sendSuccessResponse(
+      req,
+      res,
+      result?.statusCode,
+      result?.message,
+      result?.data
+    );
+  };
+  
+  const getKnowledgeCenter = async (req, res) => {
+    const params = req.body;
+    params.knowledgeCenterId = req?.query?.knowledgeCenterId;
+    const result = await getKnowledgeCenterService(params);
+    if (!result.status) {
+      return sendErrorResponse(
+        req,
+        res,
+        result?.statusCode,
+        result?.message,
+        result?.data
+      );
+    }
+    return sendSuccessResponse(
+      req,
+      res,
+      result?.statusCode,
+      result?.message,
+      result?.data
+    );
+  };
+  
+  const updateKnowledgeCenter = async (req, res) => {
+    const params = req.body;
+    params.knowledgeCenterId = req?.query?.knowledgeCenterId;
+    params.updatedBy = req?.user?._id?.toString();
+    params.lastUpdatedBy = req?.user?.userType;
+    params.userType = req?.user?.userType;
+    const result = await updateKnowledgeCenterService(params);
+    if (!result.status) {
+      return sendErrorResponse(
+        req,
+        res,
+        result?.statusCode,
+        result?.message,
+        result?.data
+      );
+    }
+    return sendSuccessResponse(
+      req,
+      res,
+      result?.statusCode,
+      result?.message,
+      result?.data
+    );
+  };
+  
+  const knowledgeCenterList = async (req, res) => {
+    const params = req?.query;
+    if(!params.limit) params.limit =10
+    if(!params.page) params.page =1
+    const result = await knowledgeCenterListService(params);
+    if (!result.status) {
+      return sendErrorResponse(
+        req,
+        res,
+        result?.statusCode,
+        result?.message,
+        result?.data
+      );
+    }
+    return sendSuccessResponse(
+      req,
+      res,
+      result?.statusCode,
+      result?.message,
+      result?.data
+    );
+  };
+  
+  const deleteKnowledgeCenter = async (req, res) => {
+    const params = req.body;
+    params.knowledgeCenterId = req?.query?.knowledgeCenterId;
+    params.updatedBy = req?.user?._id?.toString();
+    params.lastUpdatedBy = req?.user?.userType;
+    params.userType = req?.user?.userType;
+    const result = await deleteKnowledgeCenterService(params);
+    if (!result.status) {
+      return sendErrorResponse(
+        req,
+        res,
+        result?.statusCode,
+        result?.message,
+        result?.data
+      );
+    }
+    return sendSuccessResponse(
+      req,
+      res,
+      result?.statusCode,
+      result?.message,
+      result?.data
+    );
+  };
+  
+  // export related api's
+  
+  const exportKnowledgeCenter = async (req, res) => {
+    const params = {};
+    const result = await exportKnowledgeCenterService(res, params);
+    return result;
+    // if (!result.status) {
+    //   return sendErrorResponse(
+    //     req,
+    //     res,
+    //     result.statusCode,
+    //     result.message,
+    //     result.data
+    //   );
+    // }
+    // return sendSuccessResponse(
+    //   req,
+    //   res,
+    //   result.statusCode,
+    //   result.message,
+    //   result.data
+    // );
+  };
+  
+  module.exports = {
+    createKnowledgeCenter,
+    getKnowledgeCenter,
+    updateKnowledgeCenter,
+    knowledgeCenterList,
+    deleteKnowledgeCenter,
+    exportKnowledgeCenter,
+  };
+  

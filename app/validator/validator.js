@@ -72,8 +72,8 @@ const createFaqValidation = (req, res, next) => {
     title: joi.string().required(),
     answer: joi.string().required(),
     isActive: joi.boolean(),
-    category: joi.string(),
-    subCategory: joi.string(),
+    category: joi.string().required(),
+    subCategory: joi.string().required(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -88,7 +88,7 @@ const getFaqValidation = (req, res, next) => {
 
 const updateFaqValidation = (req, res, next) => {
   const querySchema = joi.object({
-    faqId: joi.string().allow(null).allow(""),
+    faqId: joi.string().required(),
   });
   req.bodyParam = true;
   queryParamValidation(req, res, next, querySchema);
@@ -112,6 +112,329 @@ const deleteFaqValidation = (req, res, next) => {
 };
 
 
+
+
+
+const feedbackListValidation = (req, res, next) => {
+  const schema = joi.object({
+    search: joi.allow(null).allow(""),
+    isActive: joi.allow(null).allow(""),
+    limit: joi.number(),
+    page: joi.number(),
+  });
+  return queryParamValidation(req, res, next, schema);
+};
+
+const createFeedbackValidation = (req, res, next) => {
+  const schema = joi.object({
+    userId: joi.string().required(),
+    userName: joi.string().required(),
+    isActive: joi.boolean(),
+    feedback: joi.string(),
+    status: joi.string(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const getFeedbackValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    feedbackId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const updateFeedbackValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    feedbackId: joi.string().required(),
+  });
+  req.bodyParam = true;
+  queryParamValidation(req, res, next, querySchema);
+
+  const schema = joi.object({
+    userId: joi.string(),
+    userName: joi.string(),
+    isActive: joi.boolean(),
+    feedback: joi.string(),
+    status: joi.string(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const deleteFeedbackValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    feedbackId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+
+
+
+
+const templateListValidation = (req, res, next) => {
+  const schema = joi.object({
+    search: joi.allow(null).allow(""),
+    isActive: joi.allow(null).allow(""),
+    limit: joi.number(),
+    page: joi.number(),
+  });
+  return queryParamValidation(req, res, next, schema);
+};
+
+const createTemplateValidation = (req, res, next) => {
+  const schema = joi.object({
+    type: joi.string().required(),
+    title: joi.string().required(),
+    description: joi.string().required(),
+    status: joi.boolean(),
+    
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const getTemplateValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    templateId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const updateTemplateValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    templateId: joi.string().required(),
+  });
+  req.bodyParam = true;
+  queryParamValidation(req, res, next, querySchema);
+
+  const schema = joi.object({
+    type: joi.string().required(),
+    title: joi.string().required(),
+    description: joi.string().required(),
+    status: joi.boolean(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const deleteTemplateValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    templateId: joi.string().required(),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+
+
+const createSiteSettingsValidation = (req, res, next) => {
+  const schema = joi.object({
+    siteUrl: joi.string(),
+    supportNumber: joi.string(),
+    supportEmail: joi.string(),
+    sitelogo: joi.string(),
+    siteFavIcon: joi.string(),
+    copyrightsText: joi.string(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const getSiteSettingsValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    templateId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const updateSiteSettingsValidation = (req, res, next) => {
+  const schema = joi.object({
+    siteUrl: joi.string(),
+    supportNumber: joi.string(),
+    supportEmail: joi.string(),
+    sitelogo: joi.string(),
+    siteFavIcon: joi.string(),
+    copyrightsText: joi.string(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+
+
+
+
+const contentListValidation = (req, res, next) => {
+  const schema = joi.object({
+    search: joi.allow(null).allow(""),
+    isActive: joi.allow(null).allow(""),
+    limit: joi.number(),
+    page: joi.number(),
+  });
+  return queryParamValidation(req, res, next, schema);
+};
+
+const createContentValidation = (req, res, next) => {
+  const schema = joi.object({
+    title: joi.string().required(),
+    description: joi.string().required(),
+    isActive: joi.boolean(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const getContentValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    contentId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const updateContentValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    contentId: joi.string().required(),
+  });
+  req.bodyParam = true;
+  queryParamValidation(req, res, next, querySchema);
+
+  const schema = joi.object({
+    title: joi.string().required(),
+    description: joi.string().required(),
+    isActive: joi.boolean(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const deleteContentValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    contentId: joi.string().required(),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+
+
+
+const productListValidation = (req, res, next) => {
+  const schema = joi.object({
+    search: joi.allow(null).allow(""),
+    isActive: joi.allow(null).allow(""),
+    limit: joi.number(),
+    page: joi.number(),
+  });
+  return queryParamValidation(req, res, next, schema);
+};
+
+const createProductValidation = (req, res, next) => {
+  const schema = joi.object({
+    title: joi.string().required(),
+    answer: joi.string().required(),
+    isActive: joi.boolean(),
+    category: joi.string(),
+    subCategory: joi.string(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const getProductValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    productId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const updateProductValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    productId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = true;
+  queryParamValidation(req, res, next, querySchema);
+
+  const schema = joi.object({
+    title: joi.string(),
+    answer: joi.string(),
+    isActive: joi.boolean(),
+    category: joi.string(),
+    subCategory: joi.string(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const deleteProductValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    productId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+
+
+
+
+
+const knowledgeCenterListValidation = (req, res, next) => {
+  const schema = joi.object({
+    search: joi.allow(null).allow(""),
+    isActive: joi.allow(null).allow(""),
+    limit: joi.number(),
+    page: joi.number(),
+  });
+  return queryParamValidation(req, res, next, schema);
+};
+
+const createKnowledgeCenterValidation = (req, res, next) => {
+  const schema = joi.object({
+    title: joi.string().required(),
+    description: joi.string().required(),
+    isActive: joi.boolean(),
+    category: joi.string(),
+    subCategory: joi.string(),
+    contentUrlLink: joi.string(),
+    documentPath: joi.string(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const getKnowledgeCenterValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    knowledgeCenterId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const updateKnowledgeCenterValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    knowledgeCenterId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = true;
+  queryParamValidation(req, res, next, querySchema);
+
+  const schema = joi.object({
+    title: joi.string().required(),
+    description: joi.string().required(),
+    isActive: joi.boolean(),
+    category: joi.string(),
+    subCategory: joi.string(),
+    contentUrlLink: joi.string(),
+    documentPath: joi.string(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const deleteKnowledgeCenterValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    knowledgeCenterId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+
 module.exports = {
   bodyParamValidation,
   queryParamValidation,
@@ -121,5 +444,38 @@ module.exports = {
   getFaqValidation,
   updateFaqValidation,
   deleteFaqValidation,
-  
+
+  feedbackListValidation,
+  createFeedbackValidation,
+  getFeedbackValidation,
+  updateFeedbackValidation,
+  deleteFeedbackValidation,
+
+  templateListValidation,
+  createTemplateValidation,
+  getTemplateValidation,
+  updateTemplateValidation,
+  deleteTemplateValidation,
+
+  contentListValidation,
+  createContentValidation,
+  getContentValidation,
+  updateContentValidation,
+  deleteContentValidation,
+
+
+  createSiteSettingsValidation,
+  getSiteSettingsValidation,
+  updateSiteSettingsValidation,
+
+  productListValidation,
+  createProductValidation,
+  getProductValidation,
+  updateProductValidation,
+  deleteProductValidation,
+  knowledgeCenterListValidation,
+  createKnowledgeCenterValidation,
+  getKnowledgeCenterValidation,
+  updateKnowledgeCenterValidation,
+  deleteKnowledgeCenterValidation
 };

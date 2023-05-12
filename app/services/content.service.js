@@ -1,20 +1,17 @@
 const { statusCodes } = require("../response/httpStatusCodes");
 const { statusMessage } = require("../response/httpStatusMessages");
 const { messages } = require("../response/customMesages");
-const { Faq } = require("../models/faq");
+const { Content } = require("../models/content");
 
 const {
   convert_JSON_to_file,
   formatDataList,
   pageMetaService,
 } = require("../helpers/index");
-
-const { getFaqList } = require("./list.service");
-
-
-const createFaqService = async (params) => {
+const { getContentList } = require("./list.service");
+const createContentService = async (params) => {
   var newvalues = params;
-  const resp = await Faq.create(newvalues);
+  const resp = await Content.create(newvalues);
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
@@ -25,12 +22,12 @@ const createFaqService = async (params) => {
   };
 };
 
-const getFaqService = async (params) => {
+const getContentService = async (params) => {
   var payload = {
-    _id: params?.faqId,
+    _id: params?.contentId,
     isDeleted: false,
   };
-  const resp = await Faq.findOne(payload);
+  const resp = await Content.findOne(payload);
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
@@ -39,17 +36,17 @@ const getFaqService = async (params) => {
   };
 };
 
-const updateFaqService = async (params) => {
+const updateContentService = async (params) => {
   var payload = {
-    _id: params?.faqId,
+    _id: params?.contentId,
     isDeleted: false,
     updatedBy: params?.updatedBy,
   };
-  delete params["faqId"];
+  delete params["contentId"];
   var newvalues = {
     $set: params,
   };
-  const resp = await Faq.updateOne(payload, newvalues);
+  const resp = await Content.updateOne(payload, newvalues);
   if (!resp.modifiedCount) {
     return {
       status: false,
@@ -66,12 +63,12 @@ const updateFaqService = async (params) => {
   };
 };
 
-const faqListService = async (params) => {
+const contentListService = async (params) => {
   params.all = true;
-  const allList = await getFaqList(params);
+  const allList = await getContentList(params);
   params.all = false;
 
-  const result = await getFaqList(params);
+  const result = await getContentList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
   return {
     status: true,
@@ -80,9 +77,9 @@ const faqListService = async (params) => {
   };
 };
 
-const deleteFaqService = async (params) => {
+const deleteContentService = async (params) => {
   var payload = {
-    _id: params?.faqId,
+    _id: params?.contentId,
     isDeleted: false,
     updatedBy: params?.updatedBy,
   };
@@ -90,7 +87,7 @@ const deleteFaqService = async (params) => {
     $set: { isDeleted: true },
   };
 
-  const resp = await Faq.updateOne(payload, newvalues);
+  const resp = await Content.updateOne(payload, newvalues);
   if (!resp.modifiedCount) {
     return {
       status: false,
@@ -109,16 +106,16 @@ const deleteFaqService = async (params) => {
 
 // export related api's
 
-const exportFaqService = async (res, params) => {
-  //get all faq list created by admin
+const exportContentService = async (res, params) => {
+  //get all content list created by admin
   params.all = true;
-  const faqList = await getFaqList(params);
+  const contentList = await getContentList(params);
 
-  // format faq data list
-  params.type = "faq";
-  params.list = faqList;
+  // format content data list
+  params.type = "content";
+  params.list = contentList;
 
-  //format the data based on faq or trucker for csv file
+  //format the data based on content or trucker for csv file
   const formatList = await formatDataList(params);
   if (!formatList.status) {
     res.status(400).send({
@@ -133,10 +130,10 @@ const exportFaqService = async (res, params) => {
 };
 
 module.exports = {
-  createFaqService,
-  getFaqService,
-  updateFaqService,
-  faqListService,
-  deleteFaqService,
-  exportFaqService,
+  createContentService,
+  getContentService,
+  updateContentService,
+  contentListService,
+  deleteContentService,
+  exportContentService,
 };

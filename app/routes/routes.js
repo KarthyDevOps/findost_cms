@@ -8,6 +8,52 @@ const routes = {
       delete: "/v1/faq-management/delete",
       export: "/v1/faq-management/export",
     },
+    feedbackManagement: {
+      list: "/v1/feedback-management/list",
+      create: "/v1/feedback-management/create",
+      get: "/v1/feedback-management/get",
+      update: "/v1/feedback-management/update",
+      delete: "/v1/feedback-management/delete",
+      export: "/v1/feedback-management/export",
+    },
+    templateManagement: {
+      list: "/v1/template-management/list",
+      create: "/v1/template-management/create",
+      get: "/v1/template-management/get",
+      update: "/v1/template-management/update",
+      delete: "/v1/template-management/delete",
+      export: "/v1/template-management/export",
+    },
+    contentManagement: {
+      list: "/v1/content-management/list",
+      create: "/v1/content-management/create",
+      get: "/v1/content-management/get",
+      update: "/v1/content-management/update",
+      delete: "/v1/content-management/delete",
+      export: "/v1/content-management/export",
+    },
+    productManagement: {
+      list: "/v1/product-management/list",
+      create: "/v1/product-management/create",
+      get: "/v1/product-management/get",
+      update: "/v1/product-management/update",
+      delete: "/v1/product-management/delete",
+      export: "/v1/product-management/export",
+    },
+    knowledgeCenterManagement: {
+      list: "/v1/knowledgeCenter-management/list",
+      create: "/v1/knowledgeCenter-management/create",
+      get: "/v1/knowledgeCenter-management/get",
+      update: "/v1/knowledgeCenter-management/update",
+      delete: "/v1/knowledgeCenter-management/delete",
+      export: "/v1/knowledgeCenter-management/export",
+    },
+    siteSettingsManagement: {
+      create: "/v1/siteSettings-management/create",
+      get: "/v1/siteSettings-management/get",
+      update: "/v1/siteSettings-management/update",
+    },
+    
   },
 };
 

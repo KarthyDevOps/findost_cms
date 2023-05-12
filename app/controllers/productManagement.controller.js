@@ -3,21 +3,21 @@ const {
   sendSuccessResponse,
 } = require("../response/response");
 const {
-  faqListService,
-  createFaqService,
-  getFaqService,
-  updateFaqService,
-  deleteFaqService,
-  exportFaqService,
-} = require("../services/faq.service");
+  productListService,
+  createProductService,
+  getProductService,
+  updateProductService,
+  deleteProductService,
+  exportProductService,
+} = require("../services/product.service");
 
-const createFaq = async (req, res) => {
+const createProduct = async (req, res) => {
   const params = req.body;
   params.createdBy = req?.user?._id?.toString();
   params.updatedBy = req?.user?._id?.toString();
   params.lastUpdatedBy = req?.user?.userType;
   params.userType = req?.user?.userType;
-  const result = await createFaqService(params);
+  const result = await createProductService(params);
   if (!result.status) {
     return sendErrorResponse(
       req,
@@ -36,10 +36,10 @@ const createFaq = async (req, res) => {
   );
 };
 
-const getFaq = async (req, res) => {
+const getProduct = async (req, res) => {
   const params = req.body;
-  params.faqId = req?.query?.faqId;
-  const result = await getFaqService(params);
+  params.productId = req?.query?.productId;
+  const result = await getProductService(params);
   if (!result.status) {
     return sendErrorResponse(
       req,
@@ -58,13 +58,13 @@ const getFaq = async (req, res) => {
   );
 };
 
-const updateFaq = async (req, res) => {
+const updateProduct = async (req, res) => {
   const params = req.body;
-  params.faqId = req?.query?.faqId;
+  params.productId = req?.query?.productId;
   params.updatedBy = req?.user?._id?.toString();
   params.lastUpdatedBy = req?.user?.userType;
   params.userType = req?.user?.userType;
-  const result = await updateFaqService(params);
+  const result = await updateProductService(params);
   if (!result.status) {
     return sendErrorResponse(
       req,
@@ -83,11 +83,11 @@ const updateFaq = async (req, res) => {
   );
 };
 
-const faqList = async (req, res) => {
+const productList = async (req, res) => {
   const params = req?.query;
   if(!params.limit) params.limit =10
   if(!params.page) params.page =1
-  const result = await faqListService(params);
+  const result = await productListService(params);
   if (!result.status) {
     return sendErrorResponse(
       req,
@@ -106,13 +106,13 @@ const faqList = async (req, res) => {
   );
 };
 
-const deleteFaq = async (req, res) => {
+const deleteProduct = async (req, res) => {
   const params = req.body;
-  params.faqId = req?.query?.faqId;
+  params.productId = req?.query?.productId;
   params.updatedBy = req?.user?._id?.toString();
   params.lastUpdatedBy = req?.user?.userType;
   params.userType = req?.user?.userType;
-  const result = await deleteFaqService(params);
+  const result = await deleteProductService(params);
   if (!result.status) {
     return sendErrorResponse(
       req,
@@ -133,9 +133,9 @@ const deleteFaq = async (req, res) => {
 
 // export related api's
 
-const exportFaq = async (req, res) => {
+const exportProduct = async (req, res) => {
   const params = {};
-  const result = await exportFaqService(res, params);
+  const result = await exportProductService(res, params);
   return result;
   // if (!result.status) {
   //   return sendErrorResponse(
@@ -156,10 +156,10 @@ const exportFaq = async (req, res) => {
 };
 
 module.exports = {
-  createFaq,
-  getFaq,
-  updateFaq,
-  faqList,
-  deleteFaq,
-  exportFaq,
+  createProduct,
+  getProduct,
+  updateProduct,
+  productList,
+  deleteProduct,
+  exportProduct,
 };
