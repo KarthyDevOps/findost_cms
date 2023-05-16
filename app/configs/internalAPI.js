@@ -1,6 +1,6 @@
 
 module.exports = {
-    getUserByCond: {
+    getUserById: {
         method: 'POST',
         url: "",
         headers: {

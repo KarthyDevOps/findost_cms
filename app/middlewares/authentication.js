@@ -11,7 +11,7 @@ const verifyAdminToken = async (req, res, next) => {
     //   let token = req.headers["x-access-token"] || req.headers["authorization"];
     //   let decode, user;
     //   decode = jwt.verify(token, process.env.JWT_ADMIN_SECRET);
-    //   const userData = await InternalServices.getUserByCond({ _id: decoded?.userdata?._id });
+    //   const userData = await InternalServices.getUserById({ _id: decoded?.userdata?._id });
     //   if ((!userData?.data || !userData?.data[0] || !userData?.data[0].isActive))
     //   {
     //     next();
@@ -51,9 +51,24 @@ const verifyAdminToken = async (req, res, next) => {
   }
 };
 
-const verifyAdminRole = (roles) => async function (req, res, next) {
-  console.log(roles,'rolesrolesrolesroles===')
-  next();
+const verifyAdminRole = (roles,action) => async function (req, res, next) {
+  if(req.user && req.user.permissions)
+  {
+    if(req.user.permissions[roles])
+    {
+      if(req.user.permissions[roles].indexOf(action.toString()) || req.user.permissions[roles].indexOf("ALL"))
+      {
+        next();
+      }
+    }
+  }
+  return sendErrorResponse(
+    req,
+    res,
+    statusCodes.HTTP_NOT_FOUND,
+    messages.accessDenied,
+    []
+  );
 }
 
 
