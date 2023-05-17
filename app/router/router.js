@@ -1,9 +1,7 @@
 // import { Router } from "express";
 const express = require("express");
 const Router = express.Router;
-const {
-  routes
-} = require("../routes/routes");
+const { routes } = require("../routes/routes");
 const {
   verifyAdminToken,
   verifyAdminRole,
@@ -44,7 +42,9 @@ const {
   createKnowledgeCenterValidation,
   getKnowledgeCenterValidation,
   updateKnowledgeCenterValidation,
-  deleteKnowledgeCenterValidation
+  deleteKnowledgeCenterValidation,
+
+  CreateTicketValidation,
 } = require("../validator/validator");
 const {
   faqList,
@@ -95,12 +95,12 @@ const {
   createKnowledgeCenter,
   getKnowledgeCenter,
   updateKnowledgeCenter,
-  deleteKnowledgeCenter
+  deleteKnowledgeCenter,
 } = require("../controllers/knowledgeCenterManagement.controller");
 
-const {
-  errHandle
-} = require("../helpers/index");
+const { CreateTicket } = require("../controllers/ticketManagement.controller");
+
+const { errHandle } = require("../helpers/index");
 const router = Router();
 //FAQ Management
 router.get(
@@ -242,9 +242,6 @@ router.delete(
   errHandle(deleteTemplate)
 );
 
-
-
-
 //content Management
 router.get(
   routes.v1.contentManagement.list,
@@ -292,7 +289,6 @@ router.delete(
   errHandle(deleteContent)
 );
 
-
 //site Settings Management
 router.post(
   routes.v1.siteSettingsManagement.create,
@@ -322,62 +318,111 @@ router.put(
   errHandle(updateSiteSettings)
 );
 
-
-
 //PRODUCT Management
 router.get(
   routes.v1.productManagement.list,
-  [verifyAdminToken,verifyAdminRole("productManagement","VIEW"), productListValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("productManagement", "VIEW"),
+    productListValidation,
+  ],
   errHandle(productList)
 );
 router.post(
   routes.v1.productManagement.create,
-  [verifyAdminToken,verifyAdminRole("productManagement","ADD"), createProductValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("productManagement", "ADD"),
+    createProductValidation,
+  ],
   errHandle(createProduct)
 );
 router.get(
   routes.v1.productManagement.get,
-  [verifyAdminToken,verifyAdminRole("productManagement","VIEW"), getProductValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("productManagement", "VIEW"),
+    getProductValidation,
+  ],
   errHandle(getProduct)
 );
 router.put(
   routes.v1.productManagement.update,
-  [verifyAdminToken,verifyAdminRole("productManagement","UPDATE"), updateProductValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("productManagement", "UPDATE"),
+    updateProductValidation,
+  ],
   errHandle(updateProduct)
 );
 router.delete(
   routes.v1.productManagement.delete,
-  [verifyAdminToken,verifyAdminRole("productManagement","DELETE"), deleteProductValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("productManagement", "DELETE"),
+    deleteProductValidation,
+  ],
   errHandle(deleteProduct)
 );
-
 
 //knowledgeCenter Management
 router.get(
   routes.v1.knowledgeCenterManagement.list,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","VIEW"), knowledgeCenterListValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("knowledgeCenterManagement", "VIEW"),
+    knowledgeCenterListValidation,
+  ],
   errHandle(knowledgeCenterList)
 );
 router.post(
   routes.v1.knowledgeCenterManagement.create,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","ADD"), createKnowledgeCenterValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("knowledgeCenterManagement", "ADD"),
+    createKnowledgeCenterValidation,
+  ],
   errHandle(createKnowledgeCenter)
 );
 router.get(
   routes.v1.knowledgeCenterManagement.get,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","VIEW"), getKnowledgeCenterValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("knowledgeCenterManagement", "VIEW"),
+    getKnowledgeCenterValidation,
+  ],
   errHandle(getKnowledgeCenter)
 );
 router.put(
   routes.v1.knowledgeCenterManagement.update,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","UPDATE"), updateKnowledgeCenterValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("knowledgeCenterManagement", "UPDATE"),
+    updateKnowledgeCenterValidation,
+  ],
   errHandle(updateKnowledgeCenter)
 );
 router.delete(
   routes.v1.knowledgeCenterManagement.delete,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","DELETE"), deleteKnowledgeCenterValidation],
+  [
+    verifyAdminToken,
+    verifyAdminRole("knowledgeCenterManagement", "DELETE"),
+    deleteKnowledgeCenterValidation,
+  ],
   errHandle(deleteKnowledgeCenter)
 );
 
+//Ticket management
+router.post(
+  routes.v1.ticketsManagement.create,
+  [verifyAdminToken, CreateTicketValidation],
+  errHandle(CreateTicket)
+);
+
+router.get(
+  routes.v1.ticketsManagement.get,
+  [verifyAdminToken],
+  errHandle(CreateTicket)
+);
 
 module.exports = router;

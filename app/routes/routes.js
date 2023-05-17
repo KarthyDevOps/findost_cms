@@ -53,7 +53,10 @@ const routes = {
       get: "/v1/siteSettings-management/get",
       update: "/v1/siteSettings-management/update",
     },
-    
+    ticketsManagement: {
+      create: "/v1/ticket-management/create",
+      get: "/v1/ticket-management/get",
+    },
   },
 };
 

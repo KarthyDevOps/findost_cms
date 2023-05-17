@@ -16,6 +16,7 @@ const verifyAdminToken = async (req, res, next) => {
       const userData = await InternalServices.getUserById({ _id: decode?._id });
       if (userData?.data) {
         if (!userData?.data.isActive) {
+          console.log('data', req.userData._id)
           return sendErrorResponse(
             req,
             res,
@@ -26,7 +27,7 @@ const verifyAdminToken = async (req, res, next) => {
         } else {
           req.user = userData?.data;
           req.user.userType = "admin";
-          next();
+              next();
         }
       } else {
         return sendErrorResponse(

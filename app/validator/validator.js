@@ -56,7 +56,6 @@ const queryParamValidation = (req, res, next, schama) => {
   }
 };
 
-
 const faqListValidation = (req, res, next) => {
   const schema = joi.object({
     search: joi.allow(null).allow(""),
@@ -110,10 +109,6 @@ const deleteFaqValidation = (req, res, next) => {
   req.bodyParam = false;
   queryParamValidation(req, res, next, querySchema);
 };
-
-
-
-
 
 const feedbackListValidation = (req, res, next) => {
   const schema = joi.object({
@@ -169,10 +164,6 @@ const deleteFeedbackValidation = (req, res, next) => {
   queryParamValidation(req, res, next, querySchema);
 };
 
-
-
-
-
 const templateListValidation = (req, res, next) => {
   const schema = joi.object({
     search: joi.allow(null).allow(""),
@@ -189,7 +180,6 @@ const createTemplateValidation = (req, res, next) => {
     title: joi.string().required(),
     description: joi.string().required(),
     status: joi.boolean(),
-    
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -226,8 +216,6 @@ const deleteTemplateValidation = (req, res, next) => {
   queryParamValidation(req, res, next, querySchema);
 };
 
-
-
 const createSiteSettingsValidation = (req, res, next) => {
   const schema = joi.object({
     siteUrl: joi.string(),
@@ -259,10 +247,6 @@ const updateSiteSettingsValidation = (req, res, next) => {
   });
   return bodyParamValidation(req, res, next, schema);
 };
-
-
-
-
 
 const contentListValidation = (req, res, next) => {
   const schema = joi.object({
@@ -313,9 +297,6 @@ const deleteContentValidation = (req, res, next) => {
   req.bodyParam = false;
   queryParamValidation(req, res, next, querySchema);
 };
-
-
-
 
 const productListValidation = (req, res, next) => {
   const schema = joi.object({
@@ -383,11 +364,6 @@ const deleteProductValidation = (req, res, next) => {
   queryParamValidation(req, res, next, querySchema);
 };
 
-
-
-
-
-
 const knowledgeCenterListValidation = (req, res, next) => {
   const schema = joi.object({
     search: joi.allow(null).allow(""),
@@ -396,6 +372,20 @@ const knowledgeCenterListValidation = (req, res, next) => {
     page: joi.number(),
   });
   return queryParamValidation(req, res, next, schema);
+};
+
+//create ticket validation
+const CreateTicketValidation = (req, res, next) => {
+  const schema = joi.object({
+    source: joi.required(),
+    priorityScore: joi.required(),
+    customerEmailId: joi.required(),
+    subject: joi.required(),
+    issueDescription: joi.required(),
+    attachmentExtension: joi.allow(null).allow("").optional(),
+    attachment: joi.allow(null).allow("").optional(),
+  });
+  return bodyParamValidation(req, res, next, schema);
 };
 
 const createKnowledgeCenterValidation = (req, res, next) => {
@@ -446,11 +436,10 @@ const deleteKnowledgeCenterValidation = (req, res, next) => {
   queryParamValidation(req, res, next, querySchema);
 };
 
-
 module.exports = {
   bodyParamValidation,
   queryParamValidation,
- 
+
   faqListValidation,
   createFaqValidation,
   getFaqValidation,
@@ -475,7 +464,6 @@ module.exports = {
   updateContentValidation,
   deleteContentValidation,
 
-
   createSiteSettingsValidation,
   getSiteSettingsValidation,
   updateSiteSettingsValidation,
@@ -489,5 +477,7 @@ module.exports = {
   createKnowledgeCenterValidation,
   getKnowledgeCenterValidation,
   updateKnowledgeCenterValidation,
-  deleteKnowledgeCenterValidation
+  deleteKnowledgeCenterValidation,
+
+  CreateTicketValidation,
 };
