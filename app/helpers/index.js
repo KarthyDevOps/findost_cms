@@ -13,12 +13,12 @@ const errHandle = (fn) => (req, res, next) => {
 const pageMetaService = async (params, count) => {
   try {
     return {
-      pageCount: Math.ceil(count / params.limit),
+      pageCount: Math.ceil(count / Number(params.limit)),
       nextPage:
-        params.page >= Math.ceil(count / params.limit)
+      Number(params.page) >= Math.ceil(count / Number(params.limit))
           ? null
-          : params?.page + 1,
-      pageSize: params?.limit,
+          : Number(params?.page) + 1,
+      pageSize: Number(params?.limit),
       total: count,
       currentPage: Number(params?.page),
     };

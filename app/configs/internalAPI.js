@@ -1,7 +1,7 @@
 
 module.exports = {
     getUserById: {
-        method: 'POST',
+        method: 'GET',
         url: "",
         headers: {
             contentType: 'application/json',

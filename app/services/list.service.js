@@ -5,173 +5,158 @@ const { Content } = require("../models/content");
 const { Product } = require("../models/product");
 const { KnowledgeCenter } = require("../models/knowledgeCenter");
 const getFaqList = async (params) => {
-    let data;
-    if (params.all) {
-      if (params?.search) {
-        data = await Faq.find({
-          isDeleted: false,
-          $or: [
-            { title: { $regex: `${params?.search}`, $options: "i" } },
-            { content: { $regex: `${params?.search}`, $options: "i" } },
-            { type: { $regex: `${params?.search}`, $options: "i" } },
-          ],
-        }).sort({ createdAt: -1 });
-      } else {
-        data = await Faq.find({
-          isDeleted: false,
-        });
-      }
-    } else if (params?.search) {
-      data = await Faq.find({
-        isDeleted: false,
-        $or: [
-          { title: { $regex: `${params?.search}`, $options: "i" } },
-          { content: { $regex: `${params?.search}`, $options: "i" } },
-          { type: { $regex: `${params?.search}`, $options: "i" } },
-        ],
-      })
-        .skip((params.page - 1) * params.limit)
-        .limit(params.limit)
-        .sort({ createdAt: -1 });
-    } else {
-      data = await Faq.find({
-        isDeleted: false,
-      })
-        .skip((params.page - 1) * params.limit)
-        .limit(params.limit)
-        .sort({ createdAt: -1 });
+  let data;
+  if (params.all) {
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
     }
-    if (data && data.length) {
-      return { status: true, data: data };
-    } else {
-      return { status: false, data: [] };
+    if (params?.search) {
+      filter.$or = [
+        { faqId: { $regex: `${params?.search}`, $options: "i" } },
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
     }
-  };
-
-
-  
+    data = await Faq.find(filter);
+  } else {
+    let filter = {
+      isDeleted: false,
+    };
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Faq.find(filter)
+      .skip((params.page - 1) * params.limit)
+      .limit(params.limit)
+      .sort({ createdAt: -1 });
+  }
+  if (data && data.length) {
+    return { status: true, data: data };
+  } else {
+    return { status: false, data: [] };
+  }
+};
 const getFeedbackList = async (params) => {
-    let data;
-    if (params.all) {
-      if (params?.search) {
-        data = await Feedback.find({
-          isDeleted: false,
-          $or: [
-            { title: { $regex: `${params?.search}`, $options: "i" } },
-            { content: { $regex: `${params?.search}`, $options: "i" } },
-            { type: { $regex: `${params?.search}`, $options: "i" } },
-          ],
-        }).sort({ createdAt: -1 });
-      } else {
-        data = await Feedback.find({
-          isDeleted: false,
-        });
-      }
-    } else if (params?.search) {
-      data = await Feedback.find({
-        isDeleted: false,
-        $or: [
-          { title: { $regex: `${params?.search}`, $options: "i" } },
-          { content: { $regex: `${params?.search}`, $options: "i" } },
-          { type: { $regex: `${params?.search}`, $options: "i" } },
-        ],
-      })
-        .skip((params.page - 1) * params.limit)
-        .limit(params.limit)
-        .sort({ createdAt: -1 });
-    } else {
-      data = await Feedback.find({
-        isDeleted: false,
-      })
-        .skip((params.page - 1) * params.limit)
-        .limit(params.limit)
-        .sort({ createdAt: -1 });
+  let data;
+  if (params.all) {
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
     }
-    if (data && data.length) {
-      return { status: true, data: data };
-    } else {
-      return { status: false, data: [] };
+    if (params?.search) {
+      filter.$or = [
+        { feedbackId: { $regex: `${params?.search}`, $options: "i" } },
+        { feedback: { $regex: `${params?.search}`, $options: "i" } }
+      ];
     }
-  };
-  
+    data = await Feedback.find(filter);
+  } else {
+    let filter = {
+      isDeleted: false,
+    };
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Feedback.find(filter)
+      .skip((params.page - 1) * params.limit)
+      .limit(params.limit)
+      .sort({ createdAt: -1 });
+  }
+  if (data && data.length) {
+    return { status: true, data: data };
+  } else {
+    return { status: false, data: [] };
+  }
+};
 const getTemplateList = async (params) => {
-    let data;
-    if (params.all) {
-      if (params?.search) {
-        data = await Template.find({
-          isDeleted: false,
-          $or: [
-            { title: { $regex: `${params?.search}`, $options: "i" } },
-            { content: { $regex: `${params?.search}`, $options: "i" } },
-            { type: { $regex: `${params?.search}`, $options: "i" } },
-          ],
-        }).sort({ createdAt: -1 });
-      } else {
-        data = await Template.find({
-          isDeleted: false,
-        });
-      }
-    } else if (params?.search) {
-      data = await Template.find({
-        isDeleted: false,
-        $or: [
-          { title: { $regex: `${params?.search}`, $options: "i" } },
-          { content: { $regex: `${params?.search}`, $options: "i" } },
-          { type: { $regex: `${params?.search}`, $options: "i" } },
-        ],
-      })
-        .skip((params.page - 1) * params.limit)
-        .limit(params.limit)
-        .sort({ createdAt: -1 });
-    } else {
-      data = await Template.find({
-        isDeleted: false,
-      })
-        .skip((params.page - 1) * params.limit)
-        .limit(params.limit)
-        .sort({ createdAt: -1 });
+  let data;
+  if (params.all) {
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
     }
-    if (data && data.length) {
-      return { status: true, data: data };
-    } else {
-      return { status: false, data: [] };
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
     }
-  };
-
-  
+    data = await Template.find(filter);
+  } else {
+    let filter = {
+      isDeleted: false,
+    };
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Template.find(filter)
+      .skip((params.page - 1) * params.limit)
+      .limit(params.limit)
+      .sort({ createdAt: -1 });
+  }
+  if (data && data.length) {
+    return { status: true, data: data };
+  } else {
+    return { status: false, data: [] };
+  }
+};
 const getContentList = async (params) => {
   let data;
   if (params.all) {
-    if (params?.search) {
-      data = await Content.find({
-        isDeleted: false,
-        $or: [
-          { title: { $regex: `${params?.search}`, $options: "i" } },
-          { content: { $regex: `${params?.search}`, $options: "i" } },
-          { type: { $regex: `${params?.search}`, $options: "i" } },
-        ],
-      }).sort({ createdAt: -1 });
-    } else {
-      data = await Content.find({
-        isDeleted: false,
-      });
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
     }
-  } else if (params?.search) {
-    data = await Content.find({
-      isDeleted: false,
-      $or: [
+    if (params?.search) {
+      filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { content: { $regex: `${params?.search}`, $options: "i" } },
-        { type: { $regex: `${params?.search}`, $options: "i" } },
-      ],
-    })
-      .skip((params.page - 1) * params.limit)
-      .limit(params.limit)
-      .sort({ createdAt: -1 });
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Content.find(filter);
   } else {
-    data = await Content.find({
+    let filter = {
       isDeleted: false,
-    })
+    };
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Content.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
       .sort({ createdAt: -1 });
@@ -182,42 +167,37 @@ const getContentList = async (params) => {
     return { status: false, data: [] };
   }
 };
-
-
-
 const getProductList = async (params) => {
   let data;
   if (params.all) {
-    if (params?.search) {
-      data = await Product.find({
-        isDeleted: false,
-        $or: [
-          { title: { $regex: `${params?.search}`, $options: "i" } },
-          { content: { $regex: `${params?.search}`, $options: "i" } },
-          { type: { $regex: `${params?.search}`, $options: "i" } },
-        ],
-      }).sort({ createdAt: -1 });
-    } else {
-      data = await Product.find({
-        isDeleted: false,
-      });
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
     }
-  } else if (params?.search) {
-    data = await Product.find({
-      isDeleted: false,
-      $or: [
+    if (params?.search) {
+      filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { content: { $regex: `${params?.search}`, $options: "i" } },
-        { type: { $regex: `${params?.search}`, $options: "i" } },
-      ],
-    })
-      .skip((params.page - 1) * params.limit)
-      .limit(params.limit)
-      .sort({ createdAt: -1 });
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Product.find(filter);
   } else {
-    data = await Product.find({
+    let filter = {
       isDeleted: false,
-    })
+    };
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Product.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
       .sort({ createdAt: -1 });
@@ -228,41 +208,37 @@ const getProductList = async (params) => {
     return { status: false, data: [] };
   }
 };
-
-
 const getKnowledgeCenterList = async (params) => {
   let data;
   if (params.all) {
-    if (params?.search) {
-      data = await KnowledgeCenter.find({
-        isDeleted: false,
-        $or: [
-          { title: { $regex: `${params?.search}`, $options: "i" } },
-          { content: { $regex: `${params?.search}`, $options: "i" } },
-          { type: { $regex: `${params?.search}`, $options: "i" } },
-        ],
-      }).sort({ createdAt: -1 });
-    } else {
-      data = await KnowledgeCenter.find({
-        isDeleted: false,
-      });
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
     }
-  } else if (params?.search) {
-    data = await KnowledgeCenter.find({
-      isDeleted: false,
-      $or: [
+    if (params?.search) {
+      filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { content: { $regex: `${params?.search}`, $options: "i" } },
-        { type: { $regex: `${params?.search}`, $options: "i" } },
-      ],
-    })
-      .skip((params.page - 1) * params.limit)
-      .limit(params.limit)
-      .sort({ createdAt: -1 });
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await KnowledgeCenter.find(filter);
   } else {
-    data = await KnowledgeCenter.find({
+    let filter = {
       isDeleted: false,
-    })
+    };
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
+        { category: { $regex: `${params?.search}`, $options: "i" } },
+        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await KnowledgeCenter.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
       .sort({ createdAt: -1 });
@@ -273,15 +249,11 @@ const getKnowledgeCenterList = async (params) => {
     return { status: false, data: [] };
   }
 };
-
-
-  module.exports = {
-    
-    getFaqList,
-    getFeedbackList,
-    getTemplateList,
-    getContentList,
-    getProductList,
-    getKnowledgeCenterList
-  };
-  
+module.exports = {
+  getFaqList,
+  getFeedbackList,
+  getTemplateList,
+  getContentList,
+  getProductList,
+  getKnowledgeCenterList,
+};
