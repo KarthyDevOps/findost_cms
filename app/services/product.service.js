@@ -9,7 +9,21 @@ const {
 } = require("../helpers/index");
 const { getProductList } = require("./list.service");
 const createProductService = async (params) => {
-  var newvalues = params;
+  var newvalues = { 
+    productName : params.productName,
+    productName : params.productPlan,
+    productName : params.productDescription,
+
+    subProduct : {
+      productName : params.subProductName,
+      productMappedDetais: params.SubProductMappedDetails,
+      startDate : params.SubProductDurationStartDate,
+      endDate : params.SubProductDurationEndDate,
+      city : params.subProductCity,
+      country : params.subProductCountry,
+    }
+  };
+
   const resp = await Product.create(newvalues);
   return {
     status: true,
@@ -39,8 +53,22 @@ const updateProductService = async (params) => {
     isDeleted: false
   };
   delete params["productId"];
+  var newvalues = { 
+    productName : params.productName,
+    productName : params.productPlan,
+    productName : params.productDescription,
+    subProduct : {
+      productName : params.subProductName,
+      productMappedDetais: params.SubProductMappedDetails,
+      startDate : params.SubProductDurationStartDate,
+      endDate : params.SubProductDurationEndDate,
+      city : params.subProductCity,
+      country : params.subProductCountry,
+    }
+  };
+
   var newvalues = {
-    $set: params,
+    $set: newvalues,
   };
   const resp = await Product.updateOne(payload, newvalues);
   if (!resp.modifiedCount) {

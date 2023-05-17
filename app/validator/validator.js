@@ -329,11 +329,17 @@ const productListValidation = (req, res, next) => {
 
 const createProductValidation = (req, res, next) => {
   const schema = joi.object({
-    title: joi.string().required(),
-    answer: joi.string().required(),
-    isActive: joi.boolean(),
-    category: joi.string(),
-    subCategory: joi.string(),
+    productName: joi.string().required(),
+    productPlan: joi.string().required(),
+    productDescription: joi.string().required(),
+
+    subProductName: joi.string().required(),
+    SubProductMappedDetails: joi.string().required(),
+    SubProductDurationStartDate: joi.string().required(),
+    SubProductDurationEndDate: joi.string().required(),
+    subProductCity: joi.string().required(),
+
+    subProductCountry: joi.string().required(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -354,11 +360,17 @@ const updateProductValidation = (req, res, next) => {
   queryParamValidation(req, res, next, querySchema);
 
   const schema = joi.object({
-    title: joi.string(),
-    answer: joi.string(),
-    isActive: joi.boolean(),
-    category: joi.string(),
-    subCategory: joi.string(),
+    productName: joi.string().required(),
+    productPlan: joi.string().required(),
+    productDescription: joi.string().required(),
+
+    subProductName: joi.string().required(),
+    SubProductMappedDetails: joi.string().required(),
+    SubProductDurationStartDate: joi.string().required(),
+    SubProductDurationEndDate: joi.string().required(),
+    subProductCity: joi.string().required(),
+
+    subProductCountry: joi.string().required(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
