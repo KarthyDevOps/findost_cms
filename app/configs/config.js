@@ -4,6 +4,7 @@ module.exports = function (env) {
     MONGO_URI: "mongodb+srv://findoc_user:nQKMemhPm0N4maIJ@cluster0.kr4lh0f.mongodb.net/findoc_cms",
     NODE_ENV: "development",
     SERVICE_NAME : "Findost-CMS-Service",
+    USER_URL : "http://doodlebluelive.com:2811",
     200: "success"
   };
 
@@ -12,6 +13,7 @@ module.exports = function (env) {
     MONGO_URI: "mongodb+srv://findoc_user:nQKMemhPm0N4maIJ@cluster0.kr4lh0f.mongodb.net/findoc_cms",
     NODE_ENV: "development",
     SERVICE_NAME : "Findost-CMS-Service",
+    USER_URL : "http://doodlebluelive.com:2811",
     200: "success"
   };
 
@@ -20,6 +22,7 @@ module.exports = function (env) {
     MONGO_URI: process.env.MONGO_URI,
     NODE_ENV: process.env.NODE_ENV,
     SERVICE_NAME :  process.env.SERVICE_NAME,
+    USER_URL : process.env.USER_URL,
     200: "success"
   };
   let envType;
