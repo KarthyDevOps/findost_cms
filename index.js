@@ -19,7 +19,14 @@ const app = express();
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Load environment variable
-dotenv.config({ path: path.join(process.cwd(), `${process.argv[2]}`) });
+require("dotenv").config({ path: path.join(process.cwd(), `.env`) });
+const args = process.argv.slice(2)[0];
+process.env.CONFIG_ARG = args;
+let CONFIG = require('./app/configs/config')(args)
+process.env = { ...process.env,...CONFIG}
+//process.env = CONFIG
+console.log('process.env',process.env)
+//dotenv.7({ path: path.join(process.cwd(), `${process.argv[2]}`) });
 
 app.use(urlencoded({ extended: false }));
 app.use(cors());
@@ -51,7 +58,7 @@ mongoose.connect(process.env.MONGO_URI, connectOptions, (e) =>
   e ? console.log(e) : console.log("DB connected successfully..")
 );
 
-const port = process.env.PORT;
+const port = process.env.PORT || CONFIG.PORT;
 app.use("/cms", routerService);
 
 app.listen(port, () => {
