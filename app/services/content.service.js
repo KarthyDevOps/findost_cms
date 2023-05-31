@@ -24,7 +24,7 @@ const createContentService = async (params) => {
 
 const getContentService = async (params) => {
   var payload = {
-    _id: params?.contentId,
+    _id: params?.contentId || params.id,
     isDeleted: false,
   };
   const resp = await Content.findOne(payload);

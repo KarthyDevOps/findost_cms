@@ -38,6 +38,7 @@ const {
   
   const getContent = async (req, res) => {
     const params = req.body;
+    params.id = req.query.id
     params.contentId = req?.query?.contentId;
     const result = await getContentService(params);
     if (!result.status) {
