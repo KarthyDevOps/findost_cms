@@ -293,7 +293,8 @@ const getContentValidation = (req, res, next) => {
 
 const updateContentValidation = (req, res, next) => {
   const querySchema = joi.object({
-    contentId: joi.string().required(),
+    contentId: joi.string().optional(),
+    id:joi.string().required()
   });
   req.bodyParam = true;
   queryParamValidation(req, res, next, querySchema);

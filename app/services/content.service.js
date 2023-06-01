@@ -38,7 +38,7 @@ const getContentService = async (params) => {
 
 const updateContentService = async (params) => {
   var payload = {
-    _id: params?.contentId,
+    _id: params?.contentId || params.id,
     isDeleted: false,
     updatedBy: params?.updatedBy,
   };
