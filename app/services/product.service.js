@@ -55,8 +55,8 @@ const updateProductService = async (params) => {
   delete params["productId"];
   var newvalues = { 
     productName : params.productName,
-    productName : params.productPlan,
-    productName : params.productDescription,
+    productPlan : params.productPlan,
+    productDescription : params.productDescription,
     subProduct : {
       productName : params.subProductName,
       productMappedDetais: params.SubProductMappedDetails,
