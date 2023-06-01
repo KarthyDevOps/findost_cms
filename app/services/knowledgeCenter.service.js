@@ -74,7 +74,7 @@ const deleteKnowledgeCenterService = async (params) => {
   var payload = {
     _id: params?.knowledgeCenterId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
+    
   };
   var newvalues = {
     $set: { isDeleted: true },

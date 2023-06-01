@@ -74,7 +74,7 @@ const deleteTemplateService = async (params) => {
   var payload = {
     _id: params?.templateId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
+    
   };
   var newvalues = {
     $set: { isDeleted: true },

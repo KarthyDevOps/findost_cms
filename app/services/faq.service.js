@@ -43,7 +43,6 @@ const updateFaqService = async (params) => {
   var payload = {
     _id: params?.faqId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
   };
   delete params["faqId"];
   var newvalues = {
@@ -84,7 +83,6 @@ const deleteFaqService = async (params) => {
   var payload = {
     _id: params?.faqId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
   };
   var newvalues = {
     $set: { isDeleted: true },

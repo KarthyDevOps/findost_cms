@@ -40,7 +40,6 @@ const updateContentService = async (params) => {
   var payload = {
     _id: params?.contentId || params.id,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
   };
   delete params["contentId"];
   var newvalues = {
@@ -81,7 +80,6 @@ const deleteContentService = async (params) => {
   var payload = {
     _id: params?.contentId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
   };
   var newvalues = {
     $set: { isDeleted: true },
