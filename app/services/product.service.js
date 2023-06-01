@@ -101,9 +101,7 @@ const productListService = async (params) => {
 const deleteProductService = async (params) => {
   var payload = {
     _id: params?.productId,
-    isDeleted: false,
-    updatedBy: params?.updatedBy,
-  };
+    isDeleted: false  };
   var newvalues = {
     $set: { isDeleted: true },
   };
