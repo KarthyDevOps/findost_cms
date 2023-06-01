@@ -11,8 +11,8 @@ const { getProductList } = require("./list.service");
 const createProductService = async (params) => {
   var newvalues = { 
     productName : params.productName,
-    productName : params.productPlan,
-    productName : params.productDescription,
+    productPlan : params.productPlan,
+    productDescription : params.productDescription,
 
     subProduct : {
       productName : params.subProductName,
