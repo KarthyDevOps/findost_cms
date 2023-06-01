@@ -74,6 +74,7 @@ const createFaqValidation = (req, res, next) => {
     isActive: joi.boolean(),
     category: joi.string().required(),
     subCategory: joi.string().required(),
+    status:joi.string().optional()
   });
   return bodyParamValidation(req, res, next, schema);
 };
