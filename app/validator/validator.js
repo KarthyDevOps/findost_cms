@@ -190,6 +190,7 @@ const createTemplateValidation = (req, res, next) => {
     title: joi.string().required(),
     description: joi.string().required(),
     status: joi.boolean(),
+    isActive:joi.boolean().optional()
     
   });
   return bodyParamValidation(req, res, next, schema);
