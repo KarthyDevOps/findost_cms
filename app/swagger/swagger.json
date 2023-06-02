@@ -154,7 +154,7 @@
           {
             "name": "returnAll",
             "in": "query",
-            "type": "noolean"
+            "type": "boolean"
           },
           {
             "name": "limit",
@@ -350,7 +350,7 @@
           {
             "name": "returnAll",
             "in": "query",
-            "type": "noolean"
+            "type": "boolean"
           },
           {
             "name": "limit",
