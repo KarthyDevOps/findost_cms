@@ -348,6 +348,11 @@
             "type": "string"
           },
           {
+            "name": "returnAll",
+            "in": "query",
+            "type": "noolean"
+          },
+          {
             "name": "limit",
             "in": "query",
             "type": "number"

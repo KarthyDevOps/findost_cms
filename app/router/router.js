@@ -250,7 +250,7 @@ router.delete(
 router.get(
   routes.v1.contentManagement.list,
   [
-    verifyToken(["ADMIN"]),
+    verifyToken(["ADMIN","AP"]),
     verifyAdminRole("contentManagement", "VIEW"),
     contentListValidation,
   ],
@@ -268,7 +268,7 @@ router.post(
 router.get(
   routes.v1.contentManagement.get,
   [
-    verifyToken(["ADMIN"]),
+    verifyToken(["ADMIN","AP"]),
     verifyAdminRole("contentManagement", "VIEW"),
     getContentValidation,
   ],
