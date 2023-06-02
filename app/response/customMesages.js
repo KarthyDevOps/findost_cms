@@ -35,7 +35,7 @@ const messages = {
   customerAdded: "Customer Added Successfully",
   adminExists: "Admin Already Exists",
   adminAdded: "Admin Added Successfully",
-  adminInActive: "Admin In active",
+  adminInActive: "Customer In active",
   departmentExists: "Department Already Exists",
   departmentAdded: "Department Added Successfully",
   addressAdded: "Address Added Successfully",
