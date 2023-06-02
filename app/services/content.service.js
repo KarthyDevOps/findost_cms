@@ -65,7 +65,7 @@ const updateContentService = async (params) => {
 const contentListService = async (params) => {
   params.all = true;
   const allList = await getContentList(params);
-  params.all = false;
+  params.all = params.returnAll ==true ? true : false;
 
   const result = await getContentList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);

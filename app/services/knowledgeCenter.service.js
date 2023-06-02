@@ -61,7 +61,7 @@ const updateKnowledgeCenterService = async (params) => {
 const knowledgeCenterListService = async (params) => {
   params.all = true;
   const allList = await getKnowledgeCenterList(params);
-  params.all = false;
+  params.all = params.returnAll ==true ? true : false;
   const result = await getKnowledgeCenterList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
   return {

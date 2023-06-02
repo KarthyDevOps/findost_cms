@@ -55,8 +55,8 @@ const updateProductService = async (params) => {
   delete params["productId"];
   var newvalues = { 
     productName : params.productName,
-    productName : params.productPlan,
-    productName : params.productDescription,
+    productPlan : params.productPlan,
+    productDescription : params.productDescription,
     subProduct : {
       productName : params.subProductName,
       productMappedDetais: params.SubProductMappedDetails,
@@ -89,7 +89,7 @@ const updateProductService = async (params) => {
 const productListService = async (params) => {
   params.all = true;
   const allList = await getProductList(params);
-  params.all = false;
+  params.all = params.returnAll ==true ? true : false;
   const result = await getProductList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
   return {

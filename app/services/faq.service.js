@@ -68,7 +68,7 @@ const updateFaqService = async (params) => {
 const faqListService = async (params) => {
   params.all = true;
   const allList = await getFaqList(params);
-  params.all = false;
+  params.all = params.returnAll ==true ? true : false;
 
   const result = await getFaqList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);

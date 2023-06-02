@@ -5,7 +5,7 @@ const {
   routes
 } = require("../routes/routes");
 const {
-  verifyAdminToken,
+  verifyToken,
   verifyAdminRole,
 } = require("../middlewares/authentication");
 const {
@@ -14,6 +14,7 @@ const {
   getFaqValidation,
   updateFaqValidation,
   deleteFaqValidation,
+
   feedbackListValidation,
   createFeedbackValidation,
   getFeedbackValidation,
@@ -106,7 +107,7 @@ const router = Router();
 router.get(
   routes.v1.faqManagement.list,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN","AP"]),
     verifyAdminRole("faqManagement", "VIEW"),
     faqListValidation,
   ],
@@ -115,7 +116,7 @@ router.get(
 router.post(
   routes.v1.faqManagement.create,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("faqManagement", "ADD"),
     createFaqValidation,
   ],
@@ -124,7 +125,7 @@ router.post(
 router.get(
   routes.v1.faqManagement.get,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN","AP"]),
     verifyAdminRole("faqManagement", "VIEW"),
     getFaqValidation,
   ],
@@ -133,7 +134,7 @@ router.get(
 router.put(
   routes.v1.faqManagement.update,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("faqManagement", "UPDATE"),
     updateFaqValidation,
   ],
@@ -142,7 +143,7 @@ router.put(
 router.delete(
   routes.v1.faqManagement.delete,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("faqManagement", "DELETE"),
     deleteFaqValidation,
   ],
@@ -152,7 +153,7 @@ router.delete(
 router.get(
   routes.v1.feedbackManagement.list,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("feedbackManagement", "VIEW"),
     feedbackListValidation,
   ],
@@ -161,7 +162,7 @@ router.get(
 router.post(
   routes.v1.feedbackManagement.create,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("feedbackManagement", "ADD"),
     createFeedbackValidation,
   ],
@@ -170,7 +171,7 @@ router.post(
 router.get(
   routes.v1.feedbackManagement.get,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("feedbackManagement", "VIEW"),
     getFeedbackValidation,
   ],
@@ -179,7 +180,7 @@ router.get(
 router.put(
   routes.v1.feedbackManagement.update,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("feedbackManagement", "UPDATE"),
     updateFeedbackValidation,
   ],
@@ -188,7 +189,7 @@ router.put(
 router.delete(
   routes.v1.feedbackManagement.delete,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("feedbackManagement", "DELETE"),
     deleteFeedbackValidation,
   ],
@@ -199,7 +200,7 @@ router.delete(
 router.get(
   routes.v1.templateManagement.list,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("templateManagement", "VIEW"),
     templateListValidation,
   ],
@@ -208,7 +209,7 @@ router.get(
 router.post(
   routes.v1.templateManagement.create,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("templateManagement", "ADD"),
     createTemplateValidation,
   ],
@@ -217,7 +218,7 @@ router.post(
 router.get(
   routes.v1.templateManagement.get,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("templateManagement", "VIEW"),
     getTemplateValidation,
   ],
@@ -226,7 +227,7 @@ router.get(
 router.put(
   routes.v1.templateManagement.update,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("templateManagement", "UPDATE"),
     updateTemplateValidation,
   ],
@@ -235,7 +236,7 @@ router.put(
 router.delete(
   routes.v1.templateManagement.delete,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("templateManagement", "DELETE"),
     deleteTemplateValidation,
   ],
@@ -249,7 +250,7 @@ router.delete(
 router.get(
   routes.v1.contentManagement.list,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN","AP"]),
     verifyAdminRole("contentManagement", "VIEW"),
     contentListValidation,
   ],
@@ -258,7 +259,7 @@ router.get(
 router.post(
   routes.v1.contentManagement.create,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("contentManagement", "ADD"),
     createContentValidation,
   ],
@@ -267,7 +268,7 @@ router.post(
 router.get(
   routes.v1.contentManagement.get,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN","AP"]),
     verifyAdminRole("contentManagement", "VIEW"),
     getContentValidation,
   ],
@@ -276,7 +277,7 @@ router.get(
 router.put(
   routes.v1.contentManagement.update,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("contentManagement", "UPDATE"),
     updateContentValidation,
   ],
@@ -285,7 +286,7 @@ router.put(
 router.delete(
   routes.v1.contentManagement.delete,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("contentManagement", "DELETE"),
     deleteContentValidation,
   ],
@@ -297,7 +298,7 @@ router.delete(
 router.post(
   routes.v1.siteSettingsManagement.create,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("siteSettingsManagement", "ADD"),
     createSiteSettingsValidation,
   ],
@@ -306,7 +307,7 @@ router.post(
 router.get(
   routes.v1.siteSettingsManagement.get,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("siteSettingsManagement", "VIEW"),
     getSiteSettingsValidation,
   ],
@@ -315,7 +316,7 @@ router.get(
 router.put(
   routes.v1.siteSettingsManagement.update,
   [
-    verifyAdminToken,
+    verifyToken(["ADMIN"]),
     verifyAdminRole("siteSettingsManagement", "UPDATE"),
     updateSiteSettingsValidation,
   ],
@@ -327,27 +328,27 @@ router.put(
 //PRODUCT Management
 router.get(
   routes.v1.productManagement.list,
-  [verifyAdminToken,verifyAdminRole("productManagement","VIEW"), productListValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("productManagement","VIEW"), productListValidation],
   errHandle(productList)
 );
 router.post(
   routes.v1.productManagement.create,
-  [verifyAdminToken,verifyAdminRole("productManagement","ADD"), createProductValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("productManagement","ADD"), createProductValidation],
   errHandle(createProduct)
 );
 router.get(
   routes.v1.productManagement.get,
-  [verifyAdminToken,verifyAdminRole("productManagement","VIEW"), getProductValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("productManagement","VIEW"), getProductValidation],
   errHandle(getProduct)
 );
 router.put(
   routes.v1.productManagement.update,
-  [verifyAdminToken,verifyAdminRole("productManagement","UPDATE"), updateProductValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("productManagement","UPDATE"), updateProductValidation],
   errHandle(updateProduct)
 );
 router.delete(
   routes.v1.productManagement.delete,
-  [verifyAdminToken,verifyAdminRole("productManagement","DELETE"), deleteProductValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("productManagement","DELETE"), deleteProductValidation],
   errHandle(deleteProduct)
 );
 
@@ -355,27 +356,27 @@ router.delete(
 //knowledgeCenter Management
 router.get(
   routes.v1.knowledgeCenterManagement.list,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","VIEW"), knowledgeCenterListValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("knowledgeCenterManagement","VIEW"), knowledgeCenterListValidation],
   errHandle(knowledgeCenterList)
 );
 router.post(
   routes.v1.knowledgeCenterManagement.create,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","ADD"), createKnowledgeCenterValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("knowledgeCenterManagement","ADD"), createKnowledgeCenterValidation],
   errHandle(createKnowledgeCenter)
 );
 router.get(
   routes.v1.knowledgeCenterManagement.get,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","VIEW"), getKnowledgeCenterValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("knowledgeCenterManagement","VIEW"), getKnowledgeCenterValidation],
   errHandle(getKnowledgeCenter)
 );
 router.put(
   routes.v1.knowledgeCenterManagement.update,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","UPDATE"), updateKnowledgeCenterValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("knowledgeCenterManagement","UPDATE"), updateKnowledgeCenterValidation],
   errHandle(updateKnowledgeCenter)
 );
 router.delete(
   routes.v1.knowledgeCenterManagement.delete,
-  [verifyAdminToken,verifyAdminRole("knowledgeCenterManagement","DELETE"), deleteKnowledgeCenterValidation],
+  [verifyToken(["ADMIN"]),verifyAdminRole("knowledgeCenterManagement","DELETE"), deleteKnowledgeCenterValidation],
   errHandle(deleteKnowledgeCenter)
 );
 
