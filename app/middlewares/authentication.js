@@ -3,7 +3,7 @@ const { InternalServices } = require("./../apiServices");
 const { sendErrorResponse } = require("../response/response");
 const { statusCodes } = require("../response/httpStatusCodes");
 const { messages } = require("../response/customMesages");
-const verifyToken = (type =["ADMIN"]) =>
+const verifyToken = (type = ["ADMIN"]) =>
   async function (req, res, next) {
     try {
       if (
@@ -11,7 +11,10 @@ const verifyToken = (type =["ADMIN"]) =>
         req.headers["authorization"] ||
         req.headers["Authorization"]
       ) {
-        let token = req.headers["x-access-token"] || req.headers["authorization"] ||req.headers["Authorization"] 
+        let token =
+          req.headers["x-access-token"] ||
+          req.headers["authorization"] ||
+          req.headers["Authorization"];
         token = token.replace("Bearer ", "");
         let decode, user;
         var userData = null;
@@ -21,8 +24,7 @@ const verifyToken = (type =["ADMIN"]) =>
           userData = await InternalServices.getUserById({ _id: decode?._id });
           userType = "ADMIN";
         } catch (error) {
-          if(type.includes("AP"))
-          {
+          if (type.includes("AP")) {
             decode = jwt.verify(token, process.env.JWT_authorizedPerson_SECRET);
             userData = await InternalServices.getAPById({ _id: decode?._id });
             userType = "AP";
