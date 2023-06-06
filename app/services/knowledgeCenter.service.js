@@ -2,6 +2,8 @@ const { statusCodes } = require("../response/httpStatusCodes");
 const { statusMessage } = require("../response/httpStatusMessages");
 const { messages } = require("../response/customMesages");
 const { KnowledgeCenter } = require("../models/knowledgeCenter");
+const mongoose = require("mongoose");
+
 const {
   convert_JSON_to_file,
   formatDataList,
@@ -22,7 +24,7 @@ const createKnowledgeCenterService = async (params) => {
 };
 const getKnowledgeCenterService = async (params) => {
   var payload = {
-    _id: params?.knowledgeCenterId,
+    _id: mongoose.Types.ObjectId(params?.knowledgeCenterId),
     isDeleted: false,
   };
   const resp = await KnowledgeCenter.findOne(payload);
@@ -35,7 +37,7 @@ const getKnowledgeCenterService = async (params) => {
 };
 const updateKnowledgeCenterService = async (params) => {
   var payload = {
-    _id: params?.knowledgeCenterId,
+    _id: mongoose.Types.ObjectId(params?.knowledgeCenterId),
     isDeleted: false
   };
   delete params["knowledgeCenterId"];
@@ -72,7 +74,7 @@ const knowledgeCenterListService = async (params) => {
 };
 const deleteKnowledgeCenterService = async (params) => {
   var payload = {
-    _id: params?.knowledgeCenterId,
+    _id: mongoose.Types.ObjectId(params?.knowledgeCenterId),
     isDeleted: false,
     
   };
