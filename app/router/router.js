@@ -356,7 +356,7 @@ router.delete(
 //knowledgeCenter Management
 router.get(
   routes.v1.knowledgeCenterManagement.list,
-  [verifyToken(["ADMIN"]),verifyAdminRole("knowledgeCenterManagement","VIEW"), knowledgeCenterListValidation],
+  [verifyToken(["ADMIN","AP"]),verifyAdminRole("knowledgeCenterManagement","VIEW"), knowledgeCenterListValidation],
   errHandle(knowledgeCenterList)
 );
 router.post(
@@ -366,7 +366,7 @@ router.post(
 );
 router.get(
   routes.v1.knowledgeCenterManagement.get,
-  [verifyToken(["ADMIN"]),verifyAdminRole("knowledgeCenterManagement","VIEW"), getKnowledgeCenterValidation],
+  [verifyToken(["ADMIN","AP"]),verifyAdminRole("knowledgeCenterManagement","VIEW"), getKnowledgeCenterValidation],
   errHandle(getKnowledgeCenter)
 );
 router.put(
