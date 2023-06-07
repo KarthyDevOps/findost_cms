@@ -22,6 +22,9 @@ const getFaqList = async (params) => {
         { subCategory: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
+    if (params?.category) {
+      filter.category = params?.category;
+    }
     data = await Faq.find(filter);
   } else {
     let filter = {
@@ -34,6 +37,9 @@ const getFaqList = async (params) => {
         { category: { $regex: `${params?.search}`, $options: "i" } },
         { subCategory: { $regex: `${params?.search}`, $options: "i" } },
       ];
+    }
+    if (params?.category) {
+      filter.category = params?.category;
     }
     data = await Faq.find(filter)
       .skip((params.page - 1) * params.limit)
@@ -58,7 +64,7 @@ const getFeedbackList = async (params) => {
     if (params?.search) {
       filter.$or = [
         { feedbackId: { $regex: `${params?.search}`, $options: "i" } },
-        { feedback: { $regex: `${params?.search}`, $options: "i" } }
+        { feedback: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Feedback.find(filter);

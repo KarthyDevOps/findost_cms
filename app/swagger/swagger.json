@@ -147,6 +147,16 @@
             "type": "string"
           },
           {
+            "name": "category",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "returnAll",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
             "name": "limit",
             "in": "query",
             "type": "number"
@@ -336,6 +346,11 @@
             "name": "search",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "returnAll",
+            "in": "query",
+            "type": "boolean"
           },
           {
             "name": "limit",

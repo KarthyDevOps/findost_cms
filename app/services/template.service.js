@@ -61,7 +61,7 @@ const updateTemplateService = async (params) => {
 const templateListService = async (params) => {
   params.all = true;
   const allList = await getTemplateList(params);
-  params.all = false;
+  params.all = params.returnAll ==true ? true : false;
   const result = await getTemplateList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
   return {
@@ -74,7 +74,7 @@ const deleteTemplateService = async (params) => {
   var payload = {
     _id: params?.templateId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
+    
   };
   var newvalues = {
     $set: { isDeleted: true },

@@ -24,7 +24,7 @@ const createContentService = async (params) => {
 
 const getContentService = async (params) => {
   var payload = {
-    _id: params?.contentId,
+    _id: params?.contentId || params.id,
     isDeleted: false,
   };
   const resp = await Content.findOne(payload);
@@ -38,9 +38,8 @@ const getContentService = async (params) => {
 
 const updateContentService = async (params) => {
   var payload = {
-    _id: params?.contentId,
+    _id: params?.contentId || params.id,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
   };
   delete params["contentId"];
   var newvalues = {
@@ -66,7 +65,7 @@ const updateContentService = async (params) => {
 const contentListService = async (params) => {
   params.all = true;
   const allList = await getContentList(params);
-  params.all = false;
+  params.all = params.returnAll ==true ? true : false;
 
   const result = await getContentList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
@@ -81,7 +80,6 @@ const deleteContentService = async (params) => {
   var payload = {
     _id: params?.contentId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
   };
   var newvalues = {
     $set: { isDeleted: true },

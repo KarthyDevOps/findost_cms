@@ -61,7 +61,7 @@ const updateFeedbackService = async (params) => {
 const feedbackListService = async (params) => {
   params.all = true;
   const allList = await getFeedbackList(params);
-  params.all = false;
+  params.all = params.returnAll ==true ? true : false;
   const result = await getFeedbackList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
   return {
@@ -74,7 +74,7 @@ const deleteFeedbackService = async (params) => {
   var payload = {
     _id: params?.feedbackId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
+    
   };
   var newvalues = {
     $set: { isDeleted: true },

@@ -43,7 +43,6 @@ const updateFaqService = async (params) => {
   var payload = {
     _id: params?.faqId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
   };
   delete params["faqId"];
   var newvalues = {
@@ -69,7 +68,7 @@ const updateFaqService = async (params) => {
 const faqListService = async (params) => {
   params.all = true;
   const allList = await getFaqList(params);
-  params.all = false;
+  params.all = params.returnAll ==true ? true : false;
 
   const result = await getFaqList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
@@ -84,7 +83,6 @@ const deleteFaqService = async (params) => {
   var payload = {
     _id: params?.faqId,
     isDeleted: false,
-    updatedBy: params?.updatedBy,
   };
   var newvalues = {
     $set: { isDeleted: true },

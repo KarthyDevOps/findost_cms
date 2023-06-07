@@ -73,6 +73,7 @@ const createFaqValidation = (req, res, next) => {
     isActive: joi.boolean(),
     category: joi.string().required(),
     subCategory: joi.string().required(),
+    status: joi.string().optional(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -180,6 +181,7 @@ const createTemplateValidation = (req, res, next) => {
     title: joi.string().required(),
     description: joi.string().required(),
     status: joi.boolean(),
+    isActive: joi.boolean().optional(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -277,7 +279,8 @@ const getContentValidation = (req, res, next) => {
 
 const updateContentValidation = (req, res, next) => {
   const querySchema = joi.object({
-    contentId: joi.string().required(),
+    contentId: joi.string().optional(),
+    id: joi.string().required(),
   });
   req.bodyParam = true;
   queryParamValidation(req, res, next, querySchema);

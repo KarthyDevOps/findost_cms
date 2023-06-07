@@ -26,8 +26,7 @@ const feedbackSchema = new mongoose.Schema(
       required: false,
     },
    
-    status: {
-      type: Boolean,
+    status: {     
       type: String, 
     },
     isDeleted: {

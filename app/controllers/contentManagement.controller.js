@@ -38,6 +38,7 @@ const {
   
   const getContent = async (req, res) => {
     const params = req.body;
+    params.id = req.query.id
     params.contentId = req?.query?.contentId;
     const result = await getContentService(params);
     if (!result.status) {
@@ -60,6 +61,7 @@ const {
   
   const updateContent = async (req, res) => {
     const params = req.body;
+    params.id = req?.query?.id
     params.contentId = req?.query?.contentId;
     params.updatedBy = req?.user?._id?.toString();
     params.lastUpdatedBy = req?.user?.userType;
