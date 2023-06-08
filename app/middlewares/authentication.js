@@ -93,7 +93,7 @@ const verifyAdminRole = (roles, action) =>
       return sendErrorResponse(
         req,
         res,
-        statusCodes.HTTP_NOT_FOUND,
+        statusCodes.HTTP_UNAUTHORIZED,
         messages.accessDenied,
         []
       );

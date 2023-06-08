@@ -439,6 +439,104 @@ const deleteKnowledgeCenterValidation = (req, res, next) => {
   queryParamValidation(req, res, next, querySchema);
 };
 
+const categoryListValidation = (req, res, next) => {
+  const schema = joi.object({
+    search: joi.allow(null).allow(""),
+    isActive: joi.allow(null).allow(""),
+    limit: joi.number(),
+    page: joi.number(),
+  });
+  return queryParamValidation(req, res, next, schema);
+};
+
+const createCategoryValidation = (req, res, next) => {
+  const schema = joi.object({
+    name: joi.string().required(),
+    isActive: joi.boolean(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const getCategoryValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    categoryId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const updateCategoryValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    categoryId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = true;
+  queryParamValidation(req, res, next, querySchema);
+
+  const schema = joi.object({
+    name: joi.string().required(),
+    isActive: joi.boolean(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const deleteCategoryValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    categoryId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const subCategoryListValidation = (req, res, next) => {
+  const schema = joi.object({
+    search: joi.allow(null).allow(""),
+    isActive: joi.allow(null).allow(""),
+    limit: joi.number(),
+    page: joi.number(),
+  });
+  return queryParamValidation(req, res, next, schema);
+};
+
+const createSubCategoryValidation = (req, res, next) => {
+  const schema = joi.object({
+    name: joi.string().required(),
+    categoryId: joi.string(),
+    isActive: joi.boolean(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const getSubCategoryValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    subCategoryId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
+const updateSubCategoryValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    subCategoryId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = true;
+  queryParamValidation(req, res, next, querySchema);
+
+  const schema = joi.object({
+    name: joi.string().required(),
+    categoryId: joi.string(),
+    isActive: joi.boolean(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const deleteSubCategoryValidation = (req, res, next) => {
+  const querySchema = joi.object({
+    subCategoryId: joi.string().allow(null).allow(""),
+  });
+  req.bodyParam = false;
+  queryParamValidation(req, res, next, querySchema);
+};
+
 module.exports = {
   bodyParamValidation,
   queryParamValidation,
@@ -482,5 +580,15 @@ module.exports = {
   updateKnowledgeCenterValidation,
   deleteKnowledgeCenterValidation,
 
-  CreateTicketValidation,
+  categoryListValidation,
+  createCategoryValidation,
+  getCategoryValidation,
+  updateCategoryValidation,
+  deleteCategoryValidation,
+
+  subCategoryListValidation,
+  createSubCategoryValidation,
+  getSubCategoryValidation,
+  updateSubCategoryValidation,
+  deleteSubCategoryValidation,
 };

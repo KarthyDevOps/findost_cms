@@ -25,17 +25,21 @@
     "/faq-management/create": {
       "post": {
         "tags": ["FAQ Management"],
-        "security": [{
-          "Bearer": []
-        }],
-        "summary": "Create new faq type",
-        "parameters": [{
-          "name": "faq",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/faqSchema"
+        "security": [
+          {
+            "Bearer": []
           }
-        }],
+        ],
+        "summary": "Create new faq type",
+        "parameters": [
+          {
+            "name": "faq",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/faqSchema"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -61,11 +65,14 @@
     "/faq-management/update": {
       "put": {
         "tags": ["FAQ Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "update faq",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "faqId",
             "in": "query",
             "type": "string"
@@ -103,15 +110,19 @@
     "/faq-management/get": {
       "get": {
         "tags": ["FAQ Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "get faq details",
-        "parameters": [{
-          "name": "faqId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "faqId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -137,11 +148,14 @@
     "/faq-management/list": {
       "get": {
         "tags": ["FAQ Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "List all categories",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "search",
             "in": "query",
             "type": "string"
@@ -192,15 +206,19 @@
     "/faq-management/delete": {
       "delete": {
         "tags": ["FAQ Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "delete faq",
-        "parameters": [{
-          "name": "faqId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "faqId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -226,17 +244,21 @@
     "/content-management/create": {
       "post": {
         "tags": ["Content Management"],
-        "security": [{
-          "Bearer": []
-        }],
-        "summary": "Create new Content",
-        "parameters": [{
-          "name": "Content",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/contentSchema"
+        "security": [
+          {
+            "Bearer": []
           }
-        }],
+        ],
+        "summary": "Create new Content",
+        "parameters": [
+          {
+            "name": "Content",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/contentSchema"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -262,11 +284,14 @@
     "/content-management/update": {
       "put": {
         "tags": ["Content Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "update Content",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "contentId",
             "in": "query",
             "type": "string"
@@ -304,15 +329,19 @@
     "/content-management/get": {
       "get": {
         "tags": ["Content Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "get Content details",
-        "parameters": [{
-          "name": "contentId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -338,11 +367,14 @@
     "/content-management/list": {
       "get": {
         "tags": ["Content Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "List Content",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "search",
             "in": "query",
             "type": "string"
@@ -388,15 +420,19 @@
     "/content-management/delete": {
       "delete": {
         "tags": ["Content Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "delete Content",
-        "parameters": [{
-          "name": "contentId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -422,17 +458,21 @@
     "/feedback-management/create": {
       "post": {
         "tags": ["Feedback Management"],
-        "security": [{
-          "Bearer": []
-        }],
-        "summary": "Create new feedback",
-        "parameters": [{
-          "name": "feedback",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/feedbackSchema"
+        "security": [
+          {
+            "Bearer": []
           }
-        }],
+        ],
+        "summary": "Create new feedback",
+        "parameters": [
+          {
+            "name": "feedback",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/feedbackSchema"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -458,11 +498,14 @@
     "/feedback-management/update": {
       "put": {
         "tags": ["Feedback Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "update feedback",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "feedbackId",
             "in": "query",
             "type": "string"
@@ -500,15 +543,19 @@
     "/feedback-management/get": {
       "get": {
         "tags": ["Feedback Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "get feedback details",
-        "parameters": [{
-          "name": "feedbackId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "feedbackId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -534,11 +581,14 @@
     "/feedback-management/list": {
       "get": {
         "tags": ["Feedback Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "List feedback",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "search",
             "in": "query",
             "type": "string"
@@ -579,15 +629,19 @@
     "/feedback-management/delete": {
       "delete": {
         "tags": ["Feedback Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "delete Content",
-        "parameters": [{
-          "name": "feedbackId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "feedbackId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -613,17 +667,21 @@
     "/template-management/create": {
       "post": {
         "tags": ["Template Management"],
-        "security": [{
-          "Bearer": []
-        }],
-        "summary": "Create new template",
-        "parameters": [{
-          "name": "template",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/templateSchema"
+        "security": [
+          {
+            "Bearer": []
           }
-        }],
+        ],
+        "summary": "Create new template",
+        "parameters": [
+          {
+            "name": "template",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/templateSchema"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -649,11 +707,14 @@
     "/template-management/update": {
       "put": {
         "tags": ["Template Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "update template",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "templateId",
             "in": "query",
             "type": "string"
@@ -691,15 +752,19 @@
     "/template-management/get": {
       "get": {
         "tags": ["Template Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "get template details",
-        "parameters": [{
-          "name": "templateId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "templateId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -725,11 +790,14 @@
     "/template-management/list": {
       "get": {
         "tags": ["Template Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "List template",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "search",
             "in": "query",
             "type": "string"
@@ -770,15 +838,19 @@
     "/template-management/delete": {
       "delete": {
         "tags": ["Template Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "delete Content",
-        "parameters": [{
-          "name": "templateId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "templateId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -804,17 +876,21 @@
     "/product-management/create": {
       "post": {
         "tags": ["Product Management"],
-        "security": [{
-          "Bearer": []
-        }],
-        "summary": "Create new product",
-        "parameters": [{
-          "name": "product",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/productSchema"
+        "security": [
+          {
+            "Bearer": []
           }
-        }],
+        ],
+        "summary": "Create new product",
+        "parameters": [
+          {
+            "name": "product",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/productSchema"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -840,11 +916,14 @@
     "/product-management/update": {
       "put": {
         "tags": ["Product Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "update product",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "productId",
             "in": "query",
             "type": "string"
@@ -882,15 +961,19 @@
     "/product-management/get": {
       "get": {
         "tags": ["Product Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "get product details",
-        "parameters": [{
-          "name": "productId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -916,11 +999,14 @@
     "/product-management/list": {
       "get": {
         "tags": ["Product Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "List product",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "search",
             "in": "query",
             "type": "string"
@@ -961,15 +1047,19 @@
     "/product-management/delete": {
       "delete": {
         "tags": ["Product Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "delete product",
-        "parameters": [{
-          "name": "productId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -995,17 +1085,21 @@
     "/knowledgeCenter-management/create": {
       "post": {
         "tags": ["KnowledgeCenter Management"],
-        "security": [{
-          "Bearer": []
-        }],
-        "summary": "Create new knowledgeCenter",
-        "parameters": [{
-          "name": "knowledgeCenter",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/knowledgeCenterSchema"
+        "security": [
+          {
+            "Bearer": []
           }
-        }],
+        ],
+        "summary": "Create new knowledgeCenter",
+        "parameters": [
+          {
+            "name": "knowledgeCenter",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/knowledgeCenterSchema"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -1031,11 +1125,14 @@
     "/knowledgeCenter-management/update": {
       "put": {
         "tags": ["KnowledgeCenter Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "update knowledgeCenter",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "knowledgeCenterId",
             "in": "query",
             "type": "string"
@@ -1073,15 +1170,19 @@
     "/knowledgeCenter-management/get": {
       "get": {
         "tags": ["KnowledgeCenter Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "get knowledgeCenter details",
-        "parameters": [{
-          "name": "knowledgeCenterId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "knowledgeCenterId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -1107,11 +1208,14 @@
     "/knowledgeCenter-management/list": {
       "get": {
         "tags": ["KnowledgeCenter Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "List knowledgeCenter",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "search",
             "in": "query",
             "type": "string"
@@ -1152,15 +1256,19 @@
     "/knowledgeCenter-management/delete": {
       "delete": {
         "tags": ["KnowledgeCenter Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "delete knowledgeCenter",
-        "parameters": [{
-          "name": "knowledgeCenterId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "knowledgeCenterId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -1186,17 +1294,21 @@
     "/siteSettings-management/create": {
       "post": {
         "tags": ["SiteSettings Management"],
-        "security": [{
-          "Bearer": []
-        }],
-        "summary": "Create new siteSettings",
-        "parameters": [{
-          "name": "siteSettings",
-          "in": "body",
-          "schema": {
-            "$ref": "#/definitions/siteSettingsSchema"
+        "security": [
+          {
+            "Bearer": []
           }
-        }],
+        ],
+        "summary": "Create new siteSettings",
+        "parameters": [
+          {
+            "name": "siteSettings",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/siteSettingsSchema"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -1222,11 +1334,14 @@
     "/siteSettings-management/update": {
       "put": {
         "tags": ["SiteSettings Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "update siteSettings",
-        "parameters": [{
+        "parameters": [
+          {
             "name": "siteSettingsId",
             "in": "query",
             "type": "string"
@@ -1264,15 +1379,452 @@
     "/siteSettings-management/get": {
       "get": {
         "tags": ["SiteSettings Management"],
-        "security": [{
-          "Bearer": []
-        }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "summary": "get siteSettings details",
-        "parameters": [{
-          "name": "siteSettingsId",
-          "in": "query",
-          "type": "string"
-        }],
+        "parameters": [
+          {
+            "name": "siteSettingsId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/category-management/create": {
+      "post": {
+        "tags": ["Category Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Create new category type",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/categorySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/category-management/update": {
+      "put": {
+        "tags": ["Category Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "update category",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/categorySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/category-management/get": {
+      "get": {
+        "tags": ["Category Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "get category details",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/category-management/list": {
+      "get": {
+        "tags": ["Category Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "List all categories",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "returnAll",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/category-management/delete": {
+      "delete": {
+        "tags": ["Category Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "delete category",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/sub-category-management/create": {
+      "post": {
+        "tags": ["subCategory Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Create new subcategory type",
+        "parameters": [
+          {
+            "name": "subcategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/subcategorySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/sub-category-management/update": {
+      "put": {
+        "tags": ["subCategory Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "update sub category",
+        "parameters": [
+          {
+            "name": "subCategoryId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "subCategory",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/subcategorySchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/sub-category-management/get": {
+      "get": {
+        "tags": ["subCategory Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "get sub category details",
+        "parameters": [
+          {
+            "name": "subCategoryId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/sub-category-management/list": {
+      "get": {
+        "tags": ["subCategory Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "List all sub categories",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "returnAll",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/sub-category-management/delete": {
+      "delete": {
+        "tags": ["subCategory Management"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "delete subcategory",
+        "parameters": [
+          {
+            "name": "subCategoryId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Return a JSON response with submitted Aman form details.",
@@ -1378,6 +1930,23 @@
         },
         "isActive": {
           "type": "boolean"
+        }
+      }
+    },
+    "categorySchema": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "subcategorySchema": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string"
         }
       }
     },

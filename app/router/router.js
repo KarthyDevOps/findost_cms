@@ -45,7 +45,17 @@ const {
   updateKnowledgeCenterValidation,
   deleteKnowledgeCenterValidation,
 
-  CreateTicketValidation,
+  categoryListValidation,
+  createCategoryValidation,
+  getCategoryValidation,
+  updateCategoryValidation,
+  deleteCategoryValidation,
+
+  subCategoryListValidation,
+  createSubCategoryValidation,
+  getSubCategoryValidation,
+  updateSubCategoryValidation,
+  deleteSubCategoryValidation,
 } = require("../validator/validator");
 const {
   faqList,
@@ -76,6 +86,22 @@ const {
   updateContent,
   deleteContent,
 } = require("../controllers/contentManagement.controller");
+
+const {
+  createCategory,
+  getCategory,
+  updateCategory,
+  categoryList,
+  deleteCategory,
+} = require("../controllers/categoryManagement.controller");
+
+const {
+  createSubCategory,
+  getSubCategory,
+  updateSubCategory,
+  subCategoryList,
+  deleteSubCategory,
+} = require("../controllers/subCategoryManagement.controller");
 
 const {
   createSiteSettings,
@@ -370,7 +396,7 @@ router.delete(
 router.get(
   routes.v1.knowledgeCenterManagement.list,
   [
-    verifyToken(["ADMIN"]),
+    verifyToken(["ADMIN", "AP"]),
     verifyAdminRole("knowledgeCenterManagement", "VIEW"),
     knowledgeCenterListValidation,
   ],
@@ -388,7 +414,7 @@ router.post(
 router.get(
   routes.v1.knowledgeCenterManagement.get,
   [
-    verifyToken(["ADMIN"]),
+    verifyToken(["ADMIN", "AP"]),
     verifyAdminRole("knowledgeCenterManagement", "VIEW"),
     getKnowledgeCenterValidation,
   ],
@@ -412,18 +438,5 @@ router.delete(
   ],
   errHandle(deleteKnowledgeCenter)
 );
-
-//Ticket management
-// router.post(
-//   routes.v1.ticketsManagement.create,
-//   [verifyAdminToken, CreateTicketValidation],
-//   errHandle(CreateTicket)
-// );
-
-// router.get(
-//   routes.v1.ticketsManagement.get,
-//   [verifyAdminToken],
-//   errHandle(CreateTicket)
-// );
 
 module.exports = router;
