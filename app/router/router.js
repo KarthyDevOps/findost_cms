@@ -77,22 +77,22 @@ const {
   deleteContent,
 } = require("../controllers/contentManagement.controller");
 
-const {
-  contentList,
-  createContent,
-  getContent,
-  updateContent,
-  deleteContent,
-} = require("../controllers/categoryManagement.controller");
+// const {
+//   contentList,
+//   createContent,
+//   getContent,
+//   updateContent,
+//   deleteContent,
+// } = require("../controllers/categoryManagement.controller");
 
 
-const {
-  contentList,
-  createContent,
-  getContent,
-  updateContent,
-  deleteContent,
-} = require("../controllers/subCategoryManagement.controller");
+// const {
+//   contentList,
+//   createContent,
+//   getContent,
+//   updateContent,
+//   deleteContent,
+// } = require("../controllers/subCategoryManagement.controller");
 
 const {
   createSiteSettings,
