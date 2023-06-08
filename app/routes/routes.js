@@ -1,5 +1,21 @@
 const routes = {
   v1: {
+    categoryManagement: {
+      list: "/v1/category-management/list",
+      create: "/v1/category-management/create",
+      get: "/v1/category-management/get",
+      update: "/v1/category-management/update",
+      delete: "/v1/category-management/delete",
+      export: "/v1/category-management/export",
+    },
+    subCategoryManagement: {
+      list: "/v1/sub-category-management/list",
+      create: "/v1/sub-category-management/create",
+      get: "/v1/sub-category-management/get",
+      update: "/v1/sub-category-management/update",
+      delete: "/v1/sub-category-management/delete",
+      export: "/v1/sub-category-management/export",
+    },
     faqManagement: {
       list: "/v1/faq-management/list",
       create: "/v1/faq-management/create",
