@@ -414,16 +414,16 @@ router.delete(
 );
 
 //Ticket management
-router.post(
-  routes.v1.ticketsManagement.create,
-  [verifyAdminToken, CreateTicketValidation],
-  errHandle(CreateTicket)
-);
+// router.post(
+//   routes.v1.ticketsManagement.create,
+//   [verifyAdminToken, CreateTicketValidation],
+//   errHandle(CreateTicket)
+// );
 
-router.get(
-  routes.v1.ticketsManagement.get,
-  [verifyAdminToken],
-  errHandle(CreateTicket)
-);
+// router.get(
+//   routes.v1.ticketsManagement.get,
+//   [verifyAdminToken],
+//   errHandle(CreateTicket)
+// );
 
 module.exports = router;
