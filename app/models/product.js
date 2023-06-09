@@ -1,36 +1,5 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-const subProductSchema = new Schema({
-  productId: {
-    type: Schema.Types.ObjectId,
-    trim: true,
-    ref: "product",
-  },
-  productName: {
-    type: String,
-    trim: true,
-  },
-  productMappedDetais: {
-    type: String,
-    trim: true,
-  },
-  startDate: {
-    type: String,
-    trim: true,
-  },
-  endDate: {
-    type: String,
-    trim: true,
-  },
-  city: {
-    type: String,
-    trim: true,
-  },
-  country: {
-    type: String,
-    trim: true,
-  },
-});
 const productSchema = new mongoose.Schema(
   {
     productId: {
@@ -47,15 +16,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    productDescription: {
+    productIcon: {
       type: String,
       required: false,
     },
-    productPlan: {
+    productType: {
       type: String,
       required: true,
     },
-    subProduct: subProductSchema,
     isActive: {
       type: Boolean,
       default: true,

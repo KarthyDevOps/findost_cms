@@ -315,7 +315,7 @@ const createProductValidation = (req, res, next) => {
   const schema = joi.object({
     productName: joi.string().required(),
     productType: joi.string().required(),
-    producticon: joi.string().required(),
+    productIcon: joi.string().required(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -338,7 +338,7 @@ const updateProductValidation = (req, res, next) => {
   const schema = joi.object({
     productName: joi.string().required(),
     productType: joi.string().required(),
-    producticon: joi.string().required(),
+    productIcon: joi.string().required(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
