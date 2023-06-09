@@ -32,9 +32,7 @@ const getFaqList = async (params) => {
         { subCategory: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
-    if (params?.category) {
-      filter.category = params?.category;
-    }
+
     data = await Faq.find(filter);
   } else {
     let filter = {
@@ -134,7 +132,7 @@ const getTemplateList = async (params) => {
     if (params?.search) {
       filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { templateId: { $regex: `${params?.templateId}`, $options: "i" } },
+        { templateId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Template.find(filter);
