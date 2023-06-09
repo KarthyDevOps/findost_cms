@@ -217,10 +217,8 @@ const getProductList = async (params) => {
     }
     if (params?.search) {
       filter.$or = [
-        { title: { $regex: `${params?.search}`, $options: "i" } },
-        { answer: { $regex: `${params?.search}`, $options: "i" } },
-        { category: { $regex: `${params?.search}`, $options: "i" } },
-        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+        { productName: { $regex: `${params?.search}`, $options: "i" } },
+        { productId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Product.find(filter);
@@ -230,10 +228,8 @@ const getProductList = async (params) => {
     };
     if (params?.search) {
       filter.$or = [
-        { title: { $regex: `${params?.search}`, $options: "i" } },
-        { answer: { $regex: `${params?.search}`, $options: "i" } },
-        { category: { $regex: `${params?.search}`, $options: "i" } },
-        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+        { productName: { $regex: `${params?.search}`, $options: "i" } },
+        { productId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Product.find(filter)
