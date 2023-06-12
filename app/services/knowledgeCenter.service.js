@@ -73,15 +73,19 @@ const knowledgeCenterListService = async (params) => {
   };
 };
 const deleteKnowledgeCenterService = async (params) => {
-  var payload = {
-    _id: mongoose.Types.ObjectId(params?.knowledgeCenterId),
-    isDeleted: false,
-    
-  };
+  let ids = [];
+  if (params.id) ids.push(params?.id);
+  else if (params.ids) {
+    ids = params.ids;
+  }
   var newvalues = {
-    $set: { isDeleted: true },
+    $set: {
+      isDeleted: true,
+      updatedBy: params?.updatedBy,
+      lastUpdatedBy: params?.lastUpdatedBy,
+    },
   };
-  const resp = await KnowledgeCenter.updateOne(payload, newvalues);
+  const resp = await KnowledgeCenter.updateMany({_id:ids}, newvalues);
   if (!resp.modifiedCount) {
     return {
       status: false,

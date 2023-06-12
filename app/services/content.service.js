@@ -77,15 +77,20 @@ const contentListService = async (params) => {
 };
 
 const deleteContentService = async (params) => {
-  var payload = {
-    _id: params?.contentId,
-    isDeleted: false,
-  };
+  let ids = [];
+  if (params.id) ids.push(params?.id);
+  else if (params.ids) {
+    ids = params.ids;
+  }
   var newvalues = {
-    $set: { isDeleted: true },
+    $set: {
+      isDeleted: true,
+      updatedBy: params?.updatedBy,
+      lastUpdatedBy: params?.lastUpdatedBy,
+    },
   };
 
-  const resp = await Content.updateOne(payload, newvalues);
+  const resp = await Content.updateMany({_id:ids}, newvalues);
   if (!resp.modifiedCount) {
     return {
       status: false,
