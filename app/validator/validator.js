@@ -212,7 +212,7 @@ const updateTemplateValidation = (req, res, next) => {
 
 const deleteTemplateValidation = (req, res, next) => {
   const querySchema = joi.object({
-    templateId: joi.string().required(),
+    templateId: joi.string().optional(),
   });
   req.bodyParam = false;
   queryParamValidation(req, res, next, querySchema);
