@@ -9,22 +9,7 @@ const {
 } = require("../helpers/index");
 const { getProductList } = require("./list.service");
 const createProductService = async (params) => {
-  var newvalues = { 
-    productName : params.productName,
-    productPlan : params.productPlan,
-    productDescription : params.productDescription,
-
-    subProduct : {
-      productName : params.subProductName,
-      productMappedDetais: params.SubProductMappedDetails,
-      startDate : params.SubProductDurationStartDate,
-      endDate : params.SubProductDurationEndDate,
-      city : params.subProductCity,
-      country : params.subProductCountry,
-    }
-  };
-
-  const resp = await Product.create(newvalues);
+  const resp = await Product.create(params);
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
@@ -53,22 +38,8 @@ const updateProductService = async (params) => {
     isDeleted: false
   };
   delete params["productId"];
-  var newvalues = { 
-    productName : params.productName,
-    productPlan : params.productPlan,
-    productDescription : params.productDescription,
-    subProduct : {
-      productName : params.subProductName,
-      productMappedDetais: params.SubProductMappedDetails,
-      startDate : params.SubProductDurationStartDate,
-      endDate : params.SubProductDurationEndDate,
-      city : params.subProductCity,
-      country : params.subProductCountry,
-    }
-  };
-
   var newvalues = {
-    $set: newvalues,
+    $set: params,
   };
   const resp = await Product.updateOne(payload, newvalues);
   if (!resp.modifiedCount) {
@@ -99,15 +70,19 @@ const productListService = async (params) => {
   };
 };
 const deleteProductService = async (params) => {
-  var payload = {
-    _id: params?.productId,
-    isDeleted: false,
-    
-  };
+  let ids = [];
+  if (params.id) ids.push(params?.id);
+  else if (params.ids) {
+    ids = params.ids;
+  }
   var newvalues = {
-    $set: { isDeleted: true },
+    $set: {
+      isDeleted: true,
+      updatedBy: params?.updatedBy,
+      lastUpdatedBy: params?.lastUpdatedBy,
+    },
   };
-  const resp = await Product.updateOne(payload, newvalues);
+  const resp = await Product.updateMany({_id:ids}, newvalues);
   if (!resp.modifiedCount) {
     return {
       status: false,

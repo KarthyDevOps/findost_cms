@@ -314,16 +314,8 @@ const productListValidation = (req, res, next) => {
 const createProductValidation = (req, res, next) => {
   const schema = joi.object({
     productName: joi.string().required(),
-    productPlan: joi.string().required(),
-    productDescription: joi.string().required(),
-
-    subProductName: joi.string().required(),
-    SubProductMappedDetails: joi.string().required(),
-    SubProductDurationStartDate: joi.string().required(),
-    SubProductDurationEndDate: joi.string().required(),
-    subProductCity: joi.string().required(),
-
-    subProductCountry: joi.string().required(),
+    productType: joi.string().required(),
+    productIcon: joi.string().required(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -345,16 +337,8 @@ const updateProductValidation = (req, res, next) => {
 
   const schema = joi.object({
     productName: joi.string().required(),
-    productPlan: joi.string().required(),
-    productDescription: joi.string().required(),
-
-    subProductName: joi.string().required(),
-    SubProductMappedDetails: joi.string().required(),
-    SubProductDurationStartDate: joi.string().required(),
-    SubProductDurationEndDate: joi.string().required(),
-    subProductCity: joi.string().required(),
-
-    subProductCountry: joi.string().required(),
+    productType: joi.string().required(),
+    productIcon: joi.string().required(),
   });
   return bodyParamValidation(req, res, next, schema);
 };

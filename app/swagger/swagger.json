@@ -1971,21 +1971,16 @@
     },
     "productSchema": {
       "properties": {
-        "type": {
+        "productName": {
           "type": "string"
         },
-        "title": {
+        "productType": {
           "type": "string"
         },
-        "description": {
+        "productIcon": {
           "type": "string"
-        },
-        "status": {
-          "type": "boolean"
-        },
-        "isActive": {
-          "type": "boolean"
         }
+        
       }
     },
     "knowledgeCenterSchema": {
