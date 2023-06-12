@@ -68,7 +68,6 @@ const getFaqList = async (params) => {
       .limit(params.limit)
       .sort({ createdAt: -1 });
   }
-  console.log(data, "akajaja");
 
   if (data && data.length) {
     return { status: true, data: data };
@@ -82,16 +81,19 @@ const getFeedbackList = async (params) => {
     let filter = {
       isDeleted: false,
     };
-    if ([true, false].includes(params?.isActive)) {
+    if (params?.isActive) {
       filter.isActive = params.isActive;
     }
-    if ((params?.status)) {
+    if (params?.status) {
       filter.status = params.status;
     }
+
+    console.log(params.startDate, params.endDate, "datettete");
+
     if (params?.search) {
       filter.$or = [
         { feedbackId: { $regex: `${params?.search}`, $options: "i" } },
-        { feedback: { $regex: `${params?.search}`, $options: "i" } },
+        { userName: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Feedback.find(filter);
@@ -99,13 +101,14 @@ const getFeedbackList = async (params) => {
     let filter = {
       isDeleted: false,
     };
-    if ((params?.status)) {
+    if (params?.status) {
       filter.status = params.status;
     }
+
     if (params?.search) {
       filter.$or = [
         { feedbackId: { $regex: `${params?.search}`, $options: "i" } },
-        { feedback: { $regex: `${params?.search}`, $options: "i" } },
+        { userName: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Feedback.find(filter)
@@ -125,7 +128,7 @@ const getTemplateList = async (params) => {
     let filter = {
       isDeleted: false,
     };
-    if ([true, false].includes(params?.isActive)) {
+    if (params?.isActive) {
       filter.isActive = params.isActive;
     }
     if (params?.status) {
@@ -146,7 +149,7 @@ const getTemplateList = async (params) => {
     let filter = {
       isDeleted: false,
     };
-    if ([true, false].includes(params?.isActive)) {
+    if (params?.isActive) {
       filter.isActive = params.isActive;
     }
     if (params?.status) {
@@ -155,11 +158,10 @@ const getTemplateList = async (params) => {
     if (params.messageType || params.type) {
       filter.type = params.messageType || params.type;
     }
-
     if (params?.search) {
       filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { templateId: { $regex: `${params?.templateId}`, $options: "i" } },
+        { templateId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Template.find(filter)
@@ -185,7 +187,7 @@ const getContentList = async (params) => {
     if (params?.search) {
       filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { contentId: { $regex: `${params?.search}`, $options: "i" } }
+        { contentId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Content.find(filter);
@@ -199,7 +201,7 @@ const getContentList = async (params) => {
     if (params?.search) {
       filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { contentId: { $regex: `${params?.search}`, $options: "i" } }
+        { contentId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Content.find(filter)
@@ -223,12 +225,12 @@ const getProductList = async (params) => {
       filter.isActive = params.isActive;
     }
     if (params.productType) {
-      filter.productType = params.productType 
+      filter.productType = params.productType;
     }
     if (params?.search) {
       filter.$or = [
         { productName: { $regex: `${params?.search}`, $options: "i" } },
-        { productId: { $regex: `${params?.search}`, $options: "i" } }
+        { productId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Product.find(filter);
@@ -240,12 +242,12 @@ const getProductList = async (params) => {
       filter.isActive = params.isActive;
     }
     if (params.productType) {
-      filter.productType = params.productType 
+      filter.productType = params.productType;
     }
     if (params?.search) {
       filter.$or = [
         { productName: { $regex: `${params?.search}`, $options: "i" } },
-        { productId: { $regex: `${params?.search}`, $options: "i" } }
+        { productId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
     data = await Product.find(filter)
@@ -265,7 +267,7 @@ const getKnowledgeCenterList = async (params) => {
     let filter = {
       isDeleted: false,
     };
-    if ([true, false].includes(params?.isActive)) {
+    if (params?.isActive) {
       filter.isActive = params.isActive;
     }
     if (params?.category) {
@@ -287,7 +289,7 @@ const getKnowledgeCenterList = async (params) => {
     let filter = {
       isDeleted: false,
     };
-    if ([true, false].includes(params?.isActive)) {
+    if (params?.isActive) {
       filter.isActive = params.isActive;
     }
     if (params?.category) {
