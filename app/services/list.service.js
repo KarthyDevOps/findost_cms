@@ -89,10 +89,18 @@ const getFeedbackList = async (params) => {
     }
 
     console.log(params.startDate, params.endDate, "datettete");
-
+    if (params.startDate || params.endDate) {
+      filter.$or = [
+        {
+          startDate: params?.startDate,
+          endDate: params?.endDate,
+        },
+      ];
+    }
     if (params?.search) {
       filter.$or = [
         { feedbackId: { $regex: `${params?.search}`, $options: "i" } },
+        { userId: { $regex: `${params?.search}`, $options: "i" } },
         { userName: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
@@ -108,6 +116,7 @@ const getFeedbackList = async (params) => {
     if (params?.search) {
       filter.$or = [
         { feedbackId: { $regex: `${params?.search}`, $options: "i" } },
+        { userId: { $regex: `${params?.search}`, $options: "i" } },
         { userName: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
