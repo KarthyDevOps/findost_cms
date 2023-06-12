@@ -295,7 +295,7 @@ const updateContentValidation = (req, res, next) => {
 
 const deleteContentValidation = (req, res, next) => {
   const querySchema = joi.object({
-    contentId: joi.string().required(),
+    contentId: joi.string().optional(),
   });
   req.bodyParam = false;
   queryParamValidation(req, res, next, querySchema);
