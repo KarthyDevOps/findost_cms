@@ -3,6 +3,7 @@ const urlencoded = express.urlencoded;
 const cookieParser = require("cookie-parser");
 const process = require("process");
 const dotenv = require("dotenv");
+dotenv.config()
 const path = require("path");
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 app.use(express.static(__dirname + "/assets"));
 
 var numOfRequest = 1;
+
 app.use((req, res, next) => {
   req.startTime = Date.now();
   req.numOfRequest = numOfRequest;
@@ -48,13 +50,12 @@ app.use((req, res, next) => {
 });
 
 //DB connection
-const connectOptions = {
-  useNewUrlParser: true,
-  autoIndex: true,
+const connectToMongo = async () => {
+  await mongoose.connect(process.env.MONGO_URI);
+  console.log("Connected to MongoDB Sucessfully!!");
 };
-mongoose.connect(process.env.MONGO_URI, connectOptions, (e) =>
-  e ? console.log(e) : console.log("DB connected successfully..")
-);
+
+connectToMongo();
 
 const port = process.env.PORT || CONFIG.PORT;
 app.use("/cms", routerService);
