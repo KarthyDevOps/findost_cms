@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var Schema = mongoose.Schema;
+
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
+const mongooseLeanGetters = require('mongoose-lean-getters');
+const { getImageURL } = require("../utils/s3Utils")
+
 const knowledgeCenterSchema = new mongoose.Schema(
   {
     knowledgeCenterId: {
@@ -22,19 +27,19 @@ const knowledgeCenterSchema = new mongoose.Schema(
       required: false,
     },
     contentUrlLink: {
-        type: String,
-        required: false,
-      },
-      documentPath: {
-        type: String,
-        required: false,
-      },
+      type: String,
+      required: false,
+    },
+    documentPath: {
+      type: String,
+      required: false,
+    },
     category: {
-      type: String, 
+      type: String,
       required: true,
     },
     subCategory: {
-      type: String, 
+      type: String,
       required: true,
     },
     isActive: {
@@ -54,7 +59,19 @@ const knowledgeCenterSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toObject: { getters: true },
+    toJSON: {
+      virtuals: true,
+      getters: true
+    }
   }
 );
+
+
+knowledgeCenterSchema.plugin(mongooseLeanVirtuals);
+knowledgeCenterSchema.plugin(mongooseLeanGetters);
+knowledgeCenterSchema.virtual('documentPathS3').get(function () {
+  return this.documentPath ? getImageURL(this.documentPath) : null;
+});
 const KnowledgeCenter = mongoose.model("knowledgeCenter", knowledgeCenterSchema);
 module.exports = { KnowledgeCenter };
