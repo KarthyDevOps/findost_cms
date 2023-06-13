@@ -390,7 +390,7 @@ const createKnowledgeCenterValidation = (req, res, next) => {
 
 const getKnowledgeCenterValidation = (req, res, next) => {
   const querySchema = joi.object({
-    knowledgeCenterId: joi.string().allow(null).allow(""),
+    knowledgeCenterId: joi.string().allow(null).allow("").optional(),
   });
   req.bodyParam = false;
   queryParamValidation(req, res, next, querySchema);

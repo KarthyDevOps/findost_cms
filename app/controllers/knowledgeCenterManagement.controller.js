@@ -38,7 +38,7 @@ const {
   
   const getKnowledgeCenter = async (req, res) => {
     const params = req.body;
-    params.knowledgeCenterId = req?.query?.knowledgeCenterId;
+    params.id = req?.query?.id;
     const result = await getKnowledgeCenterService(params);
     if (!result.status) {
       return sendErrorResponse(

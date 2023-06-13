@@ -24,7 +24,7 @@ const createKnowledgeCenterService = async (params) => {
 };
 const getKnowledgeCenterService = async (params) => {
   var payload = {
-    _id: mongoose.Types.ObjectId(params?.knowledgeCenterId),
+    _id:params?.id,
     isDeleted: false,
   };
   const resp = await KnowledgeCenter.findOne(payload);
