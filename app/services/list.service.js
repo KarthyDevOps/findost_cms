@@ -4,6 +4,8 @@ const { Template } = require("../models/template");
 const { Content } = require("../models/content");
 const { Product } = require("../models/product");
 const { KnowledgeCenter } = require("../models/knowledgeCenter");
+const moment = require("moment");
+
 const getFaqList = async (params) => {
   let data;
   if (params.all) {
@@ -88,7 +90,6 @@ const getFeedbackList = async (params) => {
       filter.status = params.status;
     }
 
-    console.log(params.startDate, params.endDate, "datettete");
     if (params.startDate || params.endDate) {
       filter.$or = [
         {
@@ -111,6 +112,28 @@ const getFeedbackList = async (params) => {
     };
     if (params?.status) {
       filter.status = params.status;
+    }
+
+    if (params.startDate && params.endDate) {
+      let formattedStartDate = new Date(moment(params.startDate));
+      let formattedEndDate = new Date(moment(params.endDate));
+      filter.createdAt = { $gte: formattedStartDate, $lt: formattedEndDate };
+    }
+
+    if (params.startDate) {
+      let formattedStartDate = new Date(moment(params.startDate));
+      filter.createdAt = {
+        $gte: formattedStartDate,
+        $lt: new Date(),
+      };
+    }
+
+    if (params.endDate) {
+      let formattedEndDate = new Date(moment(params.endDate));
+      filter.createdAt = {
+        $gte: formattedEndDate,
+        $lt: new Date(),
+      };
     }
 
     if (params?.search) {
