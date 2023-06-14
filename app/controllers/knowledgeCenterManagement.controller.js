@@ -60,7 +60,7 @@ const {
   
   const updateKnowledgeCenter = async (req, res) => {
     const params = req.body;
-    params.knowledgeCenterId = req?.query?.knowledgeCenterId;
+    params.id = req?.query?.id;
     params.updatedBy = req?.user?._id?.toString();
     params.lastUpdatedBy = req?.user?.userType;
     params.userType = req?.user?.userType;

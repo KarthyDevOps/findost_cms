@@ -37,7 +37,7 @@ const getKnowledgeCenterService = async (params) => {
 };
 const updateKnowledgeCenterService = async (params) => {
   var payload = {
-    _id: mongoose.Types.ObjectId(params?.knowledgeCenterId),
+    _id:params?.id,
     isDeleted: false
   };
   delete params["knowledgeCenterId"];
