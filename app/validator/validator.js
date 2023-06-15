@@ -123,7 +123,7 @@ const feedbackListValidation = (req, res, next) => {
 
 const createFeedbackValidation = (req, res, next) => {
   const schema = joi.object({
-    userId: joi.string().required(),
+    userId: joi.string().optional(),
     userName: joi.string().required(),
     isActive: joi.boolean(),
     feedback: joi.string(),
@@ -148,7 +148,7 @@ const updateFeedbackValidation = (req, res, next) => {
   queryParamValidation(req, res, next, querySchema);
 
   const schema = joi.object({
-    userId: joi.string(),
+    userId: joi.string().optional(),
     userName: joi.string(),
     isActive: joi.boolean(),
     feedback: joi.string(),
