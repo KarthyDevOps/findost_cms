@@ -91,12 +91,14 @@ const getFeedbackList = async (params) => {
     }
 
     if (params.startDate && params.endDate) {
+      console.log("BothDate all-->",params)
       let formattedStartDate = new Date(moment(params.startDate));
       let formattedEndDate = new Date(moment(params.endDate));
       filter.createdAt = { $gte: formattedStartDate, $lt: formattedEndDate };
     }
 
-    if (params.startDate) {
+    if (params.startDate  && !params.endDate) {
+      console.log("startDate all-->",params)
       let formattedStartDate = new Date(moment(params.startDate));
       filter.createdAt = {
         $gte: formattedStartDate,
@@ -104,11 +106,11 @@ const getFeedbackList = async (params) => {
       };
     }
 
-    if (params.endDate) {
+    if (params.endDate && !params.startDate) {
+      console.log("endDate all -->",params)
       let formattedEndDate = new Date(moment(params.endDate));
       filter.createdAt = {
-        $gte: formattedEndDate,
-        $lt: new Date(),
+        $lte: formattedEndDate,
       };
     } 
     if (params?.search) {
@@ -128,12 +130,14 @@ const getFeedbackList = async (params) => {
     }
 
     if (params.startDate && params.endDate) {
+      console.log("bothDate->",params)
       let formattedStartDate = new Date(moment(params.startDate));
       let formattedEndDate = new Date(moment(params.endDate));
       filter.createdAt = { $gte: formattedStartDate, $lt: formattedEndDate };
     }
 
-    if (params.startDate) {
+    if (params.startDate && !params.endDate) {
+      console.log("startDate->",params)
       let formattedStartDate = new Date(moment(params.startDate));
       filter.createdAt = {
         $gte: formattedStartDate,
@@ -141,11 +145,11 @@ const getFeedbackList = async (params) => {
       };
     }
 
-    if (params.endDate) {
+    if (params.endDate && !params.startDate) {
+      console.log("endDate->",params)
       let formattedEndDate = new Date(moment(params.endDate));
       filter.createdAt = {
-        $gte: formattedEndDate,
-        $lt: new Date(),
+        $lt: formattedEndDate,
       };
     }
 
