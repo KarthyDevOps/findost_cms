@@ -94,7 +94,7 @@ const getFeedbackList = async (params) => {
       console.log("BothDate all-->",params)
       let formattedStartDate = new Date(moment(params.startDate));
       let formattedEndDate = new Date(moment(params.endDate));
-      filter.createdAt = { $gte: formattedStartDate, $lt: formattedEndDate };
+      filter.createdAt = { $gte: formattedStartDate, $lte: formattedEndDate };
     }
 
     if (params.startDate  && !params.endDate) {
@@ -102,7 +102,7 @@ const getFeedbackList = async (params) => {
       let formattedStartDate = new Date(moment(params.startDate));
       filter.createdAt = {
         $gte: formattedStartDate,
-        $lt: new Date(),
+        $lte: new Date(),
       };
     }
 
@@ -133,7 +133,7 @@ const getFeedbackList = async (params) => {
       console.log("bothDate->",params)
       let formattedStartDate = new Date(moment(params.startDate));
       let formattedEndDate = new Date(moment(params.endDate));
-      filter.createdAt = { $gte: formattedStartDate, $lt: formattedEndDate };
+      filter.createdAt = { $gte: formattedStartDate, $lte: formattedEndDate };
     }
 
     if (params.startDate && !params.endDate) {
@@ -141,7 +141,7 @@ const getFeedbackList = async (params) => {
       let formattedStartDate = new Date(moment(params.startDate));
       filter.createdAt = {
         $gte: formattedStartDate,
-        $lt: new Date(),
+        $lte: new Date(),
       };
     }
 
@@ -149,7 +149,7 @@ const getFeedbackList = async (params) => {
       console.log("endDate->",params)
       let formattedEndDate = new Date(moment(params.endDate));
       filter.createdAt = {
-        $lt: formattedEndDate,
+        $lte: formattedEndDate,
       };
     }
 
