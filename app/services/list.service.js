@@ -92,14 +92,14 @@ const getFeedbackList = async (params) => {
 
     if (params.startDate && params.endDate) {
       console.log("BothDate all-->",params)
-      let formattedStartDate = new Date(moment(params.startDate));
-      let formattedEndDate = new Date(moment(params.endDate));
+      let formattedStartDate = moment(new Date(params?.startDate)).startOf('day');
+      let formattedEndDate = moment(new Date(params?.endDate)).endOf('day');
       filter.createdAt = { $gte: formattedStartDate, $lte: formattedEndDate };
     }
 
     if (params.startDate  && !params.endDate) {
       console.log("startDate all-->",params)
-      let formattedStartDate = new Date(moment(params.startDate));
+      let formattedStartDate = moment(new Date(params?.startDate)).startOf('day');
       filter.createdAt = {
         $gte: formattedStartDate,
         $lte: new Date(),
@@ -108,7 +108,7 @@ const getFeedbackList = async (params) => {
 
     if (params.endDate && !params.startDate) {
       console.log("endDate all -->",params)
-      let formattedEndDate = new Date(moment(params.endDate));
+      let formattedEndDate = moment(new Date(params?.endDate)).endOf('day');
       filter.createdAt = {
         $lte: formattedEndDate,
       };
@@ -131,14 +131,14 @@ const getFeedbackList = async (params) => {
 
     if (params.startDate && params.endDate) {
       console.log("bothDate->",params)
-      let formattedStartDate = new Date(moment(params.startDate));
-      let formattedEndDate = new Date(moment(params.endDate));
+      let formattedStartDate = moment(new Date(params?.startDate)).startOf('day');
+      let formattedEndDate = moment(new Date(params?.endDate)).endOf('day');
       filter.createdAt = { $gte: formattedStartDate, $lte: formattedEndDate };
     }
 
     if (params.startDate && !params.endDate) {
       console.log("startDate->",params)
-      let formattedStartDate = new Date(moment(params.startDate));
+      let formattedStartDate = moment(new Date(params?.startDate)).startOf('day');;
       filter.createdAt = {
         $gte: formattedStartDate,
         $lte: new Date(),
@@ -147,7 +147,7 @@ const getFeedbackList = async (params) => {
 
     if (params.endDate && !params.startDate) {
       console.log("endDate->",params)
-      let formattedEndDate = new Date(moment(params.endDate));
+      let formattedEndDate = moment(new Date(params?.endDate)).endOf('day');
       filter.createdAt = {
         $lte: formattedEndDate,
       };
