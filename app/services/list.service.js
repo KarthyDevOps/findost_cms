@@ -90,14 +90,27 @@ const getFeedbackList = async (params) => {
       filter.status = params.status;
     }
 
-    if (params.startDate || params.endDate) {
-      filter.$or = [
-        {
-          startDate: params?.startDate,
-          endDate: params?.endDate,
-        },
-      ];
+    if (params.startDate && params.endDate) {
+      let formattedStartDate = new Date(moment(params.startDate));
+      let formattedEndDate = new Date(moment(params.endDate));
+      filter.createdAt = { $gte: formattedStartDate, $lt: formattedEndDate };
     }
+
+    if (params.startDate) {
+      let formattedStartDate = new Date(moment(params.startDate));
+      filter.createdAt = {
+        $gte: formattedStartDate,
+        $lt: new Date(),
+      };
+    }
+
+    if (params.endDate) {
+      let formattedEndDate = new Date(moment(params.endDate));
+      filter.createdAt = {
+        $gte: formattedEndDate,
+        $lt: new Date(),
+      };
+    } 
     if (params?.search) {
       filter.$or = [
         { feedbackId: { $regex: `${params?.search}`, $options: "i" } },
