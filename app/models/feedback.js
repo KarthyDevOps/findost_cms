@@ -27,7 +27,8 @@ const feedbackSchema = new mongoose.Schema(
     },
    
     status: {     
-      type: String, 
+      type: String,
+      default:"Open"
     },
     isDeleted: {
       type: Boolean,
