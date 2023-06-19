@@ -384,6 +384,7 @@ const createKnowledgeCenterValidation = (req, res, next) => {
     subCategory: joi.string(),
     contentUrlLink: joi.string(),
     documentPath: joi.string(),
+    fileOriginalName:joi.string().optional()
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -411,6 +412,7 @@ const updateKnowledgeCenterValidation = (req, res, next) => {
     subCategory: joi.string(),
     contentUrlLink: joi.string(),
     documentPath: joi.string(),
+    fileOriginalName:joi.string().optional()
   });
   return bodyParamValidation(req, res, next, schema);
 };
