@@ -27,7 +27,10 @@ const feedbackSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-
+    feedbackAnswer: {
+      type: String,
+      trim:true
+    },
     status: {
       type: String,
       default: "Open"
