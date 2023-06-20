@@ -16,10 +16,12 @@ const feedbackSchema = new mongoose.Schema(
     userId: {
       type: String,
       trim: true,
+      default:null
     },
     userName: {
       type: String,
       trim: true,
+      default:null
     },
     feedback: {
       type: String,
