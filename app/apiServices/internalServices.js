@@ -9,7 +9,13 @@ const getUserById = async (data) => {
   return await Rest.callApi(apiConfig);
 };
 
-
+const getSequenceId = async (data) => {
+  let apiConfig = JSON.parse(JSON.stringify(InternalAPIs.getSequenceId));
+  apiConfig.url = process.env.USER_URL + process.env.GET_SEQUENCE_ID;
+  apiConfig.data = data;
+  console.log('apiConfig',apiConfig)
+  return await Rest.callApi(apiConfig);
+};
 
 const getAPById = async (data) => {
   let apiConfig = JSON.parse(JSON.stringify(InternalAPIs.getAPById));
@@ -19,7 +25,10 @@ const getAPById = async (data) => {
   return await Rest.callApi(apiConfig);
 };
 
+
+
 module.exports = {
   getUserById,
-  getAPById
+  getAPById,
+  getSequenceId
 };

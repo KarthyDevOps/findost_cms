@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-const { Sequence } = require('./sequence')
 const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 const mongooseLeanGetters = require('mongoose-lean-getters');
 const { getImageURL } = require("../utils/s3Utils")
+const {InternalServices} = require('../apiServices/index')
 
 const productSchema = new mongoose.Schema(
   {
@@ -46,10 +46,13 @@ const productSchema = new mongoose.Schema(
     }
   }
 );
+
+
 productSchema.pre('save', async function (next) {
+  InternalServices.getSequenceId({ type: "product" });
   var doc = this;
-  let counter = await Sequence.findOneAndUpdate({ type: 'product' }, { $inc: { count: 1 } })
-  doc.productId = (counter.count + 1).toString().padStart(6, '0').toString();;
+  let counter = await InternalServices.getSequenceId({ type: "product" });
+  doc.productId = (counter?.data?.count + 1).toString().padStart(6, '0').toString();;
   next();
 
 });
