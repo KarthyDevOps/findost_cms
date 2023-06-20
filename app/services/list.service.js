@@ -282,7 +282,7 @@ const getProductList = async (params) => {
         { productId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
-    data = await Product.find(filter);
+    data = await Product.find(filter).sort({productId:1});
   } else {
     let filter = {
       isDeleted: false,
@@ -302,7 +302,7 @@ const getProductList = async (params) => {
     data = await Product.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
-      .sort({ createdAt: -1 });
+      .sort({ productId:1});
   }
   if (data && data.length) {
     return { status: true, data: data };
