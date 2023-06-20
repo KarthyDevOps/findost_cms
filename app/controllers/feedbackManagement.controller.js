@@ -11,30 +11,34 @@ const {
     exportFeedbackService,
   } = require("../services/feedback.service");
   
-  const createFeedback = async (req, res) => {
-    const params = req.body;
-    params.createdBy = req?.user?._id?.toString();
-    params.updatedBy = req?.user?._id?.toString();
-    params.lastUpdatedBy = req?.user?.userType;
-    params.userType = req?.user?.userType;
-    const result = await createFeedbackService(params);
-    if (!result.status) {
-      return sendErrorResponse(
-        req,
-        res,
-        result?.statusCode,
-        result?.message,
-        result?.data
-      );
-    }
-    return sendSuccessResponse(
+const createFeedback = async (req, res) => {
+  const params = req.body;
+  params.createdBy = req?.user?._id?.toString();
+  params.updatedBy = req?.user?._id?.toString();
+  params.lastUpdatedBy = req?.user?.userType;
+  params.userType = req?.user?.userType;
+  if (req?.user?.userType == "ADMIN") {
+    params.userId = req?.user?.adminId,
+      params.userName = req?.user?.name
+  }
+  const result = await createFeedbackService(params);
+  if (!result.status) {
+    return sendErrorResponse(
       req,
       res,
       result?.statusCode,
       result?.message,
       result?.data
     );
-  };
+  }
+  return sendSuccessResponse(
+    req,
+    res,
+    result?.statusCode,
+    result?.message,
+    result?.data
+  );
+};
   
   const getFeedback = async (req, res) => {
     const params = req.body;

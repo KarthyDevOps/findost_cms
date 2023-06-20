@@ -126,8 +126,8 @@ const createFeedbackValidation = (req, res, next) => {
     userId: joi.string().optional(),
     userName: joi.string().optional(),
     isActive: joi.boolean(),
-    feedback: joi.string(),
-    status: joi.string(),
+    feedback: joi.string().required(),
+    status: joi.string().optional(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
