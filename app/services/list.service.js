@@ -163,7 +163,7 @@ const getFeedbackList = async (params) => {
     data = await Feedback.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
-      .sort({ createdAt: -1 }, { productId: 1 });
+      .sort({ createdAt: -1 });
   }
   if (data && data.length) {
     return { status: true, data: data };
