@@ -15,20 +15,20 @@ const feedbackSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
-      required: true,
+      trim: true,
     },
     userName: {
-        type: String,
-        required: true,
+      type: String,
+      trim: true,
     },
     feedback: {
       type: String,
       required: false,
     },
-   
-    status: {     
+
+    status: {
       type: String,
-      default:"Open"
+      default: "Open"
     },
     isDeleted: {
       type: Boolean,
