@@ -1,20 +1,14 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+const { Sequence } = require('./sequence')
 const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 const mongooseLeanGetters = require('mongoose-lean-getters');
-const {getImageURL} = require("../utils/s3Utils")
+const { getImageURL } = require("../utils/s3Utils")
 
 const productSchema = new mongoose.Schema(
   {
     productId: {
       type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      default: () => {
-        const now = Date.now().toString();
-        return now.slice(0, 3) + now.slice(10, 13);
-      },
     },
     productName: {
       type: String,
@@ -52,6 +46,13 @@ const productSchema = new mongoose.Schema(
     }
   }
 );
+productSchema.pre('save', async function (next) {
+  var doc = this;
+  let counter = await Sequence.findOneAndUpdate({ type: 'product' }, { $inc: { count: 1 } })
+  doc.productId = (counter.count + 1).toString().padStart(6, '0').toString();;
+  next();
+
+});
 
 productSchema.plugin(mongooseLeanVirtuals);
 productSchema.plugin(mongooseLeanGetters);
