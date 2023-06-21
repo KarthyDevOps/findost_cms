@@ -39,11 +39,11 @@ const knowledgeCenterSchema = new mongoose.Schema(
       required: false,
     },
     category: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: true,
     },
     subCategory: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: true,
     },
     isActive: {

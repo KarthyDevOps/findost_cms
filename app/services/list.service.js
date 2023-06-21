@@ -5,6 +5,9 @@ const { Content } = require("../models/content");
 const { Product } = require("../models/product");
 const { KnowledgeCenter } = require("../models/knowledgeCenter");
 const moment = require("moment");
+const { Category } = require("../models/category");
+const { SubCategory } = require("../models/subCategory");
+const { decode } = require("jsonwebtoken");
 
 const getFaqList = async (params) => {
   let data;
@@ -65,13 +68,46 @@ const getFaqList = async (params) => {
     if (params?.category) {
       filter.category = params?.category;
     }
-    data = await Faq.find(filter)
-      .skip((params.page - 1) * params.limit)
-      .limit(params.limit)
-      .sort({ createdAt: -1 });
+    data = await Faq.aggregate([
+      {
+        '$match': filter
+      },
+      {
+        $lookup: {
+          from: 'categories', 
+          localField: 'category', 
+          foreignField: '_id',
+          as: 'category'
+        }
+      },
+      {
+        $lookup: {
+          from: 'subcategories', 
+          localField: 'subCategory',
+          foreignField: '_id', 
+          as: 'subCategory'
+        }
+      },
+      {
+        $sort: {
+          createdAt:  -1
+        }
+      },
+      {
+        $skip: (params.page - 1) * params.limit
+      },
+      {
+        $limit: params.limit
+      }
+    ])
   }
 
   if (data && data.length) {
+    data =data.map((d)=>{
+      d.subCategory = Array.isArray(d.subCategory) ? d.subCategory[0]?.name:  d.subCategory;
+      d.category = Array.isArray(d.category) ? d.category[0]?.name:  d.category;
+      return d;
+    })
     return { status: true, data: data };
   } else {
     return { status: false, data: [] };
@@ -356,7 +392,91 @@ const getKnowledgeCenterList = async (params) => {
         { subCategory: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
-    data = await KnowledgeCenter.find(filter)
+
+    data = await KnowledgeCenter.aggregate([
+      {
+        '$match': filter
+      },
+      {
+        $lookup: {
+          from: 'categories', 
+          localField: 'category', 
+          foreignField: '_id',
+          as: 'category'
+        }
+      },
+      {
+        $lookup: {
+          from: 'subcategories', 
+          localField: 'subCategory',
+          foreignField: '_id', 
+          as: 'subCategory'
+        }
+      },
+      {
+        $sort: {
+          createdAt:  -1
+        }
+      },
+      {
+        $skip: (params.page - 1) * params.limit
+      },
+      {
+        $limit: params.limit
+      }
+    ])
+
+  }
+  if (data && data.length) {
+    data =data.map((d)=>{
+      d.subCategory = Array.isArray(d.subCategory) ? d.subCategory[0]?.name:  d.subCategory;
+      d.category = Array.isArray(d.category) ? d.category[0]?.name:  d.category;
+      return d;
+    })
+    return { status: true, data: data };
+  } else {
+    return { status: false, data: [] };
+  }
+};
+
+const getCategoryList = async (params) => {
+  let data;
+  if (params.all) {
+    let filter = {
+      isDeleted: false,
+    };
+    if (params?.isActive) {
+      filter.isActive = params.isActive;
+    }
+   
+    if (params?.search) {
+      filter.$or = [
+        { categoryId: params?.search },
+        { name: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Category.find(filter);
+  } else {
+    let filter = {
+      isDeleted: false,
+    };
+    if (params?.isActive) {
+      filter.isActive = params.isActive;
+    }
+    if (params?.category) {
+      filter.category = params.category;
+    }
+    if (params?.subCategory) {
+      filter.subCategory = params.subCategory;
+    }
+
+    if (params?.search) {
+      filter.$or = [
+        { categoryId: params?.search },
+        { name: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Category.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
       .sort({ createdAt: -1 });
@@ -367,6 +487,58 @@ const getKnowledgeCenterList = async (params) => {
     return { status: false, data: [] };
   }
 };
+
+
+
+const getSubCategoryList = async (params) => {
+  let data;
+  if (params.all) {
+    let filter = {
+      isDeleted: false,
+    };
+    if (params?.isActive) {
+      filter.isActive = params.isActive;
+    }
+    if (params?.categoryId) {
+      filter.categoryId = params.categoryId;
+    }
+    if (params?.search) {
+      filter.$or = [
+        { subCategoryId: params?.search },
+        { name: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await SubCategory.find(filter);
+  } else {
+    let filter = {
+      isDeleted: false,
+    };
+    if (params?.isActive) {
+      filter.isActive = params.isActive;
+    }
+    if (params?.categoryId) {
+      filter.categoryId = params.categoryId;
+    }
+   
+
+    if (params?.search) {
+      filter.$or = [
+        { subCategoryId: params?.search },
+        { name: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await SubCategory.find(filter)
+      .skip((params.page - 1) * params.limit)
+      .limit(params.limit)
+      .sort({ createdAt: -1 });
+  }
+  if (data && data.length) {
+    return { status: true, data: data };
+  } else {
+    return { status: false, data: [] };
+  }
+};
+
 module.exports = {
   getFaqList,
   getFeedbackList,
@@ -374,4 +546,6 @@ module.exports = {
   getContentList,
   getProductList,
   getKnowledgeCenterList,
+  getCategoryList,
+  getSubCategoryList
 };
