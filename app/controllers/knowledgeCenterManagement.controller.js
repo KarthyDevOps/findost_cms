@@ -87,6 +87,9 @@ const {
     const params = req?.query;
     if(!params.limit) params.limit =10
     if(!params.page) params.page =1
+    params.limit = parseInt(params?.limit);
+    params.page = parseInt(params?.page);
+    console.log("req", params);
     const result = await knowledgeCenterListService(params);
     if (!result.status) {
       return sendErrorResponse(
