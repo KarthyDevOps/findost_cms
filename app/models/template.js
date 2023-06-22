@@ -1,15 +1,10 @@
 const mongoose = require("mongoose");
+const {InternalServices} = require('../apiServices/index')
+
 const templateSchema = new mongoose.Schema(
   {
     templateId: {
       type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      default: () => {
-        const now = Date.now().toString();
-        return now.slice(0, 3) + now.slice(10, 13);
-      },
     },
     type: {
       type: String,
@@ -39,5 +34,15 @@ const templateSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+
+templateSchema.pre('save', async function (next) {
+  InternalServices.getSequenceId({ type: "template" });
+  var doc = this;
+  let counter = await InternalServices.getSequenceId({ type: "template" });
+  doc.templateId = (counter?.data?.count + 1).toString().padStart(6, '0').toString();;
+  next();
+
+});
 const Template = mongoose.model("template", templateSchema);
 module.exports = { Template };

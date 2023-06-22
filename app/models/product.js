@@ -8,7 +8,7 @@ const {InternalServices} = require('../apiServices/index')
 const productSchema = new mongoose.Schema(
   {
     productId: {
-      type: String,
+      type: String
     },
     productName: {
       type: String,

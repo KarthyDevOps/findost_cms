@@ -1,15 +1,10 @@
 const mongoose = require("mongoose");
+const { InternalServices } = require('../apiServices/index')
+
 const categorySchema = new mongoose.Schema(
   {
     categoryId: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      default: () => {
-        const now = Date.now().toString();
-        return now.slice(0, 3) + now.slice(10, 13);
-      },
+      type: String
     },
     name: {
       type: String,
@@ -28,5 +23,15 @@ const categorySchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+categorySchema.pre('save', async function (next) {
+  InternalServices.getSequenceId({ type: "category" });
+  var doc = this;
+  let counter = await InternalServices.getSequenceId({ type: "category" });
+  doc.categoryId = (counter?.data?.count + 1).toString().padStart(6, '0').toString();;
+  next();
+
+});
+
 const Category = mongoose.model("category", categorySchema);
 module.exports = { Category };

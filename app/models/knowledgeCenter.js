@@ -4,19 +4,14 @@ var Schema = mongoose.Schema;
 
 const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 const mongooseLeanGetters = require('mongoose-lean-getters');
+const {InternalServices} = require('../apiServices/index')
+
 const { getImageURL } = require("../utils/s3Utils")
 
 const knowledgeCenterSchema = new mongoose.Schema(
   {
     knowledgeCenterId: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      default: () => {
-        const now = Date.now().toString();
-        return now.slice(0, 3) + now.slice(10, 13);
-      },
+      type: String
     },
     title: {
       type: String,
@@ -70,7 +65,14 @@ const knowledgeCenterSchema = new mongoose.Schema(
     }
   }
 );
+knowledgeCenterSchema.pre('save', async function (next) {
+  InternalServices.getSequenceId({ type: "knowledgeCenter" });
+  var doc = this;
+  let counter = await InternalServices.getSequenceId({ type: "knowledgeCenter" });
+  doc.knowledgeCenterId = (counter?.data?.count + 1).toString().padStart(6, '0').toString();;
+  next();
 
+});
 
 knowledgeCenterSchema.plugin(mongooseLeanVirtuals);
 knowledgeCenterSchema.plugin(mongooseLeanGetters);

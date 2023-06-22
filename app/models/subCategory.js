@@ -1,15 +1,10 @@
 const mongoose = require("mongoose");
+const {InternalServices} = require('../apiServices/index')
+
 const subCategorySchema = new mongoose.Schema(
   {
     subCategoryId: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      default: () => {
-        const now = Date.now().toString();
-        return now.slice(0, 3) + now.slice(10, 13);
-      },
+      type: String
     },
     name: {
       type: String,
@@ -32,5 +27,15 @@ const subCategorySchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+subCategorySchema.pre('save', async function (next) {
+  InternalServices.getSequenceId({ type: "subCategory" });
+  var doc = this;
+  let counter = await InternalServices.getSequenceId({ type: "subCategory" });
+  doc.subCategoryId = (counter?.data?.count + 1).toString().padStart(6, '0').toString();;
+  next();
+
+});
+
 const SubCategory = mongoose.model("subCategory", subCategorySchema);
 module.exports = { SubCategory };
