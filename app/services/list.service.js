@@ -7,6 +7,7 @@ const { KnowledgeCenter } = require("../models/knowledgeCenter");
 const moment = require("moment");
 const { Category } = require("../models/category");
 const { SubCategory } = require("../models/subCategory");
+const mongoose = require("mongoose");
 const { decode } = require("jsonwebtoken");
 
 const getFaqList = async (params) => {
@@ -21,20 +22,18 @@ const getFaqList = async (params) => {
     }
 
     if (params?.category) {
-      filter.category = params.category;
+      filter.category = new mongoose.Types.ObjectId(params.category);
     }
 
     if (params?.subCategory) {
-      filter.subCategory = params.subCategory;
+      filter.subCategory = new mongoose.Types.ObjectId(params.subCategory);
     }
 
     if (params?.search) {
       filter.$or = [
         { faqId: { $regex: `${params?.search}`, $options: "i" } },
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { answer: { $regex: `${params?.search}`, $options: "i" } },
-        { category: { $regex: `${params?.search}`, $options: "i" } },
-        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } }
       ];
     }
 
@@ -49,25 +48,21 @@ const getFaqList = async (params) => {
     }
 
     if (params?.category) {
-      filter.category = params.category;
+      filter.category =  new mongoose.Types.ObjectId(params.category);
     }
 
     if (params?.subCategory) {
-      filter.subCategory = params.subCategory;
+      filter.subCategory = new mongoose.Types.ObjectId(params.subCategory);
     }
 
     if (params?.search) {
       filter.$or = [
         { faqId: { $regex: `${params?.search}`, $options: "i" } },
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { answer: { $regex: `${params?.search}`, $options: "i" } },
-        { category: { $regex: `${params?.search}`, $options: "i" } },
-        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+        { answer: { $regex: `${params?.search}`, $options: "i" } }
       ];
     }
-    if (params?.category) {
-      filter.category = params?.category;
-    }
+   
     data = await Faq.aggregate([
       {
         '$match': filter
@@ -356,17 +351,16 @@ const getKnowledgeCenterList = async (params) => {
       filter.isActive = params.isActive;
     }
     if (params?.category) {
-      filter.category = params.category;
+      filter.category = new mongoose.Types.ObjectId(params.category);
     }
     if (params?.subCategory) {
-      filter.subCategory = params.subCategory;
+      filter.subCategory = new mongoose.Types.ObjectId(params.subCategory);
     }
     if (params?.search) {
       filter.$or = [
         { knowledgeCenterId: params?.search },
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { category: { $regex: `${params?.search}`, $options: "i" } },
-        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+
       ];
     }
     data = await KnowledgeCenter.find(filter);
@@ -378,18 +372,16 @@ const getKnowledgeCenterList = async (params) => {
       filter.isActive = params.isActive;
     }
     if (params?.category) {
-      filter.category = params.category;
+      filter.category = new mongoose.Types.ObjectId(params.category);
     }
     if (params?.subCategory) {
-      filter.subCategory = params.subCategory;
+      filter.subCategory = new mongoose.Types.ObjectId(params.subCategory);
     }
 
     if (params?.search) {
       filter.$or = [
         { knowledgeCenterId: { $regex: `${params?.search}`, $options: "i" } },
-        { title: { $regex: `${params?.search}`, $options: "i" } },
-        { category: { $regex: `${params?.search}`, $options: "i" } },
-        { subCategory: { $regex: `${params?.search}`, $options: "i" } },
+        { title: { $regex: `${params?.search}`, $options: "i" } }
       ];
     }
 
