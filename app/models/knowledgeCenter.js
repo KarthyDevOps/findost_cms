@@ -33,6 +33,10 @@ const knowledgeCenterSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    documentImagePath: {
+      type: String,
+      required: false,
+    },
     category: {
       type: Schema.Types.ObjectId,
       required: true,
@@ -77,6 +81,9 @@ knowledgeCenterSchema.pre('save', async function (next) {
 knowledgeCenterSchema.plugin(mongooseLeanVirtuals);
 knowledgeCenterSchema.plugin(mongooseLeanGetters);
 knowledgeCenterSchema.virtual('documentPathS3').get(function () {
+  return this.documentPath ? getImageURL(this.documentPath) : null;
+});
+knowledgeCenterSchema.virtual('documentImagePathS3').get(function () {
   return this.documentPath ? getImageURL(this.documentPath) : null;
 });
 const KnowledgeCenter = mongoose.model("knowledgeCenter", knowledgeCenterSchema);
