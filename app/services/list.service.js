@@ -449,11 +449,15 @@ const getCategoryList = async (params) => {
         { name: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
+    console.log('filter--->', filter)
     data = await Category.find(filter);
   } else {
     let filter = {
       isDeleted: false,
     };
+    if(params?.type) {
+      filter.type = params.type 
+     }
     if (params?.isActive) {
       filter.isActive = params.isActive;
     }
