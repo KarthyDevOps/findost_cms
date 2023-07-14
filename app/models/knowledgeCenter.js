@@ -25,6 +25,10 @@ const knowledgeCenterSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    fileImageOriginalName: {
+      type: String,
+      required: false,
+    },
     contentUrlLink: {
       type: String,
       required: false,
