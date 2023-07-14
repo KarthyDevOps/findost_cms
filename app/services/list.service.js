@@ -440,7 +440,9 @@ const getCategoryList = async (params) => {
     if (params?.isActive) {
       filter.isActive = params.isActive;
     }
-   
+   if(params?.type) {
+    filter.type = params.type 
+   }
     if (params?.search) {
       filter.$or = [
         { categoryId: params?.search },

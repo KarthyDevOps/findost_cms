@@ -40,6 +40,7 @@ const getCategory = async (req, res) => {
   const params = req.body;
   params.id = req.query.id;
   params.categoryId = req?.query?.categoryId;
+  params.type = req?.query?.type;
   const result = await getCategoryService(params);
   if (!result.status) {
     return sendErrorResponse(
