@@ -486,7 +486,7 @@ const subCategoryListValidation = (req, res, next) => {
 const createSubCategoryValidation = (req, res, next) => {
   const schema = joi.object({
     name: joi.string().required(),
-    categoryId: joi.string(),
+    categoryId: joi.string().message("Category not allowed to be Empty"),
     isActive: joi.boolean(),
   });
   return bodyParamValidation(req, res, next, schema);
