@@ -9,6 +9,18 @@ const {
 } = require("../helpers/index");
 const { getTemplateList } = require("./list.service");
 const createTemplateService = async (params) => {
+
+  console.log("data-->",params)
+  if(params?.type == "template"){
+    if(!params.templateType){
+      return {
+        status: false,
+        statusCode: statusCodes?.HTTP_BAD_REQUEST,
+        message: messages?.templateRequired,
+        data:[]
+      };
+    }
+  }
   var newvalues = params;
   const resp = await Template.create(newvalues);
   return {

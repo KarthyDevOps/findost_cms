@@ -48,6 +48,7 @@ const messages = {
   barCodeExist: "Barcode already exist",
   bulkUploadError: "Bulk Upload Failed",
   barCodeAlreadyExist: "Barcode already exist",
-  accessDenied : "Permission Denied"
+  accessDenied : "Permission Denied",
+  templateRequired : "Template Type required"
 };
 module.exports = { customMessages, messages };

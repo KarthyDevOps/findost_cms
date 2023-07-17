@@ -10,6 +10,14 @@ const templateSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    templateType: {
+      type: String,
+      required: true,
+    },
+    categoryId: {
+      type: String,
+      required: false,
+    },
     title: {
       type: String,
       required: true,
@@ -21,6 +29,7 @@ const templateSchema = new mongoose.Schema(
     status: {
       type: Boolean,
     },
+    
     isDeleted: {
       type: Boolean,
       default: false,
