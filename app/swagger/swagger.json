@@ -1574,6 +1574,11 @@
             "type": "string"
           },
           {
+            "name": "type",
+            "in": "query",
+            "type": "string"
+          },
+          {
             "name": "returnAll",
             "in": "query",
             "type": "boolean"
