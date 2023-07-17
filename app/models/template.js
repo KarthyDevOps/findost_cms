@@ -12,7 +12,7 @@ const templateSchema = new mongoose.Schema(
     },
     templateType: {
       type: String,
-      required: true,
+      required: false,
     },
     categoryId: {
       type: String,

@@ -811,7 +811,23 @@
             "name": "page",
             "in": "query",
             "type": "number"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "templateType",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "type": "string"
           }
+          
         ],
         "responses": {
           "200": {
@@ -1958,6 +1974,12 @@
     "templateSchema": {
       "properties": {
         "type": {
+          "type": "string"
+        },
+        "templateType": {
+          "type": "string"
+        },
+        "categoryId": {
           "type": "string"
         },
         "title": {

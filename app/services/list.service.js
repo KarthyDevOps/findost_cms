@@ -217,7 +217,15 @@ const getTemplateList = async (params) => {
     if (params.messageType || params.type) {
       filter.type = params.messageType || params.type;
     }
-
+    if (params?.categoryId) {
+      filter.categoryId = params.categoryId;
+    }
+    if (params?.templateType) {
+      filter.templateType = params.templateType;
+    }
+    if (params?.type) {
+      filter.type = params.type;
+    }
     if (params?.search) {
       filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
@@ -229,6 +237,15 @@ const getTemplateList = async (params) => {
     let filter = {
       isDeleted: false,
     };
+    if (params?.categoryId) {
+      filter.categoryId = params.categoryId;
+    }
+    if (params?.templateType) {
+      filter.templateType = params.templateType;
+    }
+    if (params?.type) {
+      filter.type = params.type;
+    }
     if (params?.isActive) {
       filter.isActive = params.isActive;
     }
