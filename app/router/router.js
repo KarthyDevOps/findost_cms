@@ -226,7 +226,7 @@ router.delete(
 router.get(
   routes.v1.templateManagement.list,
   [
-    verifyToken(["ADMIN"]),
+    verifyToken(["ADMIN", "AP"]),
     verifyAdminRole("templateManagement", "VIEW"),
     templateListValidation,
   ],
