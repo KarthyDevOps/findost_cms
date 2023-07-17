@@ -88,7 +88,7 @@ knowledgeCenterSchema.virtual('documentPathS3').get(function () {
   return this.documentPath ? getImageURL(this.documentPath) : null;
 });
 knowledgeCenterSchema.virtual('documentImagePathS3').get(function () {
-  return this.documentPath ? getImageURL(this.documentPath) : null;
+  return this.documentImagePath ? getImageURL(this.documentImagePath) : null;
 });
 const KnowledgeCenter = mongoose.model("knowledgeCenter", knowledgeCenterSchema);
 module.exports = { KnowledgeCenter };

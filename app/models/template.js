@@ -26,6 +26,10 @@ const templateSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    imagePath: {
+      type: String,
+      required: false,
+    },
     status: {
       type: Boolean,
     },
@@ -53,5 +57,9 @@ templateSchema.pre('save', async function (next) {
   next();
 
 });
+templateSchema.virtual('imagePathS3').get(function () {
+  return this.imagePath ? getImageURL(this.imagePath) : null;
+});
+
 const Template = mongoose.model("template", templateSchema);
 module.exports = { Template };

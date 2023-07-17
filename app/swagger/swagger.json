@@ -1984,6 +1984,9 @@
         "templateType": {
           "type": "string"
         },
+        "imagePath": {
+          "type": "string"
+        },
         "categoryId": {
           "type": "string"
         },
