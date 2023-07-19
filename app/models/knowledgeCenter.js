@@ -8,6 +8,44 @@ const {InternalServices} = require('../apiServices/index')
 
 const { getImageURL } = require("../utils/s3Utils")
 
+const courseDetailsListSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      trim: true,
+    },
+    hrs: {
+      type: Number,
+      trim: true,
+    },
+    min: {
+      type: Number,
+      trim: true,
+    },
+    description: {
+      type: String,
+      trim: true,
+    },
+    link: {
+      type: String,
+      trim: true,
+    },
+    
+  }
+)
+
+
+const courseDetailsSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      trim: true,
+    },
+    list: [courseDetailsListSchema]
+  }
+)
+
+
 const knowledgeCenterSchema = new mongoose.Schema(
   {
     knowledgeCenterId: {
@@ -37,7 +75,8 @@ const knowledgeCenterSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    documentImagePath: {
+
+    thumbnail: {
       type: String,
       required: false,
     },
@@ -45,9 +84,14 @@ const knowledgeCenterSchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    courseType: {
+      type: String,
+      required: false,
+    },
+    courseDetails: [courseDetailsSchema],
     subCategory: {
       type: Schema.Types.ObjectId,
-      required: true,
+      required: false,
     },
     isActive: {
       type: Boolean,
@@ -87,8 +131,8 @@ knowledgeCenterSchema.plugin(mongooseLeanGetters);
 knowledgeCenterSchema.virtual('documentPathS3').get(function () {
   return this.documentPath ? getImageURL(this.documentPath) : null;
 });
-knowledgeCenterSchema.virtual('documentImagePathS3').get(function () {
-  return this.documentImagePath ? getImageURL(this.documentImagePath) : null;
+knowledgeCenterSchema.virtual('thumbnailS3').get(function () {
+  return this.thumbnail ? getImageURL(this.thumbnail) : null;
 });
 const KnowledgeCenter = mongoose.model("knowledgeCenter", knowledgeCenterSchema);
 module.exports = { KnowledgeCenter };

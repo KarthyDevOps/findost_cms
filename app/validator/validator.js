@@ -378,14 +378,161 @@ const CreateTicketValidation = (req, res, next) => {
 
 const createKnowledgeCenterValidation = (req, res, next) => {
   const schema = joi.object({
-    title: joi.string().required(),
-    description: joi.string().required(),
-    isActive: joi.boolean(),
-    category: joi.string(),
-    subCategory: joi.string(),
-    contentUrlLink: joi.string(),
-    documentPath: joi.string(),
-    fileOriginalName:joi.string().optional()
+    categorySlug:joi.string().required(),
+    documentPath: joi.any().when('categorySlug', { 
+      switch: [{ 
+          is: 'documents', 
+          then: joi.string().required() 
+        }
+      ] 
+    }),
+    subCategory: joi.any().when('categorySlug', { 
+      switch: [{ 
+          is: 'videos', 
+          then: joi.string().required() 
+        }
+        ,{ 
+          is: 'courses', 
+          then: joi.string().required() 
+        } ,{ 
+          is: 'urls', 
+          then: joi.string().required() 
+        } ,{ 
+          is: 'blogs', 
+          then: joi.string().required() 
+        } 
+      ] 
+    }),
+    description: joi.any().when('categorySlug', { 
+      switch: [{ 
+          is: 'videos', 
+          then: joi.string().required() 
+        }
+       ,{ 
+          is: 'courses', 
+          then: joi.string().required() 
+        },
+        { 
+          is: 'blogs', 
+          then: joi.string().required() 
+        } 
+      ] 
+    }),
+    contentUrlLink: joi.any().when('categorySlug', { 
+      switch: [{ 
+          is: 'videos', 
+          then: joi.string().required() 
+        }
+       ,{ 
+          is: 'urls', 
+          then: joi.string().required() 
+        } 
+      ] 
+    }),
+    isActive: joi.any().when('categorySlug', {
+      switch: [{
+        is: 'videos',
+        then: joi.string().required()
+      }
+        , {
+        is: 'urls',
+        then: joi.string().required()
+      },
+      {
+        is: 'courses',
+        then: joi.string().required()
+      }
+        , {
+        is: 'documents',
+        then: joi.string().required()
+      }
+        , {
+        is: 'blogs',
+        then: joi.string().required()
+      }
+      ]
+    }),
+    title: joi.any().when('categorySlug', {
+      switch: [{
+        is: 'videos',
+        then: joi.string().required()
+      }
+        , {
+        is: 'urls',
+        then: joi.string().required()
+      },
+      {
+        is: 'courses',
+        then: joi.string().required()
+      }
+        , {
+        is: 'documents',
+        then: joi.string().required()
+      }
+        , {
+        is: 'blogs',
+        then: joi.string().required()
+      }
+      ]
+    }),
+    category: joi.any().when('categorySlug', {
+      switch: [{
+        is: 'videos',
+        then: joi.string().required()
+      }
+        , {
+        is: 'urls',
+        then: joi.string().required()
+      },
+      {
+        is: 'courses',
+        then: joi.string().required()
+      }
+        , {
+        is: 'documents',
+        then: joi.string().required()
+      }
+        , {
+        is: 'blogs',
+        then: joi.string().required()
+      }
+      ]
+    }),
+    thumbnail: joi.any().when('categorySlug', {
+      switch: [{
+        is: 'videos',
+        then: joi.string().required()
+      }
+        , {
+        is: 'urls',
+        then: joi.string().required()
+      },
+      {
+        is: 'courses',
+        then: joi.string().required()
+      }
+        , {
+        is: 'documents',
+        then: joi.string().required()
+      }
+        , {
+        is: 'blogs',
+        then: joi.string().required()
+      }
+      ]
+    }),
+    fileOriginalName:joi.string().optional(),
+    //password: Joi.string().when('_id', {is: Joi.exist(), then: Joi.optional(), otherwise: Joi.required()})
+    courseDetails: joi.array().items(joi.object({
+      title: joi.string().required(),
+      list: joi.array().items((joi.object({
+        title: joi.string().required(),
+        hrs: joi.string().required(),
+        min: joi.string().required(),
+        description: joi.string().required(),
+        link: joi.string().required(),
+      }))).when('categorySlug', {is:"course", then: joi.required(), otherwise: joi.optional()}),
+    })),
   });
   return bodyParamValidation(req, res, next, schema);
 };

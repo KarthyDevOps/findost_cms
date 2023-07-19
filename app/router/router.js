@@ -127,6 +127,7 @@ const {
 
 const { CreateTicket } = require("../controllers/ticketManagement.controller");
 
+const {createCourseManagement,updateCourseManagement,deleteCourseManagement,CourseManagementList,getCourseManagement} = require("../controllers/courseManagement.conntroller")
 const { errHandle } = require("../helpers/index");
 const router = Router();
 //FAQ Management
@@ -527,6 +528,18 @@ router.delete(
   ],
   errHandle(deleteSubCategory)
 );
+
+
+//courseManagement
+router.get(routes.v1.courseManagement.list,  errHandle(CourseManagementList));
+router.post(routes.v1.courseManagement.create, [
+  verifyToken(["AP"]),
+ 
+],errHandle(createCourseManagement));
+router.get(routes.v1.courseManagement.get,errHandle(getCourseManagement));
+router.put(routes.v1.courseManagement.update, errHandle(updateCourseManagement));
+router.delete(routes.v1.courseManagement.delete,errHandle(deleteCourseManagement));
+
 
 
 module.exports = router;

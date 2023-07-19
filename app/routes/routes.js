@@ -24,6 +24,13 @@ const routes = {
       delete: "/v1/faq-management/delete",
       export: "/v1/faq-management/export",
     },
+    courseManagement: {
+      list: "/v1/course-management/list",
+      create: "/v1/course-management/create",
+      get: "/v1/course-management/get",
+      update: "/v1/course-management/update",
+      delete: "/v1/course-management/delete"
+    },
     feedbackManagement: {
       list: "/v1/feedback-management/list",
       create: "/v1/feedback-management/create",

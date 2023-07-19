@@ -9,6 +9,7 @@ const { Category } = require("../models/category");
 const { SubCategory } = require("../models/subCategory");
 const mongoose = require("mongoose");
 const { decode } = require("jsonwebtoken");
+const { courseManagement } = require("../models/courseManagement");
 
 const getFaqList = async (params) => {
   let data;
@@ -262,6 +263,46 @@ const getTemplateList = async (params) => {
       ];
     }
     data = await Template.find(filter)
+      .skip((params.page - 1) * params.limit)
+      .limit(params.limit)
+      .sort({ createdAt: -1 });
+  }
+  if (data && data.length) {
+    return { status: true, data: data };
+  } else {
+    return { status: false, data: [] };
+  }
+};
+const getCouseManagementList = async (params) => {
+  let data;
+  if (params.all) {
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
+    }
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { contentId: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await courseManagement.find(filter);
+  } else {
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
+    }
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { contentId: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await courseManagement.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
       .sort({ createdAt: -1 });
@@ -562,5 +603,6 @@ module.exports = {
   getProductList,
   getKnowledgeCenterList,
   getCategoryList,
+  getCouseManagementList,
   getSubCategoryList
 };
