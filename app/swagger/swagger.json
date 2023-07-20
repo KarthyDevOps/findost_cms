@@ -1229,7 +1229,7 @@
             "Bearer": []
           }
         ],
-        "summary": "List knowledgeCenter",
+        "summary": "List knowledgeCenter category and subcategory mongoose id need to pass not string value",
         "parameters": [
           {
             "name": "search",
@@ -1245,6 +1245,16 @@
             "name": "page",
             "in": "query",
             "type": "number"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "subCategory",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2039,6 +2049,18 @@
           "type": "string"
         },
         "isActive": {
+          "type": "boolean"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "fileOriginalName": {
+          "type": "string"
+        },
+        "courseType": {
+          "type": "string"
+        },
+        "fileImageOriginalName": {
           "type": "boolean"
         }
       }
