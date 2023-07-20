@@ -548,6 +548,9 @@ const getSubCategoryList = async (params) => {
     if (params?.isActive) {
       filter.isActive = params.isActive;
     }
+    if (params?.type) {
+      filter.type = params.type;
+    }
     if (params?.categoryId) {
       filter.categoryId = params.categoryId;
     }
@@ -568,8 +571,9 @@ const getSubCategoryList = async (params) => {
     if (params?.categoryId) {
       filter.categoryId = params.categoryId;
     }
-   
-
+    if (params?.type) {
+      filter.type = params.query;
+    }
     if (params?.search) {
       filter.$or = [
         { subCategoryId: params?.search },
