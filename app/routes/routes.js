@@ -29,7 +29,9 @@ const routes = {
       create: "/v1/course-management/create",
       get: "/v1/course-management/get",
       update: "/v1/course-management/update",
-      delete: "/v1/course-management/delete"
+      delete: "/v1/course-management/delete",
+      trendingCourseList: "/v1/course-management/getTrendingCourseList",
+      getMycourseList: "/v1/course-management/getMycourseList",
     },
     feedbackManagement: {
       list: "/v1/feedback-management/list",
