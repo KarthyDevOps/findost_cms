@@ -279,30 +279,22 @@ const getCouseManagementList = async (params) => {
   if (params.all) {
     let filter = {
       isDeleted: false,
+      apId : params.apId
     };
     if ([true, false].includes(params?.isActive)) {
       filter.isActive = params.isActive;
     }
-    if (params?.search) {
-      filter.$or = [
-        { title: { $regex: `${params?.search}`, $options: "i" } },
-        { contentId: { $regex: `${params?.search}`, $options: "i" } },
-      ];
-    }
+ 
     data = await courseManagement.find(filter);
   } else {
     let filter = {
       isDeleted: false,
+      apId : params.apId
     };
     if ([true, false].includes(params?.isActive)) {
       filter.isActive = params.isActive;
     }
-    if (params?.search) {
-      filter.$or = [
-        { title: { $regex: `${params?.search}`, $options: "i" } },
-        { contentId: { $regex: `${params?.search}`, $options: "i" } },
-      ];
-    }
+    
     data = await courseManagement.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
@@ -595,6 +587,7 @@ const getSubCategoryList = async (params) => {
     return { status: false, data: [] };
   }
 };
+
 
 module.exports = {
   getFaqList,

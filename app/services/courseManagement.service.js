@@ -4,142 +4,186 @@ const { messages } = require("../response/customMesages");
 const { Faq } = require("../models/faq");
 
 const {
-    convert_JSON_to_file,
-    formatDataList,
-    pageMetaService,
+  convert_JSON_to_file,
+  formatDataList,
+  pageMetaService,
 } = require("../helpers/index");
+const mongoose = require("mongoose");
 
 const { getCouseManagementList } = require("./list.service");
 const { courseManagement } = require("../models/courseManagement");
-
+const { KnowledgeCenter } = require("../models/knowledgeCenter");
 
 const createCourseManagementService = async (params) => {
-    var newvalues = params;
-    let checkExist = await courseManagement.findOne({
-        courceId: params?.courceId,
-        apId: params?.apId,
+  var newvalues = params;
+  let checkExist = await courseManagement.findOne({
+    courceId: params?.courceId,
+    apId: params?.apId,
+  });
 
-    })
+  if (checkExist) {
+    params.completedlecture.push(params?.completedlecture);
 
-    if (checkExist) {
-       
-        params.completedlecture.push(params?.completedlecture)
-
-        const resp = await courseManagement.findOneAndUpdate({ apId: params?.apId, courceId:params?.courceId }, params);
-        return {
-            status: true,
-            statusCode: statusCodes?.HTTP_OK,
-            message: messages?.created,
-            data: resp
-        };
-
-    }
-    else {
-        newvalues.completedlecture = [newvalues?.completedlecture]
-        const resp = await courseManagement.create(newvalues);
-        return {
-            status: true,
-            statusCode: statusCodes?.HTTP_OK,
-            message: messages?.created,
-            data: {
-                _id: resp?._id,
-            },
-        };
-    }
-
+    const resp = await courseManagement.findOneAndUpdate(
+      { apId: params?.apId, courceId: params?.courceId },
+      params
+    );
+    return {
+      status: true,
+      statusCode: statusCodes?.HTTP_OK,
+      message: messages?.created,
+      data: resp,
+    };
+  } else {
+    newvalues.completedlecture = [newvalues?.completedlecture];
+    const resp = await courseManagement.create(newvalues);
+    return {
+      status: true,
+      statusCode: statusCodes?.HTTP_OK,
+      message: messages?.created,
+      data: {
+        _id: resp?._id,
+      },
+    };
+  }
 };
 
 const getCourseManagementService = async (params) => {
-    var payload = {
-        _id: params?.courceId,
-        isDeleted: false,
-    };
-    const resp = await courseManagement.findOne(payload);
-    return {
-        status: true,
-        statusCode: statusCodes?.HTTP_OK,
-        message: messages?.success,
-        data: resp,
-    };
+  var payload = {
+    _id: params?.courceId,
+    isDeleted: false,
+  };
+  const resp = await courseManagement.findOne(payload);
+  return {
+    status: true,
+    statusCode: statusCodes?.HTTP_OK,
+    message: messages?.success,
+    data: resp,
+  };
 };
 
 const updateCourseManagementService = async (params) => {
-    var payload = {
-        _id: params?.courceId,
-        isDeleted: false,
-    };
-    delete params["courceId"];
-    var newvalues = {
-        $set: params,
-    };
-    const resp = await courseManagement.updateOne(payload, newvalues);
-    if (!resp.modifiedCount) {
-        return {
-            status: false,
-            statusCode: statusCodes?.HTTP_UNPROCESSABLE_ENTITY,
-            message: messages?.somethingWrong,
-            data: [],
-        };
-    }
+  var payload = {
+    _id: params?.courceId,
+    isDeleted: false,
+  };
+  delete params["courceId"];
+  var newvalues = {
+    $set: params,
+  };
+  const resp = await courseManagement.updateOne(payload, newvalues);
+  if (!resp.modifiedCount) {
     return {
-        status: true,
-        statusCode: statusCodes?.HTTP_OK,
-        message: messages?.updated,
-        data: [],
+      status: false,
+      statusCode: statusCodes?.HTTP_UNPROCESSABLE_ENTITY,
+      message: messages?.somethingWrong,
+      data: [],
     };
+  }
+  return {
+    status: true,
+    statusCode: statusCodes?.HTTP_OK,
+    message: messages?.updated,
+    data: [],
+  };
 };
 
 const CourseManagementListService = async (params) => {
-    params.all = true;
-    const allList = await getCouseManagementList(params);
-    params.all = params.returnAll == true ? true : false;
+  params.all = true;
+  const allList = await getCouseManagementList(params);
+  params.all = params.returnAll == true ? true : false;
 
-    const result = await getCouseManagementList(params);
-    const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
-    return {
-        status: true,
-        statusCode: statusCodes?.HTTP_OK,
-        data: { list: result?.data, pageMeta },
-    };
+  const result = await getCouseManagementList(params);
+  const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
+  return {
+    status: true,
+    statusCode: statusCodes?.HTTP_OK,
+    data: { list: result?.data, pageMeta },
+  };
 };
 
 const deleteCourseManagementService = async (params) => {
-    let ids = [];
-    if (params.id) ids.push(params?.id);
-    else if (params.ids) {
-        ids = params.ids;
-    }
-    var newvalues = {
-        $set: {
-            isDeleted: true,
-            updatedBy: params?.updatedBy,
-            lastUpdatedBy: params?.lastUpdatedBy,
-        },
-    };
+  let ids = [];
+  if (params.id) ids.push(params?.id);
+  else if (params.ids) {
+    ids = params.ids;
+  }
+  var newvalues = {
+    $set: {
+      isDeleted: true,
+      updatedBy: params?.updatedBy,
+      lastUpdatedBy: params?.lastUpdatedBy,
+    },
+  };
 
-    const resp = await courseManagement.updateMany({ _id: ids }, newvalues);
-    if (!resp.modifiedCount) {
-        return {
-            status: false,
-            statusCode: statusCodes?.HTTP_UNPROCESSABLE_ENTITY,
-            message: messages?.somethingWrong,
-            data: [],
-        };
-    }
+  const resp = await courseManagement.updateMany({ _id: ids }, newvalues);
+  if (!resp.modifiedCount) {
     return {
-        status: true,
-        statusCode: statusCodes?.HTTP_OK,
-        message: messages?.deleted,
-        data: [],
+      status: false,
+      statusCode: statusCodes?.HTTP_UNPROCESSABLE_ENTITY,
+      message: messages?.somethingWrong,
+      data: [],
     };
+  }
+  return {
+    status: true,
+    statusCode: statusCodes?.HTTP_OK,
+    message: messages?.deleted,
+    data: [],
+  };
 };
 
-//
+const getMycourseListService = async (params) => {
+  let filter = {
+    isDeleted: false,
+    apId: params.apId,
+  };
+  if (params?.isActive) {
+    filter.isActive = params.isActive;
+  }
+  data = await courseManagement.find(filter);
+  let courseIds =[]
+  data.map((d)=>courseIds.push(d._id))
+  let resp = await KnowledgeCenter.find({_id : { $in: courseIds.map(_id => mongoose.Types.ObjectId(_id)) }}).lean();
+  return {
+    status: true,
+    statusCode: statusCodes?.HTTP_OK,
+    data: resp,
+  };
+};
 
+
+const getTrendingCourseListService = async (params) => {
+    let aggregateQuery = [
+        {
+          $match: {
+            isDeleted: false,
+          },
+        },
+        {
+          $group: {
+            _id: "$courceId",
+            count: { $sum: 1 },
+          },
+        },
+        { $sort : { count : -1, }}
+      ];
+    data = await courseManagement.aggregate(aggregateQuery);
+    let courseIds =[]
+    data.map((d)=>courseIds.push(d._id))
+    let resp = await KnowledgeCenter.find({_id : { $in: courseIds.map(_id => mongoose.Types.ObjectId(_id)) }}).lean();
+    return {
+      status: true,
+      statusCode: statusCodes?.HTTP_OK,
+      data: resp,
+    };
+  };
 module.exports = {
-    createCourseManagementService,
-    getCourseManagementService,
-    updateCourseManagementService,
-    CourseManagementListService,
-    deleteCourseManagementService
+  createCourseManagementService,
+  getCourseManagementService,
+  updateCourseManagementService,
+  CourseManagementListService,
+  deleteCourseManagementService,
+  getMycourseListService,
+  getTrendingCourseListService,
 };
