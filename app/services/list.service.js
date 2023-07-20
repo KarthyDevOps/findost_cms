@@ -19,7 +19,7 @@ const getFaqList = async (params) => {
     };
 
     if (params?.isActive) {
-      filter.isActive = params.isActive;
+      filter.isActive = true;
     }
 
     if (params?.category) {
@@ -45,7 +45,8 @@ const getFaqList = async (params) => {
     };
 
     if (params?.isActive) {
-      filter.isActive = params.isActive;
+      if (params?.isActive.toLowerCase() == "true") filter.isActive = true
+      if (params?.isActive.toLowerCase() == "false") filter.isActive = false
     }
 
     if (params?.category) {
@@ -63,7 +64,7 @@ const getFaqList = async (params) => {
         { answer: { $regex: `${params?.search}`, $options: "i" } }
       ];
     }
-   
+   console.log('params-->', filter)
     data = await Faq.aggregate([
       {
         '$match': filter
