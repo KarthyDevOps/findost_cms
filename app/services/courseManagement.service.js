@@ -22,7 +22,14 @@ const createCourseManagementService = async (params) => {
   });
 
   if (checkExist) {
-    params.completedlecture.push(params?.completedlecture);
+
+    completedlecture = [];
+
+    checkExist.completedlecture.push(params?.completedlecture);
+
+    params.completedlecture =  checkExist.completedlecture
+
+    console.log('params--->', params)
 
     const resp = await courseManagement.findOneAndUpdate(
       { apId: params?.apId, courceId: params?.courceId },

@@ -522,7 +522,6 @@ const createKnowledgeCenterValidation = (req, res, next) => {
       ]
     }),
     fileOriginalName:joi.string().optional(),
-    //password: Joi.string().when('_id', {is: Joi.exist(), then: Joi.optional(), otherwise: Joi.required()})
     courseDetails: joi.array().items(joi.object({
       title: joi.string().required(),
       list: joi.array().items((joi.object({
@@ -531,8 +530,8 @@ const createKnowledgeCenterValidation = (req, res, next) => {
         min: joi.string().required(),
         description: joi.string().required(),
         link: joi.string().required(),
-      }))).when('categorySlug', {is:"course", then: joi.required(), otherwise: joi.optional()}),
-    })),
+      })))
+    })).when('categorySlug', { is: "courses", then: joi.required(), otherwise: joi.optional() }),
   });
   return bodyParamValidation(req, res, next, schema);
 };
