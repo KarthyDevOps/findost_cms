@@ -572,7 +572,7 @@ const getSubCategoryList = async (params) => {
       filter.categoryId = params.categoryId;
     }
     if (params?.type) {
-      filter.type = params.query;
+      filter.type = params.type;
     }
     if (params?.search) {
       filter.$or = [
