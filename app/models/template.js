@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const {InternalServices} = require('../apiServices/index')
 
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
+const mongooseLeanGetters = require('mongoose-lean-getters');
+
+
 const templateSchema = new mongoose.Schema(
   {
     templateId: {
@@ -45,8 +49,20 @@ const templateSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toObject: { getters: true },
+    toJSON: {
+      virtuals: true,
+      getters: true
+    }
   }
 );
+
+templateSchema.plugin(mongooseLeanVirtuals);
+templateSchema.plugin(mongooseLeanGetters);
+
+templateSchema.virtual('imagePathS3').get(function () {
+  return this.imagePath ? getImageURL(this.imagePath) : null;
+});
 
 
 templateSchema.pre('save', async function (next) {
