@@ -10,6 +10,7 @@ const {
   updateCourseManagementService,
   getMycourseListService,
   getTrendingCourseListService,
+  getMyCompletedcourseListService
 } = require("../services/courseManagement.service");
 
 const createCourseManagement = async (req, res) => {
@@ -184,6 +185,30 @@ const getMycourseList = async (req, res) => {
   );
 };
 
+const getMyCompletedcourseList = async (req, res) => {
+  const params = req.body;
+  params.apId = req?.user?._id;
+  console.log("params-->", params);
+  const result = await getMyCompletedcourseListService(params);
+  if (!result.status) {
+    return sendErrorResponse(
+      req,
+      res,
+      result?.statusCode,
+      result?.message,
+      result?.data
+    );
+  }
+  return sendSuccessResponse(
+    req,
+    res,
+    result?.statusCode,
+    result?.message,
+    result?.data
+  );
+};
+
+
 module.exports = {
   createCourseManagement,
   getCourseManagement,
@@ -192,4 +217,5 @@ module.exports = {
   deleteCourseManagement,
   getTrendingCourseList,
   getMycourseList,
+  getMyCompletedcourseList
 };

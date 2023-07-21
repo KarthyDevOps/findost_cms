@@ -197,6 +197,35 @@ const getTrendingCourseListService = async (params) => {
       data: resp,
     };
   };
+
+  
+
+  const getMyCompletedcourseListService = async (params) => {
+    let filter = {
+      isDeleted: false,
+      apId: params.apId,
+    };
+    if (params?.isActive) {
+      filter.isActive = params.isActive;
+    }
+    data = await courseManagement.find(filter);
+    data = data.map((d)=>{
+      let res ={
+        courseId : d.courseId,
+        completedlecture : d.completedlecture,
+      }
+      return res
+    })
+    return {
+      status: true,
+      statusCode: statusCodes?.HTTP_OK,
+      data: data,
+    };
+  };
+  
+  
+
+  
 module.exports = {
   createCourseManagementService,
   getCourseManagementService,
@@ -205,4 +234,5 @@ module.exports = {
   deleteCourseManagementService,
   getMycourseListService,
   getTrendingCourseListService,
+  getMyCompletedcourseListService
 };

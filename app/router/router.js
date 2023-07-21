@@ -138,6 +138,7 @@ const {
   getCourseManagement,
   getTrendingCourseList,
   getMycourseList,
+  getMyCompletedcourseList
 } = require("../controllers/courseManagement.conntroller");
 const { errHandle } = require("../helpers/index");
 const router = Router();
@@ -506,7 +507,7 @@ router.delete(
 );
 
 //courseManagement
-router.get(routes.v1.courseManagement.list, errHandle(CourseManagementList));
+router.get(routes.v1.courseManagement.list,  errHandle(CourseManagementList));
 router.post(
   routes.v1.courseManagement.create,
   [verifyToken(["AP"]), createCourseManagementValidation],
@@ -533,5 +534,11 @@ router.get(
   [verifyToken(["AP"])],
   errHandle(getMycourseList)
 );
+router.get(
+  routes.v1.courseManagement.getMyCompletedcourseList,
+  [verifyToken(["AP"])],
+  errHandle(getMyCompletedcourseList)
+);
+
 
 module.exports = router;
