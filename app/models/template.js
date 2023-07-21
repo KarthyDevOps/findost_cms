@@ -4,6 +4,8 @@ const {InternalServices} = require('../apiServices/index')
 const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 const mongooseLeanGetters = require('mongoose-lean-getters');
 
+const { getImageURL } = require("../utils/s3Utils")
+
 
 const templateSchema = new mongoose.Schema(
   {
