@@ -18,7 +18,7 @@ const createCourseManagement = async (req, res) => {
   params.updatedBy = req?.user?._id?.toString();
   params.lastUpdatedBy = req?.user?.userType;
   params.userType = req?.user?.userType;
-  params.apId = req?.user?.authorizedPersonId;
+  params.apId = req?.user?._id;
   console.log("params-->", params);
   const result = await createCourseManagementService(params);
   if (!result.status) {
