@@ -528,7 +528,7 @@ const createKnowledgeCenterValidation = (req, res, next) => {
         title: joi.string().required(),
         hrs: joi.string().required(),
         min: joi.string().required(),
-        description: joi.string().required(),
+        description: joi.string().optional(),
         link: joi.string().required(),
       })))
     })).when('categorySlug', { is: "courses", then: joi.required(), otherwise: joi.optional() }),
