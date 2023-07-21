@@ -643,6 +643,16 @@ const createSubCategoryValidation = (req, res, next) => {
   return bodyParamValidation(req, res, next, schema);
 };
 
+const createCourseManagementValidation = (req, res, next) => {
+  const schema = joi.object().keys({
+    courseId: joi.string().required(),
+    completedlecture: joi.string().required(),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+
+
 const getSubCategoryValidation = (req, res, next) => {
   const querySchema = joi.object({
     subCategoryId: joi.string().allow(null).allow(""),
@@ -728,4 +738,5 @@ module.exports = {
   getSubCategoryValidation,
   updateSubCategoryValidation,
   deleteSubCategoryValidation,
+  createCourseManagementValidation
 };

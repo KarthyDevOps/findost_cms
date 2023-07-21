@@ -32,6 +32,7 @@ const routes = {
       delete: "/v1/course-management/delete",
       trendingCourseList: "/v1/course-management/getTrendingCourseList",
       getMycourseList: "/v1/course-management/getMycourseList",
+      getMyCompletedcourseList: "/v1/course-management/getMyCompletedcourseList",
     },
     feedbackManagement: {
       list: "/v1/feedback-management/list",

@@ -150,8 +150,11 @@ const getMycourseListService = async (params) => {
   }
   data = await courseManagement.find(filter);
   let courseIds =[]
-  data.map((d)=>courseIds.push(d._id))
-  let resp = await KnowledgeCenter.find({_id : { $in: courseIds.map(_id => mongoose.Types.ObjectId(_id)) }}).lean();
+  data.map((d)=>{
+    courseIds.push(d.courseId)
+  })
+  let resp = await KnowledgeCenter.find({_id : { $in: courseIds.map(_id =>new mongoose.Types.ObjectId(_id)) }}).lean();
+ 
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
@@ -176,15 +179,53 @@ const getTrendingCourseListService = async (params) => {
         { $sort : { count : -1, }}
       ];
     data = await courseManagement.aggregate(aggregateQuery);
+    console.log(data,'data')
     let courseIds =[]
-    data.map((d)=>courseIds.push(d._id))
-    let resp = await KnowledgeCenter.find({_id : { $in: courseIds.map(_id => mongoose.Types.ObjectId(_id)) }}).lean();
+    let obj ={}
+    data.map((d)=>{
+      courseIds.push(d._id)
+      obj[d._id] = d.count
+    })
+    let resp = await KnowledgeCenter.find({_id : { $in: courseIds.map(_id =>new mongoose.Types.ObjectId(_id)) }}).lean();
+    resp = resp.map((d)=>{
+      d.count = obj[d._id]
+      return d
+    })
     return {
       status: true,
       statusCode: statusCodes?.HTTP_OK,
       data: resp,
     };
   };
+
+  
+
+  const getMyCompletedcourseListService = async (params) => {
+    let filter = {
+      isDeleted: false,
+      apId: params.apId,
+    };
+    if (params?.isActive) {
+      filter.isActive = params.isActive;
+    }
+    data = await courseManagement.find(filter);
+    data = data.map((d)=>{
+      let res ={
+        courseId : d.courseId,
+        completedlecture : d.completedlecture,
+      }
+      return res
+    })
+    return {
+      status: true,
+      statusCode: statusCodes?.HTTP_OK,
+      data: data,
+    };
+  };
+  
+  
+
+  
 module.exports = {
   createCourseManagementService,
   getCourseManagementService,
@@ -193,4 +234,5 @@ module.exports = {
   deleteCourseManagementService,
   getMycourseListService,
   getTrendingCourseListService,
+  getMyCompletedcourseListService
 };
