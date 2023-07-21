@@ -474,6 +474,17 @@ const getKnowledgeCenterList = async (params) => {
     data =data.map((d)=>{
       d.subCategory = Array.isArray(d.subCategory) ? d.subCategory[0]?.name:  d.subCategory;
       d.category = Array.isArray(d.category) ? d.category[0]?.name:  d.category;
+      if(d.courseDetails && d.courseDetails.length >0)
+      {
+        d.courseDetails = d.courseDetails.map((sub) =>{
+          sub.isCompleted  =false
+          sub.list = sub.list.map((list) =>{
+            list.isCompleted = false
+            return list
+          })
+          return sub
+        })
+      }
       return d;
     })
     return { status: true, data: data };
