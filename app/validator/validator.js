@@ -386,6 +386,7 @@ const createKnowledgeCenterValidation = (req, res, next) => {
         }
       ] 
     }),
+    courseType:joi.string().optional(),
     subCategory: joi.any().when('categorySlug', { 
       switch: [{ 
           is: 'videos', 
