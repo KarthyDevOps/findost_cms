@@ -56,6 +56,9 @@ const {
   getSubCategoryValidation,
   updateSubCategoryValidation,
   deleteSubCategoryValidation,
+
+  createCourseManagementValidation
+
 } = require("../validator/validator");
 const {
   faqList,
@@ -127,10 +130,15 @@ const {
 
 const { CreateTicket } = require("../controllers/ticketManagement.controller");
 
-const {createCourseManagement,updateCourseManagement,deleteCourseManagement,CourseManagementList,getCourseManagement,
+const {
+  createCourseManagement,
+  updateCourseManagement,
+  deleteCourseManagement,
+  CourseManagementList,
+  getCourseManagement,
   getTrendingCourseList,
-  getMycourseList
-} = require("../controllers/courseManagement.conntroller")
+  getMycourseList,
+} = require("../controllers/courseManagement.conntroller");
 const { errHandle } = require("../helpers/index");
 const router = Router();
 //FAQ Management
@@ -443,110 +451,87 @@ router.delete(
   errHandle(deleteKnowledgeCenter)
 );
 
-
-
-
 //category Management
 router.get(
   routes.v1.categoryManagement.list,
-  [
-    verifyToken(["ADMIN", "AP"]),
-    categoryListValidation,
-  ],
+  [verifyToken(["ADMIN", "AP"]), categoryListValidation],
   errHandle(categoryList)
 );
 router.post(
   routes.v1.categoryManagement.create,
-  [
-    verifyToken(["ADMIN"]),
-    createCategoryValidation,
-  ],
+  [verifyToken(["ADMIN"]), createCategoryValidation],
   errHandle(createCategory)
 );
 router.get(
   routes.v1.categoryManagement.get,
-  [
-    verifyToken(["ADMIN", "AP"]),
-    getCategoryValidation,
-  ],
+  [verifyToken(["ADMIN", "AP"]), getCategoryValidation],
   errHandle(getCategory)
 );
 router.put(
   routes.v1.categoryManagement.update,
-  [
-    verifyToken(["ADMIN"]),
-    updateCategoryValidation,
-  ],
+  [verifyToken(["ADMIN"]), updateCategoryValidation],
   errHandle(updateCategory)
 );
 router.delete(
   routes.v1.categoryManagement.delete,
-  [
-    verifyToken(["ADMIN"]),
-    deleteCategoryValidation,
-  ],
+  [verifyToken(["ADMIN"]), deleteCategoryValidation],
   errHandle(deleteCategory)
 );
-
-
 
 //sub Category Management
 router.get(
   routes.v1.subCategoryManagement.list,
-  [
-    verifyToken(["ADMIN", "AP"]),
-    subCategoryListValidation,
-  ],
+  [verifyToken(["ADMIN", "AP"]), subCategoryListValidation],
   errHandle(subCategoryList)
 );
 router.post(
   routes.v1.subCategoryManagement.create,
-  [
-    verifyToken(["ADMIN"]),
-    createSubCategoryValidation,
-  ],
+  [verifyToken(["ADMIN"]), createSubCategoryValidation],
   errHandle(createSubCategory)
 );
 router.get(
   routes.v1.subCategoryManagement.get,
-  [
-    verifyToken(["ADMIN", "AP"]),
-    getSubCategoryValidation,
-  ],
+  [verifyToken(["ADMIN", "AP"]), getSubCategoryValidation],
   errHandle(getSubCategory)
 );
 router.put(
   routes.v1.subCategoryManagement.update,
-  [
-    verifyToken(["ADMIN"]),
-    updateSubCategoryValidation,
-  ],
+  [verifyToken(["ADMIN"]), updateSubCategoryValidation],
   errHandle(updateCategory)
 );
 router.delete(
   routes.v1.subCategoryManagement.delete,
-  [
-    verifyToken(["ADMIN"]),
-    deleteSubCategoryValidation,
-  ],
+  [verifyToken(["ADMIN"]), deleteSubCategoryValidation],
   errHandle(deleteSubCategory)
 );
 
-
 //courseManagement
-router.get(routes.v1.courseManagement.list,  errHandle(CourseManagementList));
-router.post(routes.v1.courseManagement.create, [
-  verifyToken(["AP"]),
+router.get(routes.v1.courseManagement.list, errHandle(CourseManagementList));
+router.post(
+  routes.v1.courseManagement.create,
+  [verifyToken(["AP"]), createCourseManagementValidation],
  
-],errHandle(createCourseManagement));
-router.get(routes.v1.courseManagement.get,errHandle(getCourseManagement));
-router.put(routes.v1.courseManagement.update, errHandle(updateCourseManagement));
-router.delete(routes.v1.courseManagement.delete,errHandle(deleteCourseManagement));
+  errHandle(createCourseManagement)
+);
+router.get(routes.v1.courseManagement.get, errHandle(getCourseManagement));
+router.put(
+  routes.v1.courseManagement.update,
+  errHandle(updateCourseManagement)
+);
+router.delete(
+  routes.v1.courseManagement.delete,
+  errHandle(deleteCourseManagement)
+);
 
-
-router.get(routes.v1.courseManagement.trendingCourseList, [verifyToken(["AP"])], errHandle(getTrendingCourseList));
-router.get(routes.v1.courseManagement.getMycourseList, [verifyToken(["AP"])], errHandle(getMycourseList));
-
-
+router.get(
+  routes.v1.courseManagement.trendingCourseList,
+  [verifyToken(["AP"])],
+  errHandle(getTrendingCourseList)
+);
+router.get(
+  routes.v1.courseManagement.getMycourseList,
+  [verifyToken(["AP"])],
+  errHandle(getMycourseList)
+);
 
 module.exports = router;
