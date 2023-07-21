@@ -17,7 +17,7 @@ const { KnowledgeCenter } = require("../models/knowledgeCenter");
 const createCourseManagementService = async (params) => {
   var newvalues = params;
   let checkExist = await courseManagement.findOne({
-    courceId: params?.courceId,
+    courseId: params?.courseId,
     apId: params?.apId,
   });
 
@@ -32,7 +32,7 @@ const createCourseManagementService = async (params) => {
     console.log('params--->', params)
 
     const resp = await courseManagement.findOneAndUpdate(
-      { apId: params?.apId, courceId: params?.courceId },
+      { apId: params?.apId, courseId: params?.courseId },
       params
     );
     return {
@@ -57,7 +57,7 @@ const createCourseManagementService = async (params) => {
 
 const getCourseManagementService = async (params) => {
   var payload = {
-    _id: params?.courceId,
+    _id: params?.courseId,
     isDeleted: false,
   };
   const resp = await courseManagement.findOne(payload);
@@ -71,10 +71,10 @@ const getCourseManagementService = async (params) => {
 
 const updateCourseManagementService = async (params) => {
   var payload = {
-    _id: params?.courceId,
+    _id: params?.courseId,
     isDeleted: false,
   };
-  delete params["courceId"];
+  delete params["courseId"];
   var newvalues = {
     $set: params,
   };
@@ -169,7 +169,7 @@ const getTrendingCourseListService = async (params) => {
         },
         {
           $group: {
-            _id: "$courceId",
+            _id: "$courseId",
             count: { $sum: 1 },
           },
         },

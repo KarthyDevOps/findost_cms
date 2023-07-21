@@ -10,7 +10,7 @@ const coursemManagementSchema = new mongoose.Schema(
         apId: {
             type: String
         },
-        courceId: {
+        courseId: {
             type: String,
             required: false,
         },
