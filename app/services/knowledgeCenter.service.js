@@ -12,6 +12,33 @@ const {
 const { getKnowledgeCenterList } = require("./list.service");
 const createKnowledgeCenterService = async (params) => {
   var newvalues = params;
+  if(params.categorySlug == "courses")
+  {
+    function timeConvert(n) {
+      var num = n;
+      var hours = (num / 60);
+      var rhours = Math.floor(hours);
+      var minutes = (hours - rhours) * 60;
+      var rminutes = Math.round(minutes);
+      return [rhours,rminutes]
+    }
+   
+    let totalMinutes = 0
+    newvalues = newvalues.map((data)=>{
+      let minutes = 0
+      data.list = data.list.map((list)=>{
+        minutes = minutes + (number(list.hrs) * 60) + number(list.min)
+        totalMinutes = totalMinutes + (number(list.hrs) * 60) + number(list.min)
+      })
+      let timeResp = timeConvert(minutes)
+      data.hrs = timeResp[0]
+      data.min = timeResp[1]
+      return data
+    })
+    let totalTimeResp = timeConvert(minutes)
+    newvalues.totalHrs =totalTimeResp[0]
+    newvalues.totalMin =totalTimeResp[1]
+  }
   const resp = await KnowledgeCenter.create(newvalues);
   return {
     status: true,
