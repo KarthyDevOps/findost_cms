@@ -22,20 +22,20 @@ const createKnowledgeCenterService = async (params) => {
       var rminutes = Math.round(minutes);
       return [rhours,rminutes]
     }
-   
+    console.log('newvalues',newvalues)
     let totalMinutes = 0
-    newvalues = newvalues.map((data)=>{
+    newvalues.courseDetails = newvalues.courseDetails.map((data)=>{
       let minutes = 0
       data.list = data.list.map((list)=>{
-        minutes = minutes + (number(list.hrs) * 60) + number(list.min)
-        totalMinutes = totalMinutes + (number(list.hrs) * 60) + number(list.min)
+        minutes = minutes + (Number(list.hrs) * 60) + Number(list.min)
+        totalMinutes = totalMinutes + (Number(list.hrs) * 60) + Number(list.min)
       })
       let timeResp = timeConvert(minutes)
       data.hrs = timeResp[0]
       data.min = timeResp[1]
       return data
     })
-    let totalTimeResp = timeConvert(minutes)
+    let totalTimeResp = timeConvert(totalMinutes)
     newvalues.totalHrs =totalTimeResp[0]
     newvalues.totalMin =totalTimeResp[1]
   }
