@@ -29,6 +29,7 @@ const createKnowledgeCenterService = async (params) => {
       data.list = data.list.map((list)=>{
         minutes = minutes + (Number(list.hrs) * 60) + Number(list.min)
         totalMinutes = totalMinutes + (Number(list.hrs) * 60) + Number(list.min)
+        return list
       })
       let timeResp = timeConvert(minutes)
       data.hrs = timeResp[0]
