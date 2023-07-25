@@ -504,10 +504,7 @@ const createKnowledgeCenterValidation = (req, res, next) => {
         is: 'videos',
         then: joi.string().required()
       }
-        , {
-        is: 'urls',
-        then: joi.string().required()
-      },
+        , 
       {
         is: 'courses',
         then: joi.string().required()
