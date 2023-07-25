@@ -394,6 +394,7 @@ const getProductList = async (params) => {
 };
 const getKnowledgeCenterList = async (params) => {
   let data;
+  let apCompetedCourseObj = {}
   if (params.all) {
     let filter = {
       isDeleted: false,
@@ -469,11 +470,58 @@ const getKnowledgeCenterList = async (params) => {
       }
     ])
 
+    if(params.apId)
+    {
+      let filter = {
+        isDeleted: false,
+        apId: params.apId,
+      };
+     
+      let apCompetedCourseList = await courseManagement.find(filter);
+      apCompetedCourseList.map((d)=>{
+        apCompetedCourseObj[d.courseId] = d.completedlecture
+        
+        return d
+      })
+    }
   }
+ 
   if (data && data.length) {
     data =data.map((d)=>{
       d.subCategory = Array.isArray(d.subCategory) ? d.subCategory[0]?.name:  d.subCategory;
       d.category = Array.isArray(d.category) ? d.category[0]?.name:  d.category;
+      if(d.courseDetails && d.courseDetails.length >0)
+      {
+        d.courseDetails = d.courseDetails.map((sub) =>{
+          sub.isCompleted  =false
+          sub.list = sub.list.map((list) =>{
+            list.isCompleted = false
+            console.log('--',params.apId, apCompetedCourseObj[d._id], apCompetedCourseObj[d._id]?.indexOf(list._id)>-1)
+            if(params.apId && apCompetedCourseObj[d._id] && apCompetedCourseObj[d._id].indexOf(list._id)>-1 ) 
+            {
+              list.isCompleted = true
+            }
+            return list
+          })
+          return sub
+        })
+      }
+      return d;
+    })
+    data =data.map((d)=>{
+      if(d.courseDetails && d.courseDetails.length >0)
+      {
+        d.courseDetails = d.courseDetails.map((sub) =>{
+          let isCompleted =true
+          sub.list = sub.list.map((list) =>{
+            if(list.isCompleted == false)
+              isCompleted =false
+              return list
+          })
+          sub.isCompleted = isCompleted
+          return sub
+        })
+      }
       return d;
     })
     return { status: true, data: data };

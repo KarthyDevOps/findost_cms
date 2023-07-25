@@ -89,6 +89,8 @@ const {
     if(!params.page) params.page =1
     params.limit = parseInt(params?.limit);
     params.page = parseInt(params?.page);
+    if(req?.user?.userType =="AP")
+      params.apId = req?.user?._id?.toString();
     console.log("req", params);
     const result = await knowledgeCenterListService(params);
     if (!result.status) {

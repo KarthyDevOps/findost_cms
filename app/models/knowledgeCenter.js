@@ -41,6 +41,14 @@ const courseDetailsSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    hrs: {
+      type: Number,
+      trim: true,
+    },
+    min: {
+      type: Number,
+      trim: true,
+    },
     list: [courseDetailsListSchema]
   }
 )
@@ -84,6 +92,10 @@ const knowledgeCenterSchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    categorySlug: {
+      type: String,
+      required: false,
+    },
     courseType: {
       type: String,
       required: false,
@@ -92,6 +104,15 @@ const knowledgeCenterSchema = new mongoose.Schema(
     subCategory: {
       type: Schema.Types.ObjectId,
       required: false,
+    },
+    totalHrs: {
+      type: Number,
+      trim: true,
+      
+    },
+    totalMin: {
+      type: Number,
+      trim: true,
     },
     isActive: {
       type: Boolean,

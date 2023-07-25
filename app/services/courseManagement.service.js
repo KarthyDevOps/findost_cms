@@ -153,8 +153,34 @@ const getMycourseListService = async (params) => {
   data.map((d)=>{
     courseIds.push(d.courseId)
   })
+
+  let aggregateQuery = [
+    {
+      $match: {
+        isDeleted: false,
+        courseId : { $in: courseIds }
+      },
+    },
+    {
+      $group: {
+        _id: "$courseId",
+        count: { $sum: 1 },
+      },
+    },
+
+  ];
+  let countResp = await courseManagement.aggregate(aggregateQuery);
+  console.log('countResp',countResp)
+  let obj ={}
+  countResp.map((d)=>{
+    courseIds.push(d._id)
+    obj[d._id] = d.count
+  })
   let resp = await KnowledgeCenter.find({_id : { $in: courseIds.map(_id =>new mongoose.Types.ObjectId(_id)) }}).lean();
- 
+  resp = resp.map((d)=>{
+    d.count = obj[d._id] || 0
+    return d
+  })
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
