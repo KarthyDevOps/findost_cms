@@ -10,6 +10,8 @@ const { SubCategory } = require("../models/subCategory");
 const mongoose = require("mongoose");
 const { decode } = require("jsonwebtoken");
 const { courseManagement } = require("../models/courseManagement");
+const { getImageURL } = require("../utils/s3Utils")
+
 
 const getFaqList = async (params) => {
   let data;
@@ -488,6 +490,8 @@ const getKnowledgeCenterList = async (params) => {
  
   if (data && data.length) {
     data =data.map((d)=>{
+      d.documentPathS3 = d.documentPath ? getImageURL(d.documentPath) : null;
+      d.thumbnailS3 = d.thumbnail ? getImageURL(d.thumbnail) : null;
       d.subCategory = Array.isArray(d.subCategory) ? d.subCategory[0]?.name:  d.subCategory;
       d.category = Array.isArray(d.category) ? d.category[0]?.name:  d.category;
       if(d.courseDetails && d.courseDetails.length >0)
