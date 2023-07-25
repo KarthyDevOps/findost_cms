@@ -10,18 +10,18 @@ const {
   pageMetaService,
 } = require("../helpers/index");
 const { getKnowledgeCenterList } = require("./list.service");
+function timeConvert(n) {
+  var num = n;
+  var hours = (num / 60);
+  var rhours = Math.floor(hours);
+  var minutes = (hours - rhours) * 60;
+  var rminutes = Math.round(minutes);
+  return [rhours,rminutes]
+}
 const createKnowledgeCenterService = async (params) => {
   var newvalues = params;
   if(params.categorySlug == "courses")
   {
-    function timeConvert(n) {
-      var num = n;
-      var hours = (num / 60);
-      var rhours = Math.floor(hours);
-      var minutes = (hours - rhours) * 60;
-      var rminutes = Math.round(minutes);
-      return [rhours,rminutes]
-    }
     console.log('newvalues',newvalues)
     let totalMinutes = 0
     newvalues.courseDetails = newvalues.courseDetails.map((data)=>{
@@ -69,6 +69,28 @@ const updateKnowledgeCenterService = async (params) => {
     isDeleted: false
   };
   delete params["knowledgeCenterId"];
+
+  if(params.categorySlug == "courses" && params.courseDetails)
+  {
+    
+    let totalMinutes = 0
+    params.courseDetails = params.courseDetails.map((data)=>{
+      let minutes = 0
+      data.list = data.list.map((list)=>{
+        minutes = minutes + (Number(list.hrs) * 60) + Number(list.min)
+        totalMinutes = totalMinutes + (Number(list.hrs) * 60) + Number(list.min)
+        return list
+      })
+      let timeResp = timeConvert(minutes)
+      data.hrs = timeResp[0]
+      data.min = timeResp[1]
+      return data
+    })
+    let totalTimeResp = timeConvert(totalMinutes)
+    params.totalHrs =totalTimeResp[0]
+    params.totalMin =totalTimeResp[1]
+  }
+
   var newvalues = {
     $set: params,
   };
