@@ -554,7 +554,6 @@ const updateKnowledgeCenterValidation = (req, res, next) => {
 
   const schema = joi.object({
     title: joi.string().required(),
-    description: joi.string().required(),
     isActive: joi.boolean(),
     category: joi.string(),
     subCategory: joi.string(),
