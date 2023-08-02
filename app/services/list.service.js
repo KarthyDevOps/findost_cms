@@ -401,7 +401,8 @@ const getKnowledgeCenterList = async (params) => {
     let filter = {
       isDeleted: false,
     };
-    if (params?.isActive) {
+
+    if ([true, false,"true","false"].includes(params?.isActive)) {
       filter.isActive = params.isActive;
     }
     if (params?.category) {
@@ -418,13 +419,16 @@ const getKnowledgeCenterList = async (params) => {
       ];
     }
     data = await KnowledgeCenter.find(filter);
+    console.log('data 2-->', data)
   } else {
     let filter = {
       isDeleted: false,
     };
     if (params?.isActive) {
-      filter.isActive = params.isActive;
+      if (params?.isActive.toLowerCase() == "true") filter.isActive = true
+      if (params?.isActive.toLowerCase() == "false") filter.isActive = false
     }
+
     if (params?.category) {
       filter.category = new mongoose.Types.ObjectId(params.category);
     }
@@ -438,7 +442,7 @@ const getKnowledgeCenterList = async (params) => {
         { title: { $regex: `${params?.search}`, $options: "i" } }
       ];
     }
-
+console.log('filter-->', filter)
     data = await KnowledgeCenter.aggregate([
       {
         '$match': filter
