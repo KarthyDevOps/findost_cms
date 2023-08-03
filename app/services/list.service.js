@@ -112,6 +112,8 @@ const getFaqList = async (params) => {
     return { status: false, data: [] };
   }
 };
+
+
 const getFeedbackList = async (params) => {
   let data;
   if (params.all) {
@@ -206,6 +208,8 @@ const getFeedbackList = async (params) => {
     return { status: false, data: [] };
   }
 };
+
+
 const getTemplateList = async (params) => {
   let data;
   if (params.all) {
@@ -276,6 +280,7 @@ const getTemplateList = async (params) => {
     return { status: false, data: [] };
   }
 };
+
 const getCouseManagementList = async (params) => {
   let data;
   if (params.all) {
@@ -308,6 +313,7 @@ const getCouseManagementList = async (params) => {
     return { status: false, data: [] };
   }
 };
+
 const getContentList = async (params) => {
   let data;
   if (params.all) {
@@ -348,6 +354,8 @@ const getContentList = async (params) => {
     return { status: false, data: [] };
   }
 };
+
+
 const getProductList = async (params) => {
   let data;
   if (params.all) {
@@ -394,6 +402,7 @@ const getProductList = async (params) => {
     return { status: false, data: [] };
   }
 };
+
 const getKnowledgeCenterList = async (params) => {
   let data;
   let apCompetedCourseObj = {}
@@ -594,10 +603,10 @@ const getCategoryList = async (params) => {
 };
 
 
-
 const getSubCategoryList = async (params) => {
   let data;
   if (params.all) {
+    console.log('params', params)
     let filter = {
       isDeleted: false,
     };
@@ -628,6 +637,7 @@ const getSubCategoryList = async (params) => {
       filter.categoryId = params.categoryId;
     }
     if (params?.type) {
+     // console.log('params?.type', params?.type)
       filter.type = params.type;
     }
     if (params?.search) {

@@ -87,6 +87,8 @@ const {
   
   const subCategoryList = async (req, res) => {
     const params = req?.query;
+    if(params.returnAll && params.returnAll.toLowerCase() == "true") params.returnAll = true
+    console.log('params-->', params)
     if(!params.limit) params.limit =10
     if(!params.page) params.page =1
     const result = await subCategoryListService(params);
