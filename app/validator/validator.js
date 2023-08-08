@@ -403,6 +403,9 @@ const createKnowledgeCenterValidation = (req, res, next) => {
           then: joi.string().required() 
         } 
       ] 
+    }).messages({
+      "string.empty":"Sub Category is not allowed to be Empty",
+      "any.required":"Sub Category is not allowed to be Empty"
     }),
     description: joi.any().when('categorySlug', { 
       switch: [{ 
@@ -418,6 +421,9 @@ const createKnowledgeCenterValidation = (req, res, next) => {
           then: joi.string().required() 
         } 
       ] 
+    }).messages({
+      "string.empty":"Description is not allowed to be Empty",
+      "any.required":"Description is not allowed to be Empty"
     }),
     contentUrlLink: joi.any().when('categorySlug', { 
       switch: [{ 
@@ -429,6 +435,9 @@ const createKnowledgeCenterValidation = (req, res, next) => {
           then: joi.string().required() 
         } 
       ] 
+    }).messages({
+      "string.empty":"Content Url is not allowed to be Empty",
+      "any.required":"Content Url  is not allowed to be Empty"
     }),
     isActive: joi.any().when('categorySlug', {
       switch: [{
@@ -452,6 +461,9 @@ const createKnowledgeCenterValidation = (req, res, next) => {
         then: joi.string().required()
       }
       ]
+    }).messages({
+      "string.empty":"Status is not allowed to be Empty",
+      "any.required":"Status  is not allowed to be Empty"
     }),
     title: joi.any().when('categorySlug', {
       switch: [{
@@ -475,6 +487,9 @@ const createKnowledgeCenterValidation = (req, res, next) => {
         then: joi.string().required()
       }
       ]
+    }).messages({
+      "string.empty":"Title is not allowed to be Empty",
+      "any.required":"Title  is not allowed to be Empty"
     }),
     category: joi.any().when('categorySlug', {
       switch: [{
@@ -498,6 +513,9 @@ const createKnowledgeCenterValidation = (req, res, next) => {
         then: joi.string().required()
       }
       ]
+    }).messages({
+      "string.empty":"Category is not allowed to be Empty",
+      "any.required":"Category  is not allowed to be Empty"
     }),
     thumbnail: joi.any().when('categorySlug', {
       switch: [{
@@ -518,6 +536,9 @@ const createKnowledgeCenterValidation = (req, res, next) => {
         then: joi.string().required()
       }
       ]
+    }).messages({
+      "string.empty":"Thumbnail is not allowed to be Empty",
+      "any.required":"Thumbnail  is not allowed to be Empty"
     }),
     fileOriginalName:joi.string().optional(),
     courseDetails: joi.array().items(joi.object({
