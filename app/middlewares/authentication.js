@@ -31,15 +31,6 @@ const verifyToken = (type = ["ADMIN"]) =>
           }
         }
         if (userData?.data) {
-          if(!userData.data.isAdminUpdate){
-            return sendErrorResponse(
-              req,
-              res,
-              statusCodes.HTTP_UNAUTHORIZED,
-              messages.adminUpdated,
-              []
-            );
-          }
           if (!userData?.data.isActive) {
             return sendErrorResponse(
               req,
