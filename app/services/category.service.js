@@ -65,7 +65,12 @@ const updateCategoryService = async (params) => {
 const categoryListService = async (params) => {
   params.all = true;
   const allList = await getCategoryList(params);
-  params.all = params.returnAll ==true ? true : false;
+  if(params.returnAll && params.returnAll.toLowerCase() == "true") {
+    params.returnAll = true
+    console.log("test",params.returnAll)
+    params.all = params.returnAll ==true ? true : false;
+  }
+ 
 
   const result = await getCategoryList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
