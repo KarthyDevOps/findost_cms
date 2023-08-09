@@ -566,7 +566,7 @@ const getCategoryList = async (params) => {
       ];
     }
     console.log('filter--->', filter)
-    data = await Category.find(filter);
+    data = await Category.find(filter).sort({'name':1});
   } else {
     let filter = {
       isDeleted: false,
