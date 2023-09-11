@@ -77,6 +77,7 @@ const updateCourseManagementService = async (params) => {
   var newvalues = {
     $set: params,
   };
+  console.log('params-->', params)
   const resp = await courseManagement.updateOne(payload, newvalues);
   if (!resp.modifiedCount) {
     return {
