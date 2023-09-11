@@ -68,7 +68,7 @@ const updateCourseManagement = async (req, res) => {
   params.updatedBy = req?.user?._id?.toString();
   params.lastUpdatedBy = req?.user?.userType;
   params.userType = req?.user?.userType;
-  const result = await updateTemplateService(params);
+  const result = await updateCourseManagementService(params);
   if (!result.status) {
     return sendErrorResponse(
       req,
