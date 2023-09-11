@@ -22,14 +22,13 @@ const createCourseManagementService = async (params) => {
   });
 
   if (checkExist) {
-
     completedlecture = [];
 
     checkExist.completedlecture.push(params?.completedlecture);
 
-    params.completedlecture =  checkExist.completedlecture
+    params.completedlecture = checkExist.completedlecture;
 
-    console.log('params--->', params)
+    console.log("params--->", params);
 
     const resp = await courseManagement.findOneAndUpdate(
       { apId: params?.apId, courseId: params?.courseId },
@@ -149,16 +148,16 @@ const getMycourseListService = async (params) => {
     filter.isActive = params.isActive;
   }
   data = await courseManagement.find(filter);
-  let courseIds =[]
-  data.map((d)=>{
-    courseIds.push(d.courseId)
-  })
+  let courseIds = [];
+  data.map((d) => {
+    courseIds.push(d.courseId);
+  });
 
   let aggregateQuery = [
     {
       $match: {
         isDeleted: false,
-        courseId : { $in: courseIds }
+        courseId: { $in: courseIds },
       },
     },
     {
@@ -167,27 +166,28 @@ const getMycourseListService = async (params) => {
         count: { $sum: 1 },
       },
     },
-
   ];
   let countResp = await courseManagement.aggregate(aggregateQuery);
-  console.log('countResp',countResp)
-  let obj ={}
-  countResp.map((d)=>{
-    courseIds.push(d._id)
-    obj[d._id] = d.count
-  })
-  let resp = await KnowledgeCenter.find({ isDeleted: false,_id : { $in: courseIds.map(_id =>new mongoose.Types.ObjectId(_id)) }}).lean();
-  resp = resp.map((d)=>{
-    d.count = obj[d._id] || 0
-    return d
-  })
+  console.log("countResp", countResp);
+  let obj = {};
+  countResp.map((d) => {
+    courseIds.push(d._id);
+    obj[d._id] = d.count;
+  });
+  let resp = await KnowledgeCenter.find({
+    isDeleted: false,
+    _id: { $in: courseIds.map((_id) => new mongoose.Types.ObjectId(_id)) },
+  }).lean();
+  resp = resp.map((d) => {
+    d.count = obj[d._id] || 0;
+    return d;
+  });
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
     data: resp,
   };
 };
-
 
 const getTrendingCourseListService = async (params) => {
   let aggregateQuery = [
@@ -214,6 +214,7 @@ const getTrendingCourseListService = async (params) => {
     obj[d._id] = d.count;
   });
   let resp = await KnowledgeCenter.find({
+    isDeleted:false,
     _id: { $in: courseIds.map((_id) => new mongoose.Types.ObjectId(_id)) },
   }).lean();
   resp = resp.map((d) => {
@@ -227,34 +228,29 @@ const getTrendingCourseListService = async (params) => {
   };
 };
 
-  
-
-  const getMyCompletedcourseListService = async (params) => {
-    let filter = {
-      isDeleted: false,
-      apId: params.apId,
-    };
-    if (params?.isActive) {
-      filter.isActive = params.isActive;
-    }
-    data = await courseManagement.find(filter);
-    data = data.map((d)=>{
-      let res ={
-        courseId : d.courseId,
-        completedlecture : d.completedlecture,
-      }
-      return res
-    })
-    return {
-      status: true,
-      statusCode: statusCodes?.HTTP_OK,
-      data: data,
-    };
+const getMyCompletedcourseListService = async (params) => {
+  let filter = {
+    isDeleted: false,
+    apId: params.apId,
   };
-  
-  
+  if (params?.isActive) {
+    filter.isActive = params.isActive;
+  }
+  data = await courseManagement.find(filter);
+  data = data.map((d) => {
+    let res = {
+      courseId: d.courseId,
+      completedlecture: d.completedlecture,
+    };
+    return res;
+  });
+  return {
+    status: true,
+    statusCode: statusCodes?.HTTP_OK,
+    data: data,
+  };
+};
 
-  
 module.exports = {
   createCourseManagementService,
   getCourseManagementService,
@@ -263,5 +259,5 @@ module.exports = {
   deleteCourseManagementService,
   getMycourseListService,
   getTrendingCourseListService,
-  getMyCompletedcourseListService
+  getMyCompletedcourseListService,
 };
