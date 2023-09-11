@@ -190,39 +190,42 @@ const getMycourseListService = async (params) => {
 
 
 const getTrendingCourseListService = async (params) => {
-    let aggregateQuery = [
-        {
-          $match: {
-            isDeleted: false,
-          },
-        },
-        {
-          $group: {
-            _id: "$courseId",
-            count: { $sum: 1 },
-          },
-        },
-        { $sort : { count : -1, }}
-      ];
-    data = await courseManagement.aggregate(aggregateQuery);
-    console.log(data,'data')
-    let courseIds =[]
-    let obj ={}
-    data.map((d)=>{
-      courseIds.push(d._id)
-      obj[d._id] = d.count
-    })
-    let resp = await KnowledgeCenter.find({_id : { $in: courseIds.map(_id =>new mongoose.Types.ObjectId(_id)) }}).lean();
-    resp = resp.map((d)=>{
-      d.count = obj[d._id]
-      return d
-    })
-    return {
-      status: true,
-      statusCode: statusCodes?.HTTP_OK,
-      data: resp,
-    };
+  let aggregateQuery = [
+    {
+      $match: {
+        isDeleted: false,
+      },
+    },
+    {
+      $group: {
+        _id: "$courseId",
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { count: -1 } },
+  ];
+  console.log("aggregateQuery-->", aggregateQuery);
+  data = await courseManagement.aggregate(aggregateQuery);
+  console.log("courseManagement-->", data);
+  let courseIds = [];
+  let obj = {};
+  data.map((d) => {
+    courseIds.push(d._id);
+    obj[d._id] = d.count;
+  });
+  let resp = await KnowledgeCenter.find({
+    _id: { $in: courseIds.map((_id) => new mongoose.Types.ObjectId(_id)) },
+  }).lean();
+  resp = resp.map((d) => {
+    d.count = obj[d._id];
+    return d;
+  });
+  return {
+    status: true,
+    statusCode: statusCodes?.HTTP_OK,
+    data: resp,
   };
+};
 
   
 

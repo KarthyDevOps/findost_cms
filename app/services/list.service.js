@@ -10,8 +10,7 @@ const { SubCategory } = require("../models/subCategory");
 const mongoose = require("mongoose");
 const { decode } = require("jsonwebtoken");
 const { courseManagement } = require("../models/courseManagement");
-const { getImageURL } = require("../utils/s3Utils")
-
+const { getImageURL } = require("../utils/s3Utils");
 
 const getFaqList = async (params) => {
   let data;
@@ -36,7 +35,7 @@ const getFaqList = async (params) => {
       filter.$or = [
         { faqId: { $regex: `${params?.search}`, $options: "i" } },
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { answer: { $regex: `${params?.search}`, $options: "i" } }
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
 
@@ -47,12 +46,12 @@ const getFaqList = async (params) => {
     };
 
     if (params?.isActive) {
-      if (params?.isActive.toLowerCase() == "true") filter.isActive = true
-      if (params?.isActive.toLowerCase() == "false") filter.isActive = false
+      if (params?.isActive.toLowerCase() == "true") filter.isActive = true;
+      if (params?.isActive.toLowerCase() == "false") filter.isActive = false;
     }
 
     if (params?.category) {
-      filter.category =  new mongoose.Types.ObjectId(params.category);
+      filter.category = new mongoose.Types.ObjectId(params.category);
     }
 
     if (params?.subCategory) {
@@ -63,56 +62,57 @@ const getFaqList = async (params) => {
       filter.$or = [
         { faqId: { $regex: `${params?.search}`, $options: "i" } },
         { title: { $regex: `${params?.search}`, $options: "i" } },
-        { answer: { $regex: `${params?.search}`, $options: "i" } }
+        { answer: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
-   console.log('params-->', filter)
+    console.log("params-->", filter);
     data = await Faq.aggregate([
       {
-        '$match': filter
+        $match: filter,
       },
       {
         $lookup: {
-          from: 'categories', 
-          localField: 'category', 
-          foreignField: '_id',
-          as: 'category'
-        }
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
       },
       {
         $lookup: {
-          from: 'subcategories', 
-          localField: 'subCategory',
-          foreignField: '_id', 
-          as: 'subCategory'
-        }
+          from: "subcategories",
+          localField: "subCategory",
+          foreignField: "_id",
+          as: "subCategory",
+        },
       },
       {
         $sort: {
-          createdAt:  -1
-        }
+          createdAt: -1,
+        },
       },
       {
-        $skip: (params.page - 1) * params.limit
+        $skip: (params.page - 1) * params.limit,
       },
       {
-        $limit: params.limit
-      }
-    ])
+        $limit: params.limit,
+      },
+    ]);
   }
 
   if (data && data.length) {
-    data =data.map((d)=>{
-      d.subCategory = Array.isArray(d.subCategory) ? d.subCategory[0]?.name:  d.subCategory;
-      d.category = Array.isArray(d.category) ? d.category[0]?.name:  d.category;
+    data = data.map((d) => {
+      d.subCategory = Array.isArray(d.subCategory)
+        ? d.subCategory[0]?.name
+        : d.subCategory;
+      d.category = Array.isArray(d.category) ? d.category[0]?.name : d.category;
       return d;
-    })
+    });
     return { status: true, data: data };
   } else {
     return { status: false, data: [] };
   }
 };
-
 
 const getFeedbackList = async (params) => {
   let data;
@@ -128,15 +128,19 @@ const getFeedbackList = async (params) => {
     }
 
     if (params.startDate && params.endDate) {
-      console.log("BothDate all-->",params)
-      let formattedStartDate = moment(new Date(params?.startDate)).startOf('day');
-      let formattedEndDate = moment(new Date(params?.endDate)).endOf('day');
+      console.log("BothDate all-->", params);
+      let formattedStartDate = moment(new Date(params?.startDate)).startOf(
+        "day"
+      );
+      let formattedEndDate = moment(new Date(params?.endDate)).endOf("day");
       filter.createdAt = { $gte: formattedStartDate, $lte: formattedEndDate };
     }
 
-    if (params.startDate  && !params.endDate) {
-      console.log("startDate all-->",params)
-      let formattedStartDate = moment(new Date(params?.startDate)).startOf('day');
+    if (params.startDate && !params.endDate) {
+      console.log("startDate all-->", params);
+      let formattedStartDate = moment(new Date(params?.startDate)).startOf(
+        "day"
+      );
       filter.createdAt = {
         $gte: formattedStartDate,
         $lte: new Date(),
@@ -144,12 +148,12 @@ const getFeedbackList = async (params) => {
     }
 
     if (params.endDate && !params.startDate) {
-      console.log("endDate all -->",params)
-      let formattedEndDate = moment(new Date(params?.endDate)).endOf('day');
+      console.log("endDate all -->", params);
+      let formattedEndDate = moment(new Date(params?.endDate)).endOf("day");
       filter.createdAt = {
         $lte: formattedEndDate,
       };
-    } 
+    }
     if (params?.search) {
       filter.$or = [
         { feedbackId: { $regex: `${params?.search}`, $options: "i" } },
@@ -167,15 +171,19 @@ const getFeedbackList = async (params) => {
     }
 
     if (params.startDate && params.endDate) {
-      console.log("bothDate->",params)
-      let formattedStartDate = moment(new Date(params?.startDate)).startOf('day');
-      let formattedEndDate = moment(new Date(params?.endDate)).endOf('day');
+      console.log("bothDate->", params);
+      let formattedStartDate = moment(new Date(params?.startDate)).startOf(
+        "day"
+      );
+      let formattedEndDate = moment(new Date(params?.endDate)).endOf("day");
       filter.createdAt = { $gte: formattedStartDate, $lte: formattedEndDate };
     }
 
     if (params.startDate && !params.endDate) {
-      console.log("startDate->",params)
-      let formattedStartDate = moment(new Date(params?.startDate)).startOf('day');;
+      console.log("startDate->", params);
+      let formattedStartDate = moment(new Date(params?.startDate)).startOf(
+        "day"
+      );
       filter.createdAt = {
         $gte: formattedStartDate,
         $lte: new Date(),
@@ -183,8 +191,8 @@ const getFeedbackList = async (params) => {
     }
 
     if (params.endDate && !params.startDate) {
-      console.log("endDate->",params)
-      let formattedEndDate = moment(new Date(params?.endDate)).endOf('day');
+      console.log("endDate->", params);
+      let formattedEndDate = moment(new Date(params?.endDate)).endOf("day");
       filter.createdAt = {
         $lte: formattedEndDate,
       };
@@ -208,7 +216,6 @@ const getFeedbackList = async (params) => {
     return { status: false, data: [] };
   }
 };
-
 
 const getTemplateList = async (params) => {
   let data;
@@ -286,23 +293,24 @@ const getCouseManagementList = async (params) => {
   if (params.all) {
     let filter = {
       isDeleted: false,
-      apId : params.apId
+      apId: params.apId,
     };
     if ([true, false].includes(params?.isActive)) {
       filter.isActive = params.isActive;
     }
- 
+
     data = await courseManagement.find(filter);
   } else {
     let filter = {
       isDeleted: false,
-      apId : params.apId
+      apId: params.apId,
     };
     if ([true, false].includes(params?.isActive)) {
       filter.isActive = params.isActive;
     }
-    
-    data = await courseManagement.find(filter)
+
+    data = await courseManagement
+      .find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
       .sort({ createdAt: -1 });
@@ -355,7 +363,6 @@ const getContentList = async (params) => {
   }
 };
 
-
 const getProductList = async (params) => {
   let data;
   if (params.all) {
@@ -374,7 +381,7 @@ const getProductList = async (params) => {
         { productId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
-    data = await Product.find(filter).sort({productId:1});
+    data = await Product.find(filter).sort({ productId: 1 });
   } else {
     let filter = {
       isDeleted: false,
@@ -394,7 +401,7 @@ const getProductList = async (params) => {
     data = await Product.find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
-      .sort({ productId:1});
+      .sort({ productId: 1 });
   }
   if (data && data.length) {
     return { status: true, data: data };
@@ -405,13 +412,13 @@ const getProductList = async (params) => {
 
 const getKnowledgeCenterList = async (params) => {
   let data;
-  let apCompetedCourseObj = {}
+  let apCompetedCourseObj = {};
   if (params.all) {
     let filter = {
       isDeleted: false,
     };
 
-    if ([true, false,"true","false"].includes(params?.isActive)) {
+    if ([true, false, "true", "false"].includes(params?.isActive)) {
       filter.isActive = params.isActive;
     }
     if (params?.category) {
@@ -424,18 +431,17 @@ const getKnowledgeCenterList = async (params) => {
       filter.$or = [
         { knowledgeCenterId: params?.search },
         { title: { $regex: `${params?.search}`, $options: "i" } },
-
       ];
     }
     data = await KnowledgeCenter.find(filter);
-    console.log('data 2-->', data)
+    console.log("data 2-->", data);
   } else {
     let filter = {
       isDeleted: false,
     };
     if (params?.isActive) {
-      if (params?.isActive.toLowerCase() == "true") filter.isActive = true
-      if (params?.isActive.toLowerCase() == "false") filter.isActive = false
+      if (params?.isActive.toLowerCase() == "true") filter.isActive = true;
+      if (params?.isActive.toLowerCase() == "false") filter.isActive = false;
     }
 
     if (params?.category) {
@@ -446,101 +452,152 @@ const getKnowledgeCenterList = async (params) => {
     }
 
     if (params?.search) {
+      // (filter.courseDetails = {
+      //   list: {
+      //     $elemMatch: { title: params?.search },
+      //   },
+      // }),
       filter.$or = [
-        { knowledgeCenterId: { $regex: `${params?.search}`, $options: "i" } },
-        { title: { $regex: `${params?.search}`, $options: "i" } }
+        {
+          knowledgeCenterId: { $regex: `${params?.search}`, $options: "i" },
+        },
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        {
+          courseDetails: {
+            $elemMatch: {
+              list: {
+                $elemMatch: {
+                  title: { $regex: `${params?.search}`, $options: "i" },
+                },
+              },
+            },
+          },
+        },
       ];
     }
-console.log('filter-->', filter)
+    console.log("filter-->", filter);
     data = await KnowledgeCenter.aggregate([
       {
-        '$match': filter
+        $match: filter,
       },
       {
         $lookup: {
-          from: 'categories', 
-          localField: 'category', 
-          foreignField: '_id',
-          as: 'category'
-        }
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
       },
       {
         $lookup: {
-          from: 'subcategories', 
-          localField: 'subCategory',
-          foreignField: '_id', 
-          as: 'subCategory'
-        }
+          from: "subcategories",
+          localField: "subCategory",
+          foreignField: "_id",
+          as: "subCategory",
+        },
       },
       {
         $sort: {
-          createdAt:  -1
-        }
+          createdAt: -1,
+        },
       },
       {
-        $skip: (params.page - 1) * params.limit
+        $skip: (params.page - 1) * params.limit,
       },
       {
-        $limit: params.limit
-      }
-    ])
+        $limit: params.limit,
+      },
+    ]);
 
-    if(params.apId)
-    {
+    if (params.apId) {
       let filter = {
         isDeleted: false,
         apId: params.apId,
       };
-     
+
       let apCompetedCourseList = await courseManagement.find(filter);
-      apCompetedCourseList.map((d)=>{
-        apCompetedCourseObj[d.courseId] = d.completedlecture
-        
-        return d
-      })
+      apCompetedCourseList.map((d) => {
+        apCompetedCourseObj[d.courseId] = d.completedlecture;
+
+        return d;
+      });
     }
   }
- 
+
   if (data && data.length) {
-    data =data.map((d)=>{
+    data = data.map((d) => {
       d.documentPathS3 = d.documentPath ? getImageURL(d.documentPath) : null;
       d.thumbnailS3 = d.thumbnail ? getImageURL(d.thumbnail) : null;
-      d.subCategory = Array.isArray(d.subCategory) ? d.subCategory[0]?.name:  d.subCategory;
-      d.category = Array.isArray(d.category) ? d.category[0]?.name:  d.category;
-      if(d.courseDetails && d.courseDetails.length >0)
-      {
-        d.courseDetails = d.courseDetails.map((sub) =>{
-          sub.isCompleted  =false
-          sub.list = sub.list.map((list) =>{
-            list.isCompleted = false
-            console.log('--',params.apId, apCompetedCourseObj[d._id], apCompetedCourseObj[d._id]?.indexOf(list._id)>-1)
-            if(params.apId && apCompetedCourseObj[d._id] && apCompetedCourseObj[d._id].indexOf(list._id)>-1 ) 
-            {
-              list.isCompleted = true
+      d.subCategory = Array.isArray(d.subCategory)
+        ? d.subCategory[0]?.name
+        : d.subCategory;
+      d.category = Array.isArray(d.category) ? d.category[0]?.name : d.category;
+      if (d.courseDetails && d.courseDetails.length > 0) {
+        d.courseDetails = d.courseDetails.map((sub) => {
+          sub.isCompleted = false;
+          sub.list = sub.list.map((list) => {
+            list.isCompleted = false;
+            console.log(
+              "--",
+              params.apId,
+              apCompetedCourseObj[d._id],
+              apCompetedCourseObj[d._id]?.indexOf(list._id) > -1
+            );
+            if (
+              params.apId &&
+              apCompetedCourseObj[d._id] &&
+              apCompetedCourseObj[d._id].indexOf(list._id) > -1
+            ) {
+              list.isCompleted = true;
             }
-            return list
-          })
-          return sub
-        })
+            return list;
+          });
+          return sub;
+        });
       }
       return d;
-    })
-    data =data.map((d)=>{
-      if(d.courseDetails && d.courseDetails.length >0)
-      {
-        d.courseDetails = d.courseDetails.map((sub) =>{
-          let isCompleted =true
-          sub.list = sub.list.map((list) =>{
-            if(list.isCompleted == false)
-              isCompleted =false
-              return list
-          })
-          sub.isCompleted = isCompleted
-          return sub
-        })
+    });
+    
+    data = data.map((d) => {
+      if (d.courseDetails && d.courseDetails.length > 0) {
+        d.courseDetails = d.courseDetails.map((sub) => {
+          let isCompleted = true;
+          sub.list = sub.list.map((list) => {
+            if (list.isCompleted == false) isCompleted = false;
+            if (!params?.search) return list;
+            else {
+              if (params?.search) {
+                let title = list.title.toLowerCase();
+                params.search = params?.search.toLowerCase();
+                if (title.includes(params?.search)) {
+                  return list;
+
+                }
+                else {
+                  return null
+                }
+              }
+            }
+          });
+          sub.isCompleted = isCompleted;
+          return sub;
+        });
       }
       return d;
-    })
+    });
+  
+    data = data.map((d) => {
+      if (d.courseDetails && d.courseDetails.length > 0) {
+        d.courseDetails = d.courseDetails.map((sub) => {
+          sub.list = sub.list.filter((list) => {
+            return list 
+          });
+
+          return sub;
+        });
+      }
+      return d;
+    });
     return { status: true, data: data };
   } else {
     return { status: false, data: [] };
@@ -556,24 +613,24 @@ const getCategoryList = async (params) => {
     if (params?.isActive) {
       filter.isActive = params.isActive;
     }
-   if(params?.type) {
-    filter.type = params.type 
-   }
+    if (params?.type) {
+      filter.type = params.type;
+    }
     if (params?.search) {
       filter.$or = [
         { categoryId: params?.search },
         { name: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
-    console.log('filter--->', filter)
-    data = await Category.find(filter).sort({'name':1});
+    console.log("filter--->", filter);
+    data = await Category.find(filter).sort({ name: 1 });
   } else {
     let filter = {
       isDeleted: false,
     };
-    if(params?.type) {
-      filter.type = params.type 
-     }
+    if (params?.type) {
+      filter.type = params.type;
+    }
     if (params?.isActive) {
       filter.isActive = params.isActive;
     }
@@ -602,11 +659,10 @@ const getCategoryList = async (params) => {
   }
 };
 
-
 const getSubCategoryList = async (params) => {
   let data;
   if (params.all) {
-    console.log('params', params)
+    console.log("params", params);
     let filter = {
       isDeleted: false,
     };
@@ -637,7 +693,7 @@ const getSubCategoryList = async (params) => {
       filter.categoryId = params.categoryId;
     }
     if (params?.type) {
-     // console.log('params?.type', params?.type)
+      // console.log('params?.type', params?.type)
       filter.type = params.type;
     }
     if (params?.search) {
@@ -658,7 +714,6 @@ const getSubCategoryList = async (params) => {
   }
 };
 
-
 module.exports = {
   getFaqList,
   getFeedbackList,
@@ -668,5 +723,5 @@ module.exports = {
   getKnowledgeCenterList,
   getCategoryList,
   getCouseManagementList,
-  getSubCategoryList
+  getSubCategoryList,
 };
