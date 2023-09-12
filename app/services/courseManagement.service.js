@@ -217,7 +217,7 @@ const getTrendingCourseListService = async (params) => {
   let resp = await KnowledgeCenter.find({
     isDeleted:false,
     _id: { $in: courseIds.map((_id) => new mongoose.Types.ObjectId(_id)) },
-  }).lean();
+  });
   resp = resp.map((d) => {
     d.count = obj[d._id];
     return d;
