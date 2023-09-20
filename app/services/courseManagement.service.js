@@ -178,11 +178,12 @@ const getMycourseListService = async (params) => {
   let resp = await KnowledgeCenter.find({
     isDeleted: false,
     _id: { $in: courseIds.map((_id) => new mongoose.Types.ObjectId(_id)) },
-  }).lean();
+  });
   resp = resp.map((d) => {
     d.count = obj[d._id] || 0;
     return d;
   });
+  console.log('resp-->', resp)
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
