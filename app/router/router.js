@@ -341,7 +341,7 @@ router.post(
 router.get(
   routes.v1.siteSettingsManagement.get,
   [
-    verifyToken(["ADMIN"]),
+    verifyToken([]),
     verifyAdminRole("siteSettingsManagement", "VIEW"),
     getSiteSettingsValidation,
   ],

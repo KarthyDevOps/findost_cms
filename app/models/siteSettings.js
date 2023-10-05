@@ -22,6 +22,10 @@ const siteSettingsSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    address: {
+      type: String,
+      required: false,
+    },
     siteFavIcon: {
       type: String,
       required: false,
