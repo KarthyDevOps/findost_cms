@@ -30,6 +30,7 @@ const faqSchema = new mongoose.Schema(
     order: {
       type: Number,
       required: false,
+      default: 0,
     },
     isDeleted: {
       type: Boolean,
