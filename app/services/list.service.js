@@ -326,6 +326,9 @@ const getCouseManagementList = async (params) => {
 
 const getContentList = async (params) => {
   let data;
+  if(params.isActive === "true") params.isActive = true
+  if(params.isActive === "false") params.isActive = false
+  console.log('params', params)
   if (params.all) {
     let filter = {
       isDeleted: false,
