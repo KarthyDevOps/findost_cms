@@ -28,11 +28,19 @@ const getContentService = async (params) => {
     isDeleted: false,
   };
   const resp = await Content.findOne(payload);
+  if (resp) {
+    return {
+      status: true,
+      statusCode: statusCodes?.HTTP_OK,
+      message: messages?.success,
+      data: resp,
+    };
+  }
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
-    message: messages?.success,
-    data: resp,
+    message: messages?.dataNotFound,
+    data: [],
   };
 };
 
