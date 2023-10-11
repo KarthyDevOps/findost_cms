@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-const { InternalServices } = require('../apiServices/index')
+const { InternalServices } = require('../apiServices/index');
+
+const { getImageURL } = require("../utils/s3Utils");
+
 const coursemManagementSchema = new mongoose.Schema(
     {
         courseManagementId: {
@@ -50,5 +53,9 @@ coursemManagementSchema.pre('save', async function (next) {
     next();
 
 });
+
+coursemManagementSchema.virtual('thumbnailS3').get(function () {
+    return this.thumbnail ? getImageURL(this.thumbnail) : null;
+  });
 const courseManagement = mongoose.model("courseManagement", coursemManagementSchema);
 module.exports = { courseManagement };
