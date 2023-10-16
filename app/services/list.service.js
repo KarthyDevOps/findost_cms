@@ -109,7 +109,7 @@ const getFaqList = async (params) => {
       return d;
     });
     data =data.sort(
-      (p1, p2) => (p1.order < p2.order) ? 1 : (p1.order > p2.order) ? -1 : 0);
+      (p1, p2) => (p1.order < p2.order) ? -1 : (p1.order > p2.order) ? 1 : 0);
     return { status: true, data: data };
   } else {
     return { status: false, data: [] };
