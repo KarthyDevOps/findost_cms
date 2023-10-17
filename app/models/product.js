@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
-const mongooseLeanGetters = require('mongoose-lean-getters');
-const { getImageURL } = require("../utils/s3Utils")
-const {InternalServices} = require('../apiServices/index')
+const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
+const mongooseLeanGetters = require("mongoose-lean-getters");
+const { getImageURL } = require("../utils/s3Utils");
+const { InternalServices } = require("../apiServices/index");
 
 const productSchema = new mongoose.Schema(
   {
     productId: {
-      type: String
+      type: String,
     },
     productName: {
       type: String,
@@ -21,6 +21,23 @@ const productSchema = new mongoose.Schema(
     productType: {
       type: String,
       required: true,
+      enum: [
+        "goldBond",
+        "insurance",
+        "fixedIncome",
+        "loan",
+        "pms",
+        "portfolio",
+        "algoTrading",
+      ],
+    },
+    images: {
+      type: String,
+      required: false,
+    },
+    benefits: {
+      type: Array,
+      required: false,
     },
     isActive: {
       type: Boolean,
@@ -42,28 +59,28 @@ const productSchema = new mongoose.Schema(
     toObject: { getters: true },
     toJSON: {
       virtuals: true,
-      getters: true
-    }
+      getters: true,
+    },
   }
 );
 
-
-productSchema.pre('save', async function (next) {
+productSchema.pre("save", async function (next) {
   InternalServices.getSequenceId({ type: "product" });
   var doc = this;
   let counter = await InternalServices.getSequenceId({ type: "product" });
-  doc.productId = (counter?.data?.count + 1).toString().padStart(6, '0').toString();;
+  doc.productId = (counter?.data?.count + 1)
+    .toString()
+    .padStart(6, "0")
+    .toString();
   next();
-
 });
 
 productSchema.plugin(mongooseLeanVirtuals);
 productSchema.plugin(mongooseLeanGetters);
 
-
-productSchema.virtual('productIconS3').get(function () {
+productSchema.virtual("productIconS3").get(function () {
   return this.productIcon ? getImageURL(this.productIcon) : null;
-})
+});
 
 const Product = mongoose.model("product", productSchema);
 module.exports = { Product };

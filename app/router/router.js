@@ -139,8 +139,37 @@ const {
   getMycourseList,
   getMyCompletedcourseList,
 } = require("../controllers/courseManagement.conntroller");
+
+const  {createProductCms,productCmsList,deleteProductCms,updateProductCms,getProductCms} = require("../controllers/productCms.Controller")
 const { errHandle } = require("../helpers/index");
 const router = Router();
+
+
+router.get(
+  routes.v1.productCms.list,
+  errHandle(productCmsList)
+);
+router.post(
+  routes.v1.productCms.create,
+ 
+  errHandle(createProductCms)
+);
+router.get(
+  routes.v1.productCms.get,
+  
+  errHandle(getProductCms)
+);
+router.put(
+  routes.v1.productCms.update,
+ 
+  errHandle(updateProductCms)
+);
+router.delete(
+  routes.v1.productCms.delete,
+
+  errHandle(deleteProductCms)
+);
+
 //FAQ Management
 router.get(
   routes.v1.faqManagement.list,

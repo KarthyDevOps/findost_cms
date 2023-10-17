@@ -11,6 +11,53 @@ const mongoose = require("mongoose");
 const { decode } = require("jsonwebtoken");
 const { courseManagement } = require("../models/courseManagement");
 const { getImageURL } = require("../utils/s3Utils");
+const { productCms } = require("../models/productCms");
+
+
+const getProductCmsList = async (params) => {
+  let data;
+  if(params.isActive === "true") params.isActive = true
+  if(params.isActive === "false") params.isActive = false
+  console.log('params', params)
+  if (params.all) {
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
+    }
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { contentId: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await productCms.find(filter);
+  } else {
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
+    }
+    if (params?.search) {
+      filter.$or = [
+        { title: { $regex: `${params?.search}`, $options: "i" } },
+        { contentId: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await productCms.find(filter)
+      .skip((params.page - 1) * params.limit)
+      .limit(params.limit)
+      .sort({ createdAt: -1 });
+  }
+  if (data && data.length) {
+    return { status: true, data: data };
+  } else {
+    return { status: false, data: [] };
+  }
+};
+
 
 const getFaqList = async (params) => {
   let data;
@@ -729,4 +776,5 @@ module.exports = {
   getCategoryList,
   getCouseManagementList,
   getSubCategoryList,
+  getProductCmsList
 };

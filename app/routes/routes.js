@@ -42,6 +42,14 @@ const routes = {
       delete: "/v1/feedback-management/delete",
       export: "/v1/feedback-management/export",
     },
+    productCms: {
+      list: "/v1/productCms/list",
+      create: "/v1/productCms/create",
+      get: "/v1/productCms/get",
+      update: "/v1/productCms/update",
+      delete: "/v1/productCms/delete",
+      export: "/v1/productCms/export",
+    },
     templateManagement: {
       list: "/v1/template-management/list",
       create: "/v1/template-management/create",

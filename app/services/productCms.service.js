@@ -1,31 +1,32 @@
 const { statusCodes } = require("../response/httpStatusCodes");
 const { statusMessage } = require("../response/httpStatusMessages");
 const { messages } = require("../response/customMesages");
-const { Product } = require("../models/product");
+const { productCms } = require("../models/productCms");
 const {
   convert_JSON_to_file,
   formatDataList,
   pageMetaService,
 } = require("../helpers/index");
-const { getProductList } = require("./list.service");
-const createProductService = async (params) => {
-  const resp = await Product.create(params);
+const { getProductCmsList } = require("./list.service");
 
+const createProductCmsService = async (params) => {
+  var newvalues = params;
+  const resp = await productCms.create(newvalues);
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
     message: messages?.created,
     data: {
-      _id: resp?._id,
+      _id: resp,
     },
   };
 };
-const getProductService = async (params) => {
+const getProductCmsService = async (params) => {
   var payload = {
-    _id: params?.productId,
+    _id: params?.id,
     isDeleted: false,
   };
-  const resp = await Product.findOne(payload);
+  const resp = await productCms.findOne(payload);
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
@@ -33,16 +34,16 @@ const getProductService = async (params) => {
     data: resp,
   };
 };
-const updateProductService = async (params) => {
+const updateProductCmsService = async (params) => {
   var payload = {
-    _id: params?.productId,
-    isDeleted: false,
+    _id: params?.id,
+    isDeleted: false
   };
-  delete params["productId"];
+  delete params["feedbackId"];
   var newvalues = {
     $set: params,
   };
-  const resp = await Product.updateOne(payload, newvalues);
+  const resp = await productCms.updateOne(payload, newvalues);
   if (!resp.modifiedCount) {
     return {
       status: false,
@@ -58,11 +59,11 @@ const updateProductService = async (params) => {
     data: [],
   };
 };
-const productListService = async (params) => {
+const ProductCmsListService = async (params) => {
   params.all = true;
-  const allList = await getProductList(params);
-  params.all = params.returnAll == true ? true : false;
-  const result = await getProductList(params);
+  const allList = await getProductCmsList(params);
+  params.all = params.returnAll ==true ? true : false;
+  const result = await getProductCmsList(params);
   const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
   return {
     status: true,
@@ -70,7 +71,7 @@ const productListService = async (params) => {
     data: { list: result?.data, pageMeta },
   };
 };
-const deleteProductService = async (params) => {
+const deleteProductCmsService = async (params) => {
   let ids = [];
   if (params.id) ids.push(params?.id);
   else if (params.ids) {
@@ -83,7 +84,7 @@ const deleteProductService = async (params) => {
       lastUpdatedBy: params?.lastUpdatedBy,
     },
   };
-  const resp = await Product.updateMany({ _id: ids }, newvalues);
+  const resp = await productCms.updateMany({_id:ids}, newvalues);
   if (!resp.modifiedCount) {
     return {
       status: false,
@@ -100,9 +101,9 @@ const deleteProductService = async (params) => {
   };
 };
 module.exports = {
-  createProductService,
-  getProductService,
-  updateProductService,
-  productListService,
-  deleteProductService,
+  createProductCmsService,
+  getProductCmsService,
+  updateProductCmsService,
+  ProductCmsListService,
+  deleteProductCmsService,
 };
