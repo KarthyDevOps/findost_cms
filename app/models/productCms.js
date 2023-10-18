@@ -90,7 +90,7 @@ const productCmsSchema = new mongoose.Schema(
       type: String,
     },
     refference: {
-      type: String,
+      type: Array,
     },
     image: {
       type: String,
