@@ -7,6 +7,7 @@ const getSignedURL = (key) => {
 }
 
 const getImageURL = (data) => {
+  
     if (typeof data === 'string') {
         if (/((https?)|(www)).*/gi.test(data)) return data;
         return getSignedURL(data);

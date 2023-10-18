@@ -3,6 +3,9 @@ const { InternalServices } = require("../apiServices/index");
 
 const { getImageURL } = require("../utils/s3Utils");
 
+const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
+const mongooseLeanGetters = require("mongoose-lean-getters");
+
 const productCmsSchema = new mongoose.Schema(
   {
     productCmsId: {
@@ -106,21 +109,19 @@ const productCmsSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toObject: { getters: true },
+    toJSON: {
+      virtuals: true,
+      getters: true
+    }
   }
 );
+productCmsSchema.plugin(mongooseLeanVirtuals);
 
-productCmsSchema.pre("save", async function (next) {
-  InternalServices.getSequenceId({ type: "productCms" });
-  var doc = this;
-  let counter = await InternalServices.getSequenceId({ type: "productCms" });
-  doc.productCmsId = (counter?.data?.count + 1)
-    .toString()
-    .padStart(6, "0")
-    .toString();
-  next();
-});
+productCmsSchema.plugin(mongooseLeanGetters);
 
 productCmsSchema.virtual("iconS3").get(function () {
+  console.log('this.icon', this.icon)
   return this.icon ? getImageURL(this.icon) : null;
 });
 
@@ -128,5 +129,19 @@ productCmsSchema.virtual("imageS3").get(function () {
   return this.image ? getImageURL(this.image) : null;
 });
 
+productCmsSchema.pre("save", async function (next) {
+  InternalServices.getSequenceId({ type: "productCms" });
+  var doc = this;
+  let counter = await InternalServices.getSequenceId({ type: "productCms" });
+  console.log("first", counter);
+  doc.productCmsId = (counter?.data?.count + 1)
+    .toString()
+    .padStart(6, "0")
+    .toString();
+  next();
+});
+
+
 const productCms = mongoose.model("productCms", productCmsSchema);
+
 module.exports = { productCms };
