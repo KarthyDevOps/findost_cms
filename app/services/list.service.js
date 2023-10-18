@@ -26,6 +26,9 @@ const getProductCmsList = async (params) => {
     if ([true, false].includes(params?.isActive)) {
       filter.isActive = params.isActive;
     }
+    if (params.planType) {
+      filter.planType = params.planType;
+    }
     if (params?.search) {
       filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
@@ -39,6 +42,9 @@ const getProductCmsList = async (params) => {
     };
     if ([true, false].includes(params?.isActive)) {
       filter.isActive = params.isActive;
+    }
+    if (params.planType) {
+      filter.planType = params.planType;
     }
     if (params?.search) {
       filter.$or = [
