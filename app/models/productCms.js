@@ -121,12 +121,12 @@ productCmsSchema.pre("save", async function (next) {
 });
 
 productCmsSchema.virtual("iconS3").get(function () {
-    return this.icon ? getImageURL(this.icon) : null;
-  });
-  
-  productCmsSchema.virtual("imageS3").get(function () {
-    return this.image ? getImageURL(this.image) : null;
-  });
-  
+  return this.icon ? getImageURL(this.icon) : null;
+});
+
+productCmsSchema.virtual("imageS3").get(function () {
+  return this.image ? getImageURL(this.image) : null;
+});
+
 const productCms = mongoose.model("productCms", productCmsSchema);
 module.exports = { productCms };

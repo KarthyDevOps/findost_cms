@@ -181,7 +181,7 @@ const createTemplateValidation = (req, res, next) => {
     title: joi.string().required(),
     description: joi.string().required(),
     status: joi.boolean(),
-    categoryId :joi.string().required(),
+    categoryId: joi.string().required(),
     isActive: joi.boolean().optional(),
   });
   return bodyParamValidation(req, res, next, schema);
@@ -378,179 +378,440 @@ const CreateTicketValidation = (req, res, next) => {
 
 const createKnowledgeCenterValidation = (req, res, next) => {
   const schema = joi.object({
-    categorySlug:joi.string().required(),
-    documentPath: joi.any().when('categorySlug', { 
-      switch: [{ 
-          is: 'documents', 
-          then: joi.string().required() 
-        }
-      ] 
-    }),
-    courseType:joi.string().optional(),
-    subCategory: joi.any().when('categorySlug', { 
-      switch: [{ 
-          is: 'videos', 
-          then: joi.string().required() 
-        }
-        ,{ 
-          is: 'courses', 
-          then: joi.string().required() 
-        } ,{ 
-          is: 'urls', 
-          then: joi.string().required() 
-        } ,{ 
-          is: 'blogs', 
-          then: joi.string().required() 
-        } 
-      ] 
-    }).messages({
-      "string.empty":"Sub Category is not allowed to be Empty",
-      "any.required":"Sub Category is not allowed to be Empty"
-    }),
-    description: joi.any().when('categorySlug', { 
-      switch: [{ 
-          is: 'videos', 
-          then: joi.string().required() 
-        }
-       ,{ 
-          is: 'courses', 
-          then: joi.string().required() 
+    categorySlug: joi.string().required(),
+    documentPath: joi.any().when("categorySlug", {
+      switch: [
+        {
+          is: "documents",
+          then: joi.string().required(),
         },
-        { 
-          is: 'blogs', 
-          then: joi.string().required() 
-        } 
-      ] 
-    }).messages({
-      "string.empty":"Description is not allowed to be Empty",
-      "any.required":"Description is not allowed to be Empty"
+      ],
     }),
-    contentUrlLink: joi.any().when('categorySlug', { 
-      switch: [{ 
-          is: 'videos', 
-          then: joi.string().required() 
-        }
-       ,{ 
-          is: 'urls', 
-          then: joi.string().required() 
-        } 
-      ] 
-    }).messages({
-      "string.empty":"Content Url is not allowed to be Empty",
-      "any.required":"Content Url  is not allowed to be Empty"
+    courseType: joi.string().optional(),
+    subCategory: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Sub Category is not allowed to be Empty",
+        "any.required": "Sub Category is not allowed to be Empty",
+      }),
+    description: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Description is not allowed to be Empty",
+        "any.required": "Description is not allowed to be Empty",
+      }),
+    contentUrlLink: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Content Url is not allowed to be Empty",
+        "any.required": "Content Url  is not allowed to be Empty",
+      }),
+    isActive: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "documents",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Status is not allowed to be Empty",
+        "any.required": "Status  is not allowed to be Empty",
+      }),
+    title: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "documents",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Title is not allowed to be Empty",
+        "any.required": "Title  is not allowed to be Empty",
+      }),
+    category: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "documents",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Category is not allowed to be Empty",
+        "any.required": "Category  is not allowed to be Empty",
+      }),
+    thumbnail: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "documents",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Thumbnail is not allowed to be Empty",
+        "any.required": "Thumbnail  is not allowed to be Empty",
+      }),
+    fileOriginalName: joi.string().optional(),
+    courseDetails: joi
+      .array()
+      .items(
+        joi.object({
+          title: joi.string().required(),
+          list: joi.array().items(
+            joi.object({
+              title: joi.string().required(),
+              hrs: joi.string().required(),
+              min: joi.string().required(),
+              description: joi.string().optional(),
+              link: joi.string().required(),
+            })
+          ),
+        })
+      )
+      .when("categorySlug", {
+        is: "courses",
+        then: joi.required(),
+        otherwise: joi.optional(),
+      }),
+  });
+  return bodyParamValidation(req, res, next, schema);
+};
+
+const createProductCmsValidation = (req, res, next) => {
+  const schema = joi.object({
+    categorySlug: joi.string().required(),
+    documentPath: joi.any().when("categorySlug", {
+      switch: [
+        {
+          is: "documents",
+          then: joi.string().required(),
+        },
+      ],
     }),
-    isActive: joi.any().when('categorySlug', {
-      switch: [{
-        is: 'videos',
-        then: joi.string().required()
-      }
-        , {
-        is: 'urls',
-        then: joi.string().required()
-      },
-      {
-        is: 'courses',
-        then: joi.string().required()
-      }
-        , {
-        is: 'documents',
-        then: joi.string().required()
-      }
-        , {
-        is: 'blogs',
-        then: joi.string().required()
-      }
-      ]
-    }).messages({
-      "string.empty":"Status is not allowed to be Empty",
-      "any.required":"Status  is not allowed to be Empty"
-    }),
-    title: joi.any().when('categorySlug', {
-      switch: [{
-        is: 'videos',
-        then: joi.string().required()
-      }
-        , {
-        is: 'urls',
-        then: joi.string().required()
-      },
-      {
-        is: 'courses',
-        then: joi.string().required()
-      }
-        , {
-        is: 'documents',
-        then: joi.string().required()
-      }
-        , {
-        is: 'blogs',
-        then: joi.string().required()
-      }
-      ]
-    }).messages({
-      "string.empty":"Title is not allowed to be Empty",
-      "any.required":"Title  is not allowed to be Empty"
-    }),
-    category: joi.any().when('categorySlug', {
-      switch: [{
-        is: 'videos',
-        then: joi.string().required()
-      }
-        , {
-        is: 'urls',
-        then: joi.string().required()
-      },
-      {
-        is: 'courses',
-        then: joi.string().required()
-      }
-        , {
-        is: 'documents',
-        then: joi.string().required()
-      }
-        , {
-        is: 'blogs',
-        then: joi.string().required()
-      }
-      ]
-    }).messages({
-      "string.empty":"Category is not allowed to be Empty",
-      "any.required":"Category  is not allowed to be Empty"
-    }),
-    thumbnail: joi.any().when('categorySlug', {
-      switch: [{
-        is: 'videos',
-        then: joi.string().required()
-      }
-        , 
-      {
-        is: 'courses',
-        then: joi.string().required()
-      }
-        , {
-        is: 'documents',
-        then: joi.string().required()
-      }
-        , {
-        is: 'blogs',
-        then: joi.string().required()
-      }
-      ]
-    }).messages({
-      "string.empty":"Thumbnail is not allowed to be Empty",
-      "any.required":"Thumbnail  is not allowed to be Empty"
-    }),
-    fileOriginalName:joi.string().optional(),
-    courseDetails: joi.array().items(joi.object({
-      title: joi.string().required(),
-      list: joi.array().items((joi.object({
-        title: joi.string().required(),
-        hrs: joi.string().required(),
-        min: joi.string().required(),
-        description: joi.string().optional(),
-        link: joi.string().required(),
-      })))
-    })).when('categorySlug', { is: "courses", then: joi.required(), otherwise: joi.optional() }),
+    courseType: joi.string().optional(),
+    subCategory: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Sub Category is not allowed to be Empty",
+        "any.required": "Sub Category is not allowed to be Empty",
+      }),
+    description: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Description is not allowed to be Empty",
+        "any.required": "Description is not allowed to be Empty",
+      }),
+    contentUrlLink: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Content Url is not allowed to be Empty",
+        "any.required": "Content Url  is not allowed to be Empty",
+      }),
+    isActive: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "documents",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Status is not allowed to be Empty",
+        "any.required": "Status  is not allowed to be Empty",
+      }),
+    title: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "documents",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Title is not allowed to be Empty",
+        "any.required": "Title  is not allowed to be Empty",
+      }),
+    category: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "urls",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "documents",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Category is not allowed to be Empty",
+        "any.required": "Category  is not allowed to be Empty",
+      }),
+    thumbnail: joi
+      .any()
+      .when("categorySlug", {
+        switch: [
+          {
+            is: "videos",
+            then: joi.string().required(),
+          },
+          {
+            is: "courses",
+            then: joi.string().required(),
+          },
+          {
+            is: "documents",
+            then: joi.string().required(),
+          },
+          {
+            is: "blogs",
+            then: joi.string().required(),
+          },
+        ],
+      })
+      .messages({
+        "string.empty": "Thumbnail is not allowed to be Empty",
+        "any.required": "Thumbnail  is not allowed to be Empty",
+      }),
+    fileOriginalName: joi.string().optional(),
+    courseDetails: joi
+      .array()
+      .items(
+        joi.object({
+          title: joi.string().required(),
+          list: joi.array().items(
+            joi.object({
+              title: joi.string().required(),
+              hrs: joi.string().required(),
+              min: joi.string().required(),
+              description: joi.string().optional(),
+              link: joi.string().required(),
+            })
+          ),
+        })
+      )
+      .when("categorySlug", {
+        is: "courses",
+        then: joi.required(),
+        otherwise: joi.optional(),
+      }),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -577,7 +838,7 @@ const updateKnowledgeCenterValidation = (req, res, next) => {
     subCategory: joi.string(),
     contentUrlLink: joi.string(),
     documentPath: joi.string(),
-    fileOriginalName:joi.string().optional()
+    fileOriginalName: joi.string().optional(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -652,8 +913,8 @@ const createSubCategoryValidation = (req, res, next) => {
   const schema = joi.object().keys({
     name: joi.string().required(),
     categoryId: joi.string().required().messages({
-      "string.empty":"Category is not allowed to be Empty",
-      "any.required":"Category is not allowed to be Empty"
+      "string.empty": "Category is not allowed to be Empty",
+      "any.required": "Category is not allowed to be Empty",
     }),
     isActive: joi.boolean(),
   });
@@ -667,8 +928,6 @@ const createCourseManagementValidation = (req, res, next) => {
   });
   return bodyParamValidation(req, res, next, schema);
 };
-
-
 
 const getSubCategoryValidation = (req, res, next) => {
   const querySchema = joi.object({
@@ -755,5 +1014,6 @@ module.exports = {
   getSubCategoryValidation,
   updateSubCategoryValidation,
   deleteSubCategoryValidation,
-  createCourseManagementValidation
+  createCourseManagementValidation,
+  createProductCmsValidation,
 };

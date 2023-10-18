@@ -26,7 +26,7 @@ const {
   createSiteSettingsValidation,
   getSiteSettingsValidation,
   updateSiteSettingsValidation,
-
+  createProductCmsValidation,
   contentListValidation,
   createContentValidation,
   getContentValidation,
@@ -140,28 +140,30 @@ const {
   getMyCompletedcourseList,
 } = require("../controllers/courseManagement.conntroller");
 
-const  {createProductCms,productCmsList,deleteProductCms,updateProductCms,getProductCms} = require("../controllers/productCms.Controller")
+const {
+  createProductCms,
+  productCmsList,
+  deleteProductCms,
+  updateProductCms,
+  getProductCms,
+} = require("../controllers/productCms.Controller");
 const { errHandle } = require("../helpers/index");
 const router = Router();
 
-
-router.get(
-  routes.v1.productCms.list,
-  errHandle(productCmsList)
-);
+router.get(routes.v1.productCms.list, errHandle(productCmsList));
 router.post(
   routes.v1.productCms.create,
- 
+
   errHandle(createProductCms)
 );
 router.get(
   routes.v1.productCms.get,
-  
+
   errHandle(getProductCms)
 );
 router.put(
   routes.v1.productCms.update,
- 
+
   errHandle(updateProductCms)
 );
 router.delete(
@@ -371,7 +373,7 @@ router.get(
   routes.v1.siteSettingsManagement.get,
   [
     //verifyToken([]),
-   // verifyAdminRole("siteSettingsManagement", "VIEW"),
+    // verifyAdminRole("siteSettingsManagement", "VIEW"),
     getSiteSettingsValidation,
   ],
   errHandle(getSiteSettings)
