@@ -121,7 +121,6 @@ productCmsSchema.plugin(mongooseLeanVirtuals);
 productCmsSchema.plugin(mongooseLeanGetters);
 
 productCmsSchema.virtual("iconS3").get(function () {
-  console.log('this.icon', this.icon)
   return this.icon ? getImageURL(this.icon) : null;
 });
 
@@ -133,7 +132,7 @@ productCmsSchema.pre("save", async function (next) {
   InternalServices.getSequenceId({ type: "productCms" });
   var doc = this;
   let counter = await InternalServices.getSequenceId({ type: "productCms" });
-  console.log("first", counter);
+  
   doc.productCmsId = (counter?.data?.count + 1)
     .toString()
     .padStart(6, "0")
