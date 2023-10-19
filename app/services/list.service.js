@@ -13,12 +13,11 @@ const { courseManagement } = require("../models/courseManagement");
 const { getImageURL } = require("../utils/s3Utils");
 const { productCms } = require("../models/productCms");
 
-
 const getProductCmsList = async (params) => {
   let data;
-  if(params.isActive === "true") params.isActive = true
-  if(params.isActive === "false") params.isActive = false
-  console.log('params', params)
+  if (params.isActive === "true") params.isActive = true;
+  if (params.isActive === "false") params.isActive = false;
+  console.log("params", params);
   if (params.all) {
     let filter = {
       isDeleted: false,
@@ -52,7 +51,8 @@ const getProductCmsList = async (params) => {
         { contentId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
-    data = await productCms.find(filter)
+    data = await productCms
+      .find(filter)
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
       .sort({ createdAt: -1 });
@@ -63,7 +63,6 @@ const getProductCmsList = async (params) => {
     return { status: false, data: [] };
   }
 };
-
 
 const getFaqList = async (params) => {
   let data;
@@ -161,8 +160,9 @@ const getFaqList = async (params) => {
       d.category = Array.isArray(d.category) ? d.category[0]?.name : d.category;
       return d;
     });
-    data =data.sort(
-      (p1, p2) => (p1.order < p2.order) ? -1 : (p1.order > p2.order) ? 1 : 0);
+    data = data.sort((p1, p2) =>
+      p1.order < p2.order ? -1 : p1.order > p2.order ? 1 : 0
+    );
     return { status: true, data: data };
   } else {
     return { status: false, data: [] };
@@ -379,9 +379,9 @@ const getCouseManagementList = async (params) => {
 
 const getContentList = async (params) => {
   let data;
-  if(params.isActive === "true") params.isActive = true
-  if(params.isActive === "false") params.isActive = false
-  console.log('params', params)
+  if (params.isActive === "true") params.isActive = true;
+  if (params.isActive === "false") params.isActive = false;
+  console.log("params", params);
   if (params.all) {
     let filter = {
       isDeleted: false,
@@ -430,6 +430,50 @@ const getProductList = async (params) => {
     if ([true, false].includes(params?.isActive)) {
       filter.isActive = params.isActive;
     }
+    if (params.productType) {
+      filter.productType = params.productType;
+    }
+    if (params?.search) {
+      filter.$or = [
+        { productName: { $regex: `${params?.search}`, $options: "i" } },
+        { productId: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Product.find(filter).sort({ productId: 1 });
+  } else {
+    let filter = {
+      isDeleted: false,
+    };
+    if ([true, false].includes(params?.isActive)) {
+      filter.isActive = params.isActive;
+    }
+    if (params.productType) {
+      filter.productType = params.productType;
+    }
+    if (params?.search) {
+      filter.$or = [
+        { productName: { $regex: `${params?.search}`, $options: "i" } },
+        { productId: { $regex: `${params?.search}`, $options: "i" } },
+      ];
+    }
+    data = await Product.find(filter)
+      .skip((params.page - 1) * params.limit)
+      .limit(params.limit)
+      .sort({ productId: 1 });
+  }
+  if (data && data.length) {
+    return { status: true, data: data };
+  } else {
+    return { status: false, data: [] };
+  }
+};
+
+const getProductTypeFilterList = async (params) => {
+  let data;
+  if (params.all) {
+    let filter = {
+      isDeleted: false,
+    };
     if (params.productType) {
       filter.productType = params.productType;
     }
@@ -615,7 +659,7 @@ const getKnowledgeCenterList = async (params) => {
       }
       return d;
     });
-    
+
     data = data.map((d) => {
       if (d.courseDetails && d.courseDetails.length > 0) {
         d.courseDetails = d.courseDetails.map((sub) => {
@@ -629,10 +673,8 @@ const getKnowledgeCenterList = async (params) => {
                 params.search = params?.search.toLowerCase();
                 if (title.includes(params?.search)) {
                   return list;
-
-                }
-                else {
-                  return null
+                } else {
+                  return null;
                 }
               }
             }
@@ -643,12 +685,12 @@ const getKnowledgeCenterList = async (params) => {
       }
       return d;
     });
-  
+
     data = data.map((d) => {
       if (d.courseDetails && d.courseDetails.length > 0) {
         d.courseDetails = d.courseDetails.map((sub) => {
           sub.list = sub.list.filter((list) => {
-            return list 
+            return list;
           });
 
           return sub;
@@ -782,5 +824,6 @@ module.exports = {
   getCategoryList,
   getCouseManagementList,
   getSubCategoryList,
-  getProductCmsList
+  getProductCmsList,
+  getProductTypeFilterList,
 };

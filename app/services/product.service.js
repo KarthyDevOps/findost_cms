@@ -7,7 +7,7 @@ const {
   formatDataList,
   pageMetaService,
 } = require("../helpers/index");
-const { getProductList } = require("./list.service");
+const { getProductList, getProductTypeFilterList } = require("./list.service");
 const createProductService = async (params) => {
   const resp = await Product.create(params);
 
@@ -70,6 +70,20 @@ const productListService = async (params) => {
     data: { list: result?.data, pageMeta },
   };
 };
+
+
+const productTypeFilterListService = async (params) => {
+  params.all = true;
+  const allList = await getProductTypeFilterList(params);
+  params.all = params.returnAll == true ? true : false;
+  const result = await getProductTypeFilterList(params);
+  const pageMeta = await pageMetaService(params, allList?.data?.length || 0);
+  return {
+    status: true,
+    statusCode: statusCodes?.HTTP_OK,
+    data: { list: result?.data, pageMeta },
+  };
+};
 const deleteProductService = async (params) => {
   let ids = [];
   if (params.id) ids.push(params?.id);
@@ -105,4 +119,5 @@ module.exports = {
   updateProductService,
   productListService,
   deleteProductService,
+  productTypeFilterListService
 };

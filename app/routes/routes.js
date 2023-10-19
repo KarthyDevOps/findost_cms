@@ -68,6 +68,7 @@ const routes = {
     },
     productManagement: {
       list: "/v1/product-management/list",
+      ProductTypeFilterlist: "/v1/product-management/ProductTypeFilterlist",
       create: "/v1/product-management/create",
       get: "/v1/product-management/get",
       update: "/v1/product-management/update",

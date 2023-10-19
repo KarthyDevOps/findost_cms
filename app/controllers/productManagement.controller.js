@@ -9,6 +9,7 @@ const {
   updateProductService,
   deleteProductService,
   exportProductService,
+  productTypeFilterListService,
 } = require("../services/product.service");
 
 const createProduct = async (req, res) => {
@@ -106,6 +107,31 @@ const productList = async (req, res) => {
   );
 };
 
+
+const productTypeFilterList = async (req, res) => {
+  const params = req?.query;
+  if(!params.limit) params.limit =10
+  if(!params.page) params.page =1
+  const result = await productTypeFilterListService(params);
+  if (!result.status) {
+    return sendErrorResponse(
+      req,
+      res,
+      result?.statusCode,
+      result?.message,
+      result?.data
+    );
+  }
+  return sendSuccessResponse(
+    req,
+    res,
+    result?.statusCode,
+    result?.message,
+    result?.data
+  );
+};
+
+
 const deleteProduct = async (req, res) => {
   const params = req.body;
   if (req.query.id) {
@@ -165,4 +191,5 @@ module.exports = {
   productList,
   deleteProduct,
   exportProduct,
+  productTypeFilterList
 };

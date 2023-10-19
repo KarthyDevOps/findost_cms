@@ -117,6 +117,7 @@ const {
   updateProduct,
   deleteProduct,
   exportProduct,
+  productTypeFilterList,
 } = require("../controllers/productManagement.controller");
 
 const {
@@ -386,6 +387,12 @@ router.put(
     updateSiteSettingsValidation,
   ],
   errHandle(updateSiteSettings)
+);
+
+//PRODUCT Management
+router.get(
+  routes.v1.productManagement.ProductTypeFilterlist,
+  errHandle(productTypeFilterList)
 );
 
 //PRODUCT Management
