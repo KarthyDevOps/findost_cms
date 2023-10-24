@@ -187,7 +187,7 @@ router.post(
   routes.v1.faqManagement.create,
   [
     verifyToken(["ADMIN"]),
-    verifyAdminRole("faqManagement", "ADD"),
+   verifyAdminRole("faqManagement", "ADD"),
     createFaqValidation,
   ],
   errHandle(createFaq)

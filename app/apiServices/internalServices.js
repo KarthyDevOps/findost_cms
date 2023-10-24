@@ -26,9 +26,21 @@ const getAPById = async (data) => {
 };
 
 
+const getBOUSERSById = async (data) => {
+  let apiConfig = JSON.parse(JSON.stringify(InternalAPIs.getAPById));
+  apiConfig.url = process.env.USER_URL + process.env.GET_BO_USERS_BY_ID+ data;
+  apiConfig.data = data;
+  console.log('apiConfig',apiConfig)
+  return await Rest.callApi(apiConfig);
+};
+
+
+
+
 
 module.exports = {
   getUserById,
   getAPById,
-  getSequenceId
+  getSequenceId,
+  getBOUSERSById
 };
