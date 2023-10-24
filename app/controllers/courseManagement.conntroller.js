@@ -19,7 +19,7 @@ const createCourseManagement = async (req, res) => {
   params.updatedBy = req?.user?._id?.toString();
   params.lastUpdatedBy = req?.user?.userType;
   params.userType = req?.user?.userType;
-  params.apId = req?.user?._id;
+  params.apId = req?.user?.apId;
   console.log("params-->", params);
   const result = await createCourseManagementService(params);
   if (!result.status) {
@@ -89,7 +89,7 @@ const updateCourseManagement = async (req, res) => {
 
 const CourseManagementList = async (req, res) => {
   const params = req?.query;
-  params.apId = req?.user?._id?.toString();
+  params.apId = req?.user?.apId?.toString();
   if (!params.limit) params.limit = 10;
   if (!params.page) params.page = 1;
   const result = await CourseManagementListService(params);
@@ -164,7 +164,7 @@ const getTrendingCourseList = async (req, res) => {
 
 const getMycourseList = async (req, res) => {
   const params = req.body;
-  params.apId = req?.user?._id;
+  params.apId = req?.user?.apId;
   console.log("params-->", params);
   const result = await getMycourseListService(params);
   if (!result.status) {
@@ -187,7 +187,7 @@ const getMycourseList = async (req, res) => {
 
 const getMyCompletedcourseList = async (req, res) => {
   const params = req.body;
-  params.apId = req?.user?._id;
+  params.apId = req?.user?.apId;
   console.log("params-->", params);
   const result = await getMyCompletedcourseListService(params);
   if (!result.status) {
