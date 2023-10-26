@@ -139,11 +139,6 @@ const getFaqList = async (params) => {
         },
       },
       {
-        $sort: {
-          createdAt: -1,
-        },
-      },
-      {
         $skip: (params.page - 1) * params.limit,
       },
       {
@@ -160,6 +155,7 @@ const getFaqList = async (params) => {
       d.category = Array.isArray(d.category) ? d.category[0]?.name : d.category;
       return d;
     });
+    data = JSON.parse(JSON.stringify(data))
     data = data.sort((p1, p2) =>
       p1.order < p2.order ? -1 : p1.order > p2.order ? 1 : 0
     );
