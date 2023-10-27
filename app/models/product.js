@@ -31,6 +31,10 @@ const productSchema = new mongoose.Schema(
         "algoTrading",
       ],
     },
+    productTypes: {
+      type: String,
+      required: false,
+    },
     images: {
       type: String,
       required: false,
