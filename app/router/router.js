@@ -399,7 +399,7 @@ router.get(
 router.get(
   routes.v1.productManagement.list,
   [
-    verifyToken(["ADMIN"]),
+    verifyToken(["ADMIN","AP"]),
     verifyAdminRole("productManagement", "VIEW"),
     productListValidation,
   ],
@@ -417,7 +417,7 @@ router.post(
 router.get(
   routes.v1.productManagement.get,
   [
-    verifyToken(["ADMIN"]),
+    verifyToken(["ADMIN","AP"]),
     verifyAdminRole("productManagement", "VIEW"),
     getProductValidation,
   ],
