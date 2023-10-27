@@ -549,15 +549,7 @@ const createKnowledgeCenterValidation = (req, res, next) => {
       .when("categorySlug", {
         switch: [
           {
-            is: "videos",
-            then: joi.string().required(),
-          },
-          {
             is: "courses",
-            then: joi.string().required(),
-          },
-          {
-            is: "documents",
             then: joi.string().required(),
           },
           {
