@@ -102,6 +102,9 @@ const productCmsSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    brochure: {
+      type: String,
+    },
     isDeleted: {
       type: Boolean,
       default: false,
@@ -127,6 +130,11 @@ productCmsSchema.virtual("iconS3").get(function () {
 productCmsSchema.virtual("imageS3").get(function () {
   return this.image ? getImageURL(this.image) : null;
 });
+
+productCmsSchema.virtual("brochureS3").get(function () {
+  return this.brochure ? getImageURL(this.brochure) : null;
+});
+
 
 productCmsSchema.pre("save", async function (next) {
   InternalServices.getSequenceId({ type: "productCms" });
