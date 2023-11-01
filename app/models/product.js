@@ -39,6 +39,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+
     benefits: {
       type: Array,
       required: false,
@@ -84,6 +85,9 @@ productSchema.plugin(mongooseLeanGetters);
 
 productSchema.virtual("productIconS3").get(function () {
   return this.productIcon ? getImageURL(this.productIcon) : null;
+});
+productSchema.virtual("imagesS3").get(function () {
+  return this.images ? getImageURL(this.images) : null;
 });
 
 const Product = mongoose.model("product", productSchema);
