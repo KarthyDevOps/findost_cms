@@ -92,7 +92,7 @@ const productCmsSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    refference: {
+    reference: {
       type: Array,
     },
     image: {
@@ -115,8 +115,8 @@ const productCmsSchema = new mongoose.Schema(
     toObject: { getters: true },
     toJSON: {
       virtuals: true,
-      getters: true
-    }
+      getters: true,
+    },
   }
 );
 productCmsSchema.plugin(mongooseLeanVirtuals);
@@ -135,19 +135,17 @@ productCmsSchema.virtual("brochureS3").get(function () {
   return this.brochure ? getImageURL(this.brochure) : null;
 });
 
-
 productCmsSchema.pre("save", async function (next) {
   InternalServices.getSequenceId({ type: "productCms" });
   var doc = this;
   let counter = await InternalServices.getSequenceId({ type: "productCms" });
-  
+
   doc.productCmsId = (counter?.data?.count + 1)
     .toString()
     .padStart(6, "0")
     .toString();
   next();
 });
-
 
 const productCms = mongoose.model("productCms", productCmsSchema);
 
