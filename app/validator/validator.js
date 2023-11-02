@@ -227,6 +227,7 @@ const createSiteSettingsValidation = (req, res, next) => {
     sitelogo: joi.string(),
     siteFavIcon: joi.string(),
     copyrightsText: joi.string(),
+    tac :joi.string(),
   });
   return bodyParamValidation(req, res, next, schema);
 };
@@ -247,6 +248,7 @@ const updateSiteSettingsValidation = (req, res, next) => {
     sitelogo: joi.string(),
     siteFavIcon: joi.string(),
     copyrightsText: joi.string(),
+    tac :joi.string(),
   });
   return bodyParamValidation(req, res, next, schema);
 };

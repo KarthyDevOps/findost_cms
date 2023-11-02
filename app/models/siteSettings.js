@@ -34,6 +34,11 @@ const siteSettingsSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    tac: {
+      type: String,
+      required: false,
+    },
+    
   },
   {
     timestamps: true,
