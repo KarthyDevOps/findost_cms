@@ -26,10 +26,22 @@ const getProductCmsList = async (params) => {
       filter.isActive = params.isActive;
     }
     if (params.planType) {
-      filter.planType = params.planType;
+      filter.planType = { $regex: `${params?.planType}`, $options: "i" } ;
     }
     if (params.productType) {
       filter.productType = params.productType;
+    }
+    if (params.companyName) {
+      filter.companyName = params.companyName;
+    }
+    if (params.insuranceType) {
+      filter.insuranceType = params.insuranceType;
+    }
+    if (params.insurancePlan) {
+      filter.insurancePlan = params.insurancePlan;
+    }
+    if (params.lifeCover) {
+      filter.lifeCover = params.lifeCover;
     }
     if (params?.search) {
       filter.$or = [
@@ -51,6 +63,22 @@ const getProductCmsList = async (params) => {
     if (params.productType) {
       filter.productType = params.productType;
     }
+    if (params.productType) {
+      filter.productType = params.productType;
+    }
+    if (params.companyName) {
+      filter.companyName = params.companyName;
+    }
+    if (params.insuranceType) {
+      filter.insuranceType = params.insuranceType;
+    }
+    if (params.insurancePlan) {
+      filter.insurancePlan = params.insurancePlan;
+    }
+    if (params.lifeCover) {
+      filter.lifeCover = params.lifeCover;
+    }
+  
     if (params?.search) {
       filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
@@ -397,7 +425,16 @@ const getContentList = async (params) => {
         { contentId: { $regex: `${params?.search}`, $options: "i" } },
       ];
     }
-    data = await Content.find(filter);
+  try {
+    console.log("errrp")
+    data = await Content.find().catch(e => console.log("err",e))
+  } catch (error) {
+    console.log("ee",error)
+    
+  }
+
+    console.log("testing",data.length)
+
   } else {
     let filter = {
       isDeleted: false,
@@ -416,6 +453,7 @@ const getContentList = async (params) => {
       .limit(params.limit)
       .sort({ createdAt: -1 });
   }
+
   if (data && data.length) {
     return { status: true, data: data };
   } else {
