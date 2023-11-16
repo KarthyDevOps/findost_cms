@@ -8,6 +8,7 @@ const {
   pageMetaService,
 } = require("../helpers/index");
 const { getProductList, getProductTypeFilterList } = require("./list.service");
+const { getSignedURL } = require("../utils/s3Utils");
 const createProductService = async (params) => {
   const resp = await Product.create(params);
 
@@ -26,6 +27,15 @@ const getProductService = async (params) => {
     isDeleted: false,
   };
   const resp = await Product.findOne(payload);
+  if(resp) {
+
+    if(resp.benefits.length > 0){
+      resp.benefits = resp.benefits.map((x)=>{
+        x.benefitIconS3 = getSignedURL(x.benefitKey)
+        return x
+      })
+  }
+}
   return {
     status: true,
     statusCode: statusCodes?.HTTP_OK,
