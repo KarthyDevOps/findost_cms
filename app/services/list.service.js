@@ -26,7 +26,7 @@ const getProductCmsList = async (params) => {
       filter.isActive = params.isActive;
     }
     if (params.planType) {
-      filter.planType = { $regex: `${params?.planType}`, $options: "i" } ;
+      filter.planType = { $regex: `${params?.planType}`, $options: "i" };
     }
     if (params.productType) {
       filter.productType = params.productType;
@@ -78,7 +78,7 @@ const getProductCmsList = async (params) => {
     if (params.lifeCover) {
       filter.lifeCover = params.lifeCover;
     }
-  
+
     if (params?.search) {
       filter.$or = [
         { title: { $regex: `${params?.search}`, $options: "i" } },
@@ -91,10 +91,75 @@ const getProductCmsList = async (params) => {
       .limit(params.limit)
       .sort({ createdAt: -1 });
   }
-  if (data && data.length) {
-    return { status: true, data: data };
+
+  if (params.filter == true || params.filter == "true") {
+    let insuranceType = [],
+      insuranceCompany = [],
+      insurancePlan = [],
+      lifeCover = [];
+    let result = [
+      {
+        name: "insuranceCompany",
+        value: [],
+      },
+      {
+        name: "insurancePlan",
+        value: [],
+      },
+      {
+        name: "insuranceType",
+        value: [],
+      },
+      {
+        name: "lifeCover",
+        value: [],
+      },
+    ];
+    if (data && data.length) {
+      for (let item of data) {
+        if (insuranceCompany.indexOf(item.companyName) == -1) {
+          result[0].value.push({
+            id: item.companyName,
+            value: item.companyName,
+          });
+
+          insuranceCompany.push(item.insuranceCompany);
+        }
+        if (insurancePlan.indexOf(item.insurancePlan) == -1) {
+          result[1].value.push({
+            id: item.insurancePlan,
+            value: item.insurancePlan,
+          });
+
+          insurancePlan.push(item.insurancePlan);
+        }
+        if (insuranceType.indexOf(item.insuranceType) == -1) {
+          result[2].value.push({
+            id: item.insuranceType,
+            value: item.insuranceType,
+          });
+
+          insuranceType.push(item.insuranceType);
+        }
+        if (lifeCover.indexOf(item.lifeCover) == -1) {
+          result[3].value.push({
+            id: item.lifeCover,
+            value: item.lifeCover,
+          });
+
+          lifeCover.push(item.lifeCover);
+        }
+      }
+      return { status: true, data: result };
+    } else {
+      return { status: false, data: [] };
+    }
   } else {
-    return { status: false, data: [] };
+    if (data && data.length) {
+      return { status: true, data: data };
+    } else {
+      return { status: false, data: [] };
+    }
   }
 };
 
