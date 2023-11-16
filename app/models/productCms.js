@@ -105,6 +105,9 @@ const productCmsSchema = new mongoose.Schema(
     brochure: {
       type: String,
     },
+    brochureFileType: {
+      type: String,
+    },
     isDeleted: {
       type: Boolean,
       default: false,
