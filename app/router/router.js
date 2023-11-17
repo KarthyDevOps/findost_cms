@@ -152,6 +152,7 @@ const { errHandle } = require("../helpers/index");
 const router = Router();
 
 router.get(routes.v1.productCms.list, errHandle(productCmsList));
+router.post(routes.v1.productCms.list, errHandle(productCmsList));
 router.post(
   routes.v1.productCms.create,
 
