@@ -92,6 +92,7 @@ const productCmsList = async (req, res) => {
   params.page = req?.query?.page;
   params.planType = req?.query?.planType;
   params.productType = req?.query?.productType;
+  params.filter = req?.query?.filter;
   if (!params.limit) params.limit = 10;
   if (!params.page) params.page = 1;
   const result = await ProductCmsListService(params);
