@@ -66,17 +66,17 @@ const getProductCmsList = async (params) => {
     if (params.productType) {
       filter.productType = params.productType;
     }
-    if (params.insuranceCompany.length > 0) {
+    if (params.insuranceCompany && params.insuranceCompany.length > 0) {
       //let companyName = JSON.parse(params.insuranceCompany);
       filter.companyName = params.insuranceCompany;
     }
-    if (params.insuranceType.length > 0) {
+    if (params.insuranceType && params.insuranceType.length > 0) {
       filter.insuranceType = params.insuranceType;
     }
-    if (params.insurancePlan.length > 0) {
+    if (params.insurancePlan && params.insurancePlan.length > 0) {
       filter.insurancePlan = params.insurancePlan;
     }
-    if (params.lifeCover.length > 0) {
+    if (params.lifeCover && params.lifeCover.length > 0) {
       filter.lifeCover = params.lifeCover;
     }
 
