@@ -7,9 +7,13 @@ const {
   formatDataList,
   pageMetaService,
 } = require("../helpers/index");
+
 const { getProductList, getProductTypeFilterList } = require("./list.service");
+
 const { getSignedURL } = require("../utils/s3Utils");
+
 const createProductService = async (params) => {
+
   const resp = await Product.create(params);
 
   return {
@@ -20,7 +24,9 @@ const createProductService = async (params) => {
       _id: resp?._id,
     },
   };
+  
 };
+
 const getProductService = async (params) => {
   var payload = {
     _id: params?.productId,
@@ -81,7 +87,6 @@ const productListService = async (params) => {
   };
 };
 
-
 const productTypeFilterListService = async (params) => {
   params.all = true;
   const allList = await getProductTypeFilterList(params);
@@ -129,5 +134,5 @@ module.exports = {
   updateProductService,
   productListService,
   deleteProductService,
-  productTypeFilterListService
+  productTypeFilterListService,
 };

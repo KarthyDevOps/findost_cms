@@ -10,7 +10,7 @@ const { SubCategory } = require("../models/subCategory");
 const mongoose = require("mongoose");
 const { decode } = require("jsonwebtoken");
 const { courseManagement } = require("../models/courseManagement");
-const { getImageURL } = require("../utils/s3Utils");
+const { getImageURL, getSignedURL } = require("../utils/s3Utils");
 const { productCms } = require("../models/productCms");
 
 const getProductCmsList = async (params) => {
@@ -610,6 +610,13 @@ const getProductTypeFilterList = async (params) => {
       .skip((params.page - 1) * params.limit)
       .limit(params.limit)
       .sort({ productId: 1 });
+
+      for (let item of data) {
+        item.benefits = item.benefits.map((x) => {
+          x.benefitIconS3 = getSignedURL(x.benefitKey);
+          return x;
+        });
+      }
   }
   if (data && data.length) {
     return { status: true, data: data };
