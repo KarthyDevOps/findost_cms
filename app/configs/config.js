@@ -72,7 +72,7 @@ module.exports = function (env) {
     200: "success",
     JWT_ADMIN_SECRET: "1234_admin_findost",
     JWT_authorizedPerson_SECRET: "1234_authorizedPerson_findost",
-    TOKEN_EXPIRATION: "24h",
+    TOKEN_EXPIRATION: "72h",
     COMMUNICATION:
       "http://preprod-findost-1423761427.ap-south-1.elb.amazonaws.com:2275",
     FE_URL:
@@ -104,7 +104,7 @@ module.exports = function (env) {
     200: "success",
     JWT_ADMIN_SECRET: "1234_admin_findost",
     JWT_authorizedPerson_SECRET: "1234_authorizedPerson_findost",
-    TOKEN_EXPIRATION: "24h",
+    TOKEN_EXPIRATION: "72h",
     COMMUNICATION: "https://communication.findoc.com",
     FE_URL: "https://findost.findoc.com/auth/resetpassword?token=",
     gupshup_api_key: "FINDOSTki1oide65rpq9y5ysufrndmukhdaeqpn",
@@ -136,7 +136,7 @@ module.exports = function (env) {
     200: "success",
     JWT_ADMIN_SECRET: "1234_admin_findost",
     JWT_authorizedPerson_SECRET: "1234_authorizedPerson_findost",
-    TOKEN_EXPIRATION: "24h",
+    TOKEN_EXPIRATION: "72h",
     COMMUNICATION:
       "http://preprod-findost-1423761427.ap-south-1.elb.amazonaws.com:2275",
     FE_URL:
