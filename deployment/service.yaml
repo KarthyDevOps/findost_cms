@@ -1,0 +1,13 @@
+#Service-yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: findoc-cms
+spec:
+  type: NodePort
+  selector:
+    app: findoc-cms
+  ports:
+  - port: 2274
+    targetPort: 2274
