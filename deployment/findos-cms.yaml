@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: findoc-cms
-        image: 637423643764.dkr.ecr.ap-south-1.amazonaws.com/findost_cms
+        image: 471112580006.dkr.ecr.ap-south-1.amazonaws.com/findost_cms
         resources:
           limits:
             memory: "128Mi"
