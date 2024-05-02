@@ -44,7 +44,7 @@ jobs:
           echo "ECR_REPOSITORY: $ECR_REPOSITORY"
           sed -i.bak "s|$ECR_REGISTRY/$ECR_REPOSITORY.*|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" deployment/findos-cms.yaml
 
-          cat deployment/finance-deployment.yaml
+          cat deployment/findos-cms.yaml
 
       - name: Commit changes
         run: |
